@@ -1,0 +1,26 @@
+[
+  {
+    "id": "wsop-2025-main-event-day7-24",
+    "label": "WSOP 2025 Main Event Day 7 - 24 players",
+    "playersRemaining": 24,
+    "file": "examples/wsop-2025-main-event-day7-24.json",
+    "chipCountRows": 24,
+    "activePayoutRows": 24
+  },
+  {
+    "id": "wsop-2024-high-roller-day1-99",
+    "label": "WSOP 2024 Event 26 High Roller Day 1 - 99 players",
+    "playersRemaining": 99,
+    "file": "examples/wsop-2024-high-roller-day1-99.json",
+    "chipCountRows": 99,
+    "activePayoutRows": 48
+  },
+  {
+    "id": "wsop-2025-main-event-snapshot-522",
+    "label": "WSOP 2025 Main Event Snapshot - 522 players",
+    "playersRemaining": 522,
+    "file": "examples/wsop-2025-main-event-snapshot-522.json",
+    "chipCountRows": 522,
+    "activePayoutRows": 522
+  }
+]

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Logage Quadrature ICM</title>
+    <link rel="stylesheet" href="/web/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>Logage Quadrature ICM</h1>
+          <p>Deterministic tournament equity calculator</p>
+        </div>
+        <div class="formula-mark" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <form class="controls" id="calculator-form">
+          <div class="control-row">
+            <label>
+              Example
+              <select id="example-select"></select>
+            </label>
+            <label>
+              Hero seat
+              <input id="hero-seat" type="number" min="1" step="1" value="1">
+            </label>
+            <label>
+              Nodes
+              <input id="node-count" type="number" min="48" step="16" value="192">
+            </label>
+          </div>
+
+          <div class="mode-row" role="radiogroup" aria-label="Calculation mode">
+            <label class="mode-option">
+              <input type="radio" name="mode" value="hero" checked>
+              <span>Selected player</span>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="mode" value="field">
+              <span>Full field</span>
+            </label>
+          </div>
+
+          <div class="input-grid">
+            <label>
+              Chip counts
+              <textarea id="chip-counts" spellcheck="false"></textarea>
+            </label>
+            <label>
+              Payouts
+              <textarea id="payouts" spellcheck="false"></textarea>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Run</button>
+            <span id="status" role="status"></span>
+          </div>
+        </form>
+
+        <section class="output" aria-live="polite">
+          <div class="metrics" id="metrics"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Seat</th>
+                  <th>Chips</th>
+                  <th>Chip %</th>
+                  <th>ICM %</th>
+                  <th>ICM value</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="results-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="/web/app.js"></script>
+  </body>
+</html>
