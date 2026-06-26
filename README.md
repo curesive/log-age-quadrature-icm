@@ -65,4 +65,4 @@ For each player, Log-Age Quadrature ICM maps chip share to a relative exponentia
 
 ## License
 
-No open-source license has been selected yet.
+Released under the [MIT License](./LICENSE).

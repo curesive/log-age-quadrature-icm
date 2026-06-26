@@ -13,5 +13,6 @@
     "icm",
     "quadrature",
     "tournament"
-  ]
+  ],
+  "license": "MIT"
 }
