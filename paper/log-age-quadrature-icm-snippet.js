@@ -1,4 +1,4 @@
-// Paper-ready reference snippet for Logage Quadrature ICM.
+// Paper-ready reference snippet for Log-Age Quadrature ICM.
 //
 // This version favors clarity over speed. It computes each player's equity
 // independently with a leave-one-out rank distribution. The web app uses a
@@ -113,7 +113,7 @@ function normalize(equities) {
   return total > 0 ? clamped.map((value) => value / total) : clamped;
 }
 
-export function logageQuadratureIcm(chipCounts, payoutList, options = {}) {
+export function logAgeQuadratureIcm(chipCounts, payoutList, options = {}) {
   const stacks = chipCounts.map(Number);
   const payouts = payoutList
     .map(Number)

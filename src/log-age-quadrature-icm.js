@@ -334,7 +334,7 @@ function formatPlayerResult({
   };
 }
 
-export function solveLogageQuadratureIcm(chipCounts, payouts, options = {}) {
+export function solveLogAgeQuadratureIcm(chipCounts, payouts, options = {}) {
   const context = buildContext(chipCounts, payouts, options);
   const {
     stacks,
@@ -390,7 +390,7 @@ export function solveLogageQuadratureIcm(chipCounts, payouts, options = {}) {
   );
 
   return {
-    model: "Logage Quadrature ICM",
+    model: "Log-Age Quadrature ICM",
     totalPrizePool,
     players,
     metadata: {
@@ -404,7 +404,7 @@ export function solveLogageQuadratureIcm(chipCounts, payouts, options = {}) {
   };
 }
 
-export function solvePlayerLogageQuadratureIcm(
+export function solvePlayerLogAgeQuadratureIcm(
   chipCounts,
   payouts,
   targetPlayerIndex,
@@ -463,7 +463,7 @@ export function solvePlayerLogageQuadratureIcm(
 
   const equity = clampProbability(rawEquity);
   return {
-    model: "Logage Quadrature ICM",
+    model: "Log-Age Quadrature ICM",
     totalPrizePool,
     player: formatPlayerResult({
       index: targetIndex,

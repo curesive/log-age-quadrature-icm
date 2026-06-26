@@ -37,5 +37,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, () => {
-  console.log(`Logage Quadrature ICM calculator: http://localhost:${port}`);
+  console.log(`Log-Age Quadrature ICM calculator: http://localhost:${port}`);
 });

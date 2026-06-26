@@ -1,7 +1,7 @@
 import {
-  solveLogageQuadratureIcm,
-  solvePlayerLogageQuadratureIcm,
-} from "../src/logage-quadrature-icm.js";
+  solveLogAgeQuadratureIcm,
+  solvePlayerLogAgeQuadratureIcm,
+} from "../src/log-age-quadrature-icm.js";
 
 const exampleSelect = document.querySelector("#example-select");
 const heroSeatInput = document.querySelector("#hero-seat");
@@ -21,7 +21,8 @@ function formatMoney(value) {
   return Number(value).toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   });
 }
 
@@ -142,7 +143,7 @@ async function runCalculation() {
   await new Promise((resolve) => requestAnimationFrame(resolve));
 
   if (mode === "field") {
-    const result = solveLogageQuadratureIcm(chipCounts, payouts, options);
+    const result = solveLogAgeQuadratureIcm(chipCounts, payouts, options);
     renderMetrics({
       playerCount: chipCounts.length,
       payoutCount: payouts.length,
@@ -154,7 +155,7 @@ async function runCalculation() {
     return;
   }
 
-  const result = solvePlayerLogageQuadratureIcm(chipCounts, payouts, heroSeat - 1, options);
+  const result = solvePlayerLogAgeQuadratureIcm(chipCounts, payouts, heroSeat - 1, options);
   renderMetrics({
     playerCount: chipCounts.length,
     payoutCount: payouts.length,

@@ -1,9 +1,9 @@
 {
-  "name": "logage-quadrature-icm",
+  "name": "log-age-quadrature-icm",
   "version": "0.1.0",
   "private": false,
   "type": "module",
-  "description": "Minimal Logage Quadrature ICM reference implementation, examples, and local browser calculator.",
+  "description": "Minimal Log-Age Quadrature ICM reference implementation, examples, and local browser calculator.",
   "scripts": {
     "start": "node server.js",
     "test": "node --test"

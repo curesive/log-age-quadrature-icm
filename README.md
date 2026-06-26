@@ -1,6 +1,6 @@
-# Logage Quadrature ICM
+# Log-Age Quadrature ICM
 
-Minimal reference implementation, examples, and local browser calculator for **Logage Quadrature ICM**, a deterministic poker tournament ICM method based on log-search-age quadrature.
+Minimal reference implementation, examples, and local browser calculator for **Log-Age Quadrature ICM**, a deterministic poker tournament ICM method based on log-search-age quadrature.
 
 ## Quick Start
 
@@ -21,8 +21,8 @@ No runtime packages are required. The calculator is plain HTML, CSS, and JavaScr
 
 ## Repository Layout
 
-- `src/logage-quadrature-icm.js`: dependency-free solver used by the app and tests.
-- `paper/logage-quadrature-icm-snippet.js`: slower, clearer reference snippet for a paper appendix.
+- `src/log-age-quadrature-icm.js`: dependency-free solver used by the app and tests.
+- `paper/log-age-quadrature-icm-snippet.js`: slower, clearer reference snippet for a paper appendix.
 - `examples/*.json`: three baked-in tournament examples with chip counts and active payout rows.
 - `web/`: local browser calculator.
 - `test/golden.test.js`: lightweight Node test suite.
@@ -31,19 +31,19 @@ No runtime packages are required. The calculator is plain HTML, CSS, and JavaScr
 
 ```js
 import {
-  solveLogageQuadratureIcm,
-  solvePlayerLogageQuadratureIcm,
-} from "./src/logage-quadrature-icm.js";
+  solveLogAgeQuadratureIcm,
+  solvePlayerLogAgeQuadratureIcm,
+} from "./src/log-age-quadrature-icm.js";
 
 const chipCounts = [40000, 30000, 20000, 10000];
 const payouts = [6000, 3000, 1000, 0];
 
-const fullField = solveLogageQuadratureIcm(chipCounts, payouts);
-const heroOnly = solvePlayerLogageQuadratureIcm(chipCounts, payouts, 0);
+const fullField = solveLogAgeQuadratureIcm(chipCounts, payouts);
+const heroOnly = solvePlayerLogAgeQuadratureIcm(chipCounts, payouts, 0);
 ```
 
-`solveLogageQuadratureIcm` returns every player's equity and dollar value.
-`solvePlayerLogageQuadratureIcm` returns one zero-based target player's value.
+`solveLogAgeQuadratureIcm` returns every player's equity and dollar value.
+`solvePlayerLogAgeQuadratureIcm` returns one zero-based target player's value.
 
 ## Example Data
 
@@ -61,7 +61,7 @@ Each file contains:
 
 ## Method Summary
 
-For each player, Logage Quadrature ICM maps chip share to a relative exponential-race rate. It conditions on search age, uses a product polynomial to compute rank probabilities among the other players, and integrates expected payout over log search age with composite Gauss-Legendre quadrature. The full-field implementation uses an adjoint pass so all players can be evaluated in one sweep per quadrature node.
+For each player, Log-Age Quadrature ICM maps chip share to a relative exponential-race rate. It conditions on search age, uses a product polynomial to compute rank probabilities among the other players, and integrates expected payout over log search age with composite Gauss-Legendre quadrature. The full-field implementation uses an adjoint pass so all players can be evaluated in one sweep per quadrature node.
 
 ## License
 
