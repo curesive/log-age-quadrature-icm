@@ -23,6 +23,8 @@ No runtime packages are required. The calculator is plain HTML, CSS, and JavaScr
 
 - `src/log-age-quadrature-icm.js`: dependency-free solver used by the app and tests.
 - `paper/log-age-quadrature-icm-snippet.js`: slower, clearer reference snippet for a paper appendix.
+- `paper/log-age-quadrature-icm-research-paper-draft.md`: first draft of the research paper.
+- `research/`: reproducible paper result generator and saved comparison tables.
 - `examples/*.json`: three baked-in tournament examples with chip counts and active payout rows.
 - `web/`: local browser calculator.
 - `test/golden.test.js`: lightweight Node test suite.

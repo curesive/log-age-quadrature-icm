@@ -1,0 +1,496 @@
+{
+  "generatedAt": "2026-06-27T16:29:48.760Z",
+  "method": {
+    "logAgeNodeCount": 192,
+    "logAgePanelCount": 32,
+    "exactMethod": "recursive Malmuth-Harville / Plackett-Luce enumeration for small fields",
+    "monteCarloMethod": "seeded exponential-race simulation with 95% normal confidence intervals"
+  },
+  "exactComparison": [
+    {
+      "scenario": "4-player teaching example",
+      "playerIndex": 1,
+      "chips": 40000,
+      "exactValue": 3553.9682539682535,
+      "logAgeValue": 3553.9682539682553,
+      "dollarDiff": 1.8189894035458565e-12,
+      "poolDiffBps": 1.8189894035458565e-12
+    },
+    {
+      "scenario": "4-player teaching example",
+      "playerIndex": 2,
+      "chips": 30000,
+      "exactValue": 2986.904761904762,
+      "logAgeValue": 2986.904761904761,
+      "dollarDiff": -9.094947017729282e-13,
+      "poolDiffBps": -9.094947017729282e-13
+    },
+    {
+      "scenario": "4-player teaching example",
+      "playerIndex": 3,
+      "chips": 20000,
+      "exactValue": 2241.2698412698414,
+      "logAgeValue": 2241.269841269841,
+      "dollarDiff": -4.547473508864641e-13,
+      "poolDiffBps": -4.547473508864641e-13
+    },
+    {
+      "scenario": "4-player teaching example",
+      "playerIndex": 4,
+      "chips": 10000,
+      "exactValue": 1217.8571428571427,
+      "logAgeValue": 1217.8571428571431,
+      "dollarDiff": 4.547473508864641e-13,
+      "poolDiffBps": 4.547473508864641e-13
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 1,
+      "chips": 1500000,
+      "exactValue": 132036.56256462124,
+      "logAgeValue": 132036.56256461982,
+      "dollarDiff": -1.4260876923799515e-9,
+      "poolDiffBps": -1.828317554333271e-11
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 2,
+      "chips": 900000,
+      "exactValue": 111705.71638965656,
+      "logAgeValue": 111705.71638965665,
+      "dollarDiff": 8.731149137020111e-11,
+      "poolDiffBps": 1.1193780944897577e-12
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 3,
+      "chips": 700000,
+      "exactValue": 101729.08634054984,
+      "logAgeValue": 101729.08634054984,
+      "dollarDiff": 0,
+      "poolDiffBps": 0
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 4,
+      "chips": 500000,
+      "exactValue": 89047.48638311877,
+      "logAgeValue": 89047.48638311883,
+      "dollarDiff": 5.820766091346741e-11,
+      "poolDiffBps": 7.462520629931719e-13
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 5,
+      "chips": 400000,
+      "exactValue": 81290.13148848776,
+      "logAgeValue": 81290.13148848827,
+      "dollarDiff": 5.093170329928398e-10,
+      "poolDiffBps": 6.529705551190254e-12
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 6,
+      "chips": 350000,
+      "exactValue": 76947.22478496056,
+      "logAgeValue": 76947.22478496075,
+      "dollarDiff": 1.8917489796876907e-10,
+      "poolDiffBps": 2.425319204727809e-12
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 7,
+      "chips": 300000,
+      "exactValue": 72232.68096799942,
+      "logAgeValue": 72232.68096799898,
+      "dollarDiff": -4.3655745685100555e-10,
+      "poolDiffBps": -5.5968904724487895e-12
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 8,
+      "chips": 250000,
+      "exactValue": 67082.91575923478,
+      "logAgeValue": 67082.9157592349,
+      "dollarDiff": 1.1641532182693481e-10,
+      "poolDiffBps": 1.4925041259863437e-12
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 9,
+      "chips": 100000,
+      "exactValue": 47928.19532137181,
+      "logAgeValue": 47928.19532137186,
+      "dollarDiff": 5.093170329928398e-11,
+      "poolDiffBps": 6.529705551190254e-13
+    }
+  ],
+  "convergence": [
+    {
+      "scenario": "4-player teaching example",
+      "requestedNodes": 48,
+      "actualQuadratureNodes": 128,
+      "maxAbsDollarError": 1.209173206007108e-9,
+      "meanAbsDollarError": 6.042455424903892e-10,
+      "maxAbsEquityError": 1.2091732060071082e-13
+    },
+    {
+      "scenario": "4-player teaching example",
+      "requestedNodes": 96,
+      "actualQuadratureNodes": 128,
+      "maxAbsDollarError": 1.209173206007108e-9,
+      "meanAbsDollarError": 6.042455424903892e-10,
+      "maxAbsEquityError": 1.2091732060071082e-13
+    },
+    {
+      "scenario": "4-player teaching example",
+      "requestedNodes": 128,
+      "actualQuadratureNodes": 128,
+      "maxAbsDollarError": 1.209173206007108e-9,
+      "meanAbsDollarError": 6.042455424903892e-10,
+      "maxAbsEquityError": 1.2091732060071082e-13
+    },
+    {
+      "scenario": "4-player teaching example",
+      "requestedNodes": 192,
+      "actualQuadratureNodes": 192,
+      "maxAbsDollarError": 1.8189894035458565e-12,
+      "meanAbsDollarError": 9.094947017729282e-13,
+      "maxAbsEquityError": 1.8189894035458566e-16
+    },
+    {
+      "scenario": "4-player teaching example",
+      "requestedNodes": 384,
+      "actualQuadratureNodes": 384,
+      "maxAbsDollarError": 1.3642420526593924e-12,
+      "meanAbsDollarError": 9.663381206337363e-13,
+      "maxAbsEquityError": 1.3642420526593922e-16
+    },
+    {
+      "scenario": "4-player teaching example",
+      "requestedNodes": 768,
+      "actualQuadratureNodes": 768,
+      "maxAbsDollarError": 9.094947017729282e-13,
+      "meanAbsDollarError": 6.821210263296962e-13,
+      "maxAbsEquityError": 9.094947017729283e-17
+    },
+    {
+      "scenario": "9-player final table example",
+      "requestedNodes": 48,
+      "actualQuadratureNodes": 128,
+      "maxAbsDollarError": 2.0719016902148724e-7,
+      "meanAbsDollarError": 7.478875987645652e-8,
+      "maxAbsEquityError": 2.6562842182241955e-13
+    },
+    {
+      "scenario": "9-player final table example",
+      "requestedNodes": 96,
+      "actualQuadratureNodes": 128,
+      "maxAbsDollarError": 2.0719016902148724e-7,
+      "meanAbsDollarError": 7.478875987645652e-8,
+      "maxAbsEquityError": 2.6562842182241955e-13
+    },
+    {
+      "scenario": "9-player final table example",
+      "requestedNodes": 128,
+      "actualQuadratureNodes": 128,
+      "maxAbsDollarError": 2.0719016902148724e-7,
+      "meanAbsDollarError": 7.478875987645652e-8,
+      "maxAbsEquityError": 2.6562842182241955e-13
+    },
+    {
+      "scenario": "9-player final table example",
+      "requestedNodes": 192,
+      "actualQuadratureNodes": 192,
+      "maxAbsDollarError": 1.4260876923799515e-9,
+      "meanAbsDollarError": 3.1933369528916145e-10,
+      "maxAbsEquityError": 1.828317554333271e-15
+    },
+    {
+      "scenario": "9-player final table example",
+      "requestedNodes": 384,
+      "actualQuadratureNodes": 384,
+      "maxAbsDollarError": 1.3969838619232178e-9,
+      "meanAbsDollarError": 3.50862844950623e-10,
+      "maxAbsEquityError": 1.7910049511836124e-15
+    },
+    {
+      "scenario": "9-player final table example",
+      "requestedNodes": 768,
+      "actualQuadratureNodes": 768,
+      "maxAbsDollarError": 1.1350493878126144e-9,
+      "meanAbsDollarError": 2.7486950986915165e-10,
+      "maxAbsEquityError": 1.4551915228366853e-15
+    }
+  ],
+  "monteCarloComparison": [
+    {
+      "scenario": "4-player teaching example",
+      "playerIndex": 1,
+      "chips": 40000,
+      "logAgeValue": 3553.9682539682553,
+      "monteCarloMean": 3553.325,
+      "ci95Low": 3543.692072964567,
+      "ci95High": 3562.9579270354325,
+      "margin95": 9.63292703543276,
+      "trials": 200000,
+      "seed": 4104,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "4-player teaching example",
+      "playerIndex": 4,
+      "chips": 10000,
+      "logAgeValue": 1217.8571428571431,
+      "monteCarloMean": 1223.54,
+      "ci95Low": 1215.2900789907897,
+      "ci95High": 1231.7899210092103,
+      "margin95": 8.249921009210361,
+      "trials": 200000,
+      "seed": 4104,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 1,
+      "chips": 1500000,
+      "logAgeValue": 132036.56256461982,
+      "monteCarloMean": 132041.31,
+      "ci95Low": 131853.773030921,
+      "ci95High": 132228.846969079,
+      "margin95": 187.53696907898603,
+      "trials": 200000,
+      "seed": 4109,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 5,
+      "chips": 400000,
+      "logAgeValue": 81290.13148848827,
+      "monteCarloMean": 81355.305,
+      "ci95Low": 81155.71896401138,
+      "ci95High": 81554.8910359886,
+      "margin95": 199.58603598861714,
+      "trials": 200000,
+      "seed": 4109,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "9-player final table example",
+      "playerIndex": 9,
+      "chips": 100000,
+      "logAgeValue": 47928.19532137186,
+      "monteCarloMean": 47947.095,
+      "ci95Low": 47808.59399268025,
+      "ci95High": 48085.59600731975,
+      "margin95": 138.50100731974604,
+      "trials": 200000,
+      "seed": 4109,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2025 Main Event Day 7 - 24 players",
+      "playerIndex": 1,
+      "chips": 63600000,
+      "logAgeValue": 3073949.3287668577,
+      "monteCarloMean": 3075330.4635,
+      "ci95Low": 3069595.1589616304,
+      "ci95High": 3081065.7680383697,
+      "margin95": 5735.304538369834,
+      "trials": 1000000,
+      "seed": 8001,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2025 Main Event Day 7 - 24 players",
+      "playerIndex": 12,
+      "chips": 22500000,
+      "logAgeValue": 1547794.2311082552,
+      "monteCarloMean": 1547574.46275,
+      "ci95Low": 1543350.98709011,
+      "ci95High": 1551797.9384098898,
+      "margin95": 4223.475659889981,
+      "trials": 1000000,
+      "seed": 8001,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2025 Main Event Day 7 - 24 players",
+      "playerIndex": 24,
+      "chips": 5400000,
+      "logAgeValue": 678212.5035790829,
+      "monteCarloMean": 676660.8685,
+      "ci95Low": 674353.0495433772,
+      "ci95High": 678968.6874566227,
+      "margin95": 2307.818956622729,
+      "trials": 1000000,
+      "seed": 8001,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2024 Event 26 High Roller Day 1 - 99 players",
+      "playerIndex": 1,
+      "chips": 1211000,
+      "logAgeValue": 188549.29755803294,
+      "monteCarloMean": 188428.23529666668,
+      "ci95Low": 187198.01415924393,
+      "ci95High": 189658.45643408943,
+      "margin95": 1230.2211374227575,
+      "trials": 300000,
+      "seed": 8002,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2024 Event 26 High Roller Day 1 - 99 players",
+      "playerIndex": 50,
+      "chips": 344000,
+      "logAgeValue": 66884.53619248893,
+      "monteCarloMean": 66917.81930666667,
+      "ci95Low": 66198.33912398182,
+      "ci95High": 67637.29948935153,
+      "margin95": 719.4801826848516,
+      "trials": 300000,
+      "seed": 8002,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2024 Event 26 High Roller Day 1 - 99 players",
+      "playerIndex": 99,
+      "chips": 61000,
+      "logAgeValue": 13144.655739813183,
+      "monteCarloMean": 13190.84206,
+      "ci95Low": 12870.419377241351,
+      "ci95High": 13511.26474275865,
+      "margin95": 320.4226827586503,
+      "trials": 300000,
+      "seed": 8002,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2025 Main Event Snapshot - 522 players",
+      "playerIndex": 1,
+      "chips": 4195000,
+      "logAgeValue": 366030.62433171266,
+      "monteCarloMean": 363922.2115,
+      "ci95Low": 360970.75961888215,
+      "ci95High": 366873.6633811178,
+      "margin95": 2951.451881117844,
+      "trials": 500000,
+      "seed": 8003,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2025 Main Event Snapshot - 522 players",
+      "playerIndex": 261,
+      "chips": 925000,
+      "logAgeValue": 122809.40528326013,
+      "monteCarloMean": 123463.5465,
+      "ci95Low": 122001.98648243086,
+      "ci95High": 124925.10651756913,
+      "margin95": 1461.5600175691363,
+      "trials": 500000,
+      "seed": 8003,
+      "logAgeInsideCi": true
+    },
+    {
+      "scenario": "WSOP 2025 Main Event Snapshot - 522 players",
+      "playerIndex": 522,
+      "chips": 120000,
+      "logAgeValue": 46039.195995755676,
+      "monteCarloMean": 45618.1625,
+      "ci95Low": 45116.267127943356,
+      "ci95High": 46120.05787205664,
+      "margin95": 501.8953720566434,
+      "trials": 500000,
+      "seed": 8003,
+      "logAgeInsideCi": true
+    }
+  ],
+  "empiricalSummary": [
+    {
+      "scenario": "WSOP 2025 Main Event Day 7 - 24 players",
+      "players": 24,
+      "payoutRows": 24,
+      "prizePool": 37990500,
+      "quadratureNodes": 192,
+      "selectedPlayers": [
+        {
+          "playerIndex": 1,
+          "chips": 63600000,
+          "value": 3073949.3287668577,
+          "equity": 0.08091363179655066
+        },
+        {
+          "playerIndex": 12,
+          "chips": 22500000,
+          "value": 1547794.2311082552,
+          "equity": 0.04074161253756216
+        },
+        {
+          "playerIndex": 24,
+          "chips": 5400000,
+          "value": 678212.5035790829,
+          "equity": 0.01785216050273313
+        }
+      ],
+      "equitySum": 1.0000000000000004
+    },
+    {
+      "scenario": "WSOP 2024 Event 26 High Roller Day 1 - 99 players",
+      "players": 99,
+      "payoutRows": 48,
+      "prizePool": 7473000,
+      "quadratureNodes": 192,
+      "selectedPlayers": [
+        {
+          "playerIndex": 1,
+          "chips": 1211000,
+          "value": 188549.29755803294,
+          "equity": 0.02523073699425036
+        },
+        {
+          "playerIndex": 50,
+          "chips": 344000,
+          "value": 66884.53619248893,
+          "equity": 0.008950158730428065
+        },
+        {
+          "playerIndex": 99,
+          "chips": 61000,
+          "value": 13144.655739813183,
+          "equity": 0.0017589529960943642
+        }
+      ],
+      "equitySum": 1.0000000000000002
+    },
+    {
+      "scenario": "WSOP 2025 Main Event Snapshot - 522 players",
+      "players": 522,
+      "payoutRows": 522,
+      "prizePool": 71323000,
+      "quadratureNodes": 192,
+      "selectedPlayers": [
+        {
+          "playerIndex": 1,
+          "chips": 4195000,
+          "value": 366030.62433171266,
+          "equity": 0.005132013857124808
+        },
+        {
+          "playerIndex": 261,
+          "chips": 925000,
+          "value": 122809.40528326013,
+          "equity": 0.0017218766075916623
+        },
+        {
+          "playerIndex": 522,
+          "chips": 120000,
+          "value": 46039.195995755676,
+          "equity": 0.0006455027970746558
+        }
+      ],
+      "equitySum": 0.9999999999999983
+    }
+  ]
+}
