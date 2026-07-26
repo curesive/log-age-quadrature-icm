@@ -118,7 +118,8 @@ export function logAgeQuadratureIcm(chipCounts, payoutList, options = {}) {
   const payouts = payoutList
     .map(Number)
     .filter((payout) => Number.isFinite(payout) && payout > 0)
-    .sort((a, b) => b - a);
+    .sort((a, b) => b - a)
+    .slice(0, stacks.length);
   const playerCount = stacks.length;
   const totalChips = sum(stacks);
   const totalPrizePool = sum(payouts);
@@ -181,4 +182,3 @@ export function logAgeQuadratureIcm(chipCounts, payoutList, options = {}) {
     value: equity * totalPrizePool,
   }));
 }
-

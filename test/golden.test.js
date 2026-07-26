@@ -4,6 +4,7 @@ import {
   solveLogAgeQuadratureIcm,
   solvePlayerLogAgeQuadratureIcm,
 } from "../src/log-age-quadrature-icm.js";
+import { logAgeQuadratureIcm } from "../paper/log-age-quadrature-icm-snippet.js";
 
 const fourPlayer = {
   chipCounts: [40000, 30000, 20000, 10000],
@@ -44,4 +45,25 @@ test("full-field equities conserve the prize pool", () => {
   const valueSum = result.players.reduce((total, player) => total + player.value, 0);
   assert.ok(Math.abs(equitySum - 1) < 1e-9);
   assert.ok(Math.abs(valueSum - result.totalPrizePool) < 1e-6);
+});
+
+test("payout rows beyond the remaining player count are ignored", () => {
+  const chipCounts = [40000, 30000, 20000, 10000];
+  const activePayouts = [6000, 3000, 1000, 500];
+  const fullEventPayouts = [400, 6000, 300, 3000, 1000, 500];
+  const expected = solveLogAgeQuadratureIcm(chipCounts, activePayouts);
+  const result = solveLogAgeQuadratureIcm(chipCounts, fullEventPayouts);
+  const target = solvePlayerLogAgeQuadratureIcm(chipCounts, fullEventPayouts, 0);
+  const snippet = logAgeQuadratureIcm(chipCounts, fullEventPayouts);
+
+  assert.equal(result.totalPrizePool, 10500);
+  assert.equal(target.totalPrizePool, 10500);
+  assert.deepEqual(
+    result.players.map((player) => cents(player.value)),
+    expected.players.map((player) => cents(player.value)),
+  );
+  assert.equal(cents(target.player.value), cents(expected.players[0].value));
+  assert.ok(
+    Math.abs(snippet.reduce((total, player) => total + player.value, 0) - 10500) < 1e-6,
+  );
 });

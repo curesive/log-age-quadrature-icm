@@ -32,7 +32,8 @@ function sanitizeInputs(chipCounts, payouts) {
   const activePayouts = payouts
     .map(Number)
     .filter((payout) => Number.isFinite(payout) && payout > 0)
-    .sort((left, right) => right - left);
+    .sort((left, right) => right - left)
+    .slice(0, stacks.length);
   if (!activePayouts.length) {
     throw new Error("payouts must contain at least one positive prize.");
   }
@@ -482,4 +483,3 @@ export function solvePlayerLogAgeQuadratureIcm(
     },
   };
 }
-

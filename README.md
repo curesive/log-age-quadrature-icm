@@ -47,6 +47,10 @@ const heroOnly = solvePlayerLogAgeQuadratureIcm(chipCounts, payouts, 0);
 `solveLogAgeQuadratureIcm` returns every player's equity and dollar value.
 `solvePlayerLogAgeQuadratureIcm` returns one zero-based target player's value.
 
+Payouts are sorted from largest to smallest, and only the first
+`min(chipCounts.length, payouts.length)` positive rows are active. Extra payout
+rows are ignored and are not included in the remaining prize pool.
+
 ## Example Data
 
 The bundled examples are:

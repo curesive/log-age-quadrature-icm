@@ -146,7 +146,7 @@ async function runCalculation() {
     const result = solveLogAgeQuadratureIcm(chipCounts, payouts, options);
     renderMetrics({
       playerCount: chipCounts.length,
-      payoutCount: payouts.length,
+      payoutCount: result.metadata.paidRanks,
       prizePool: result.totalPrizePool,
       runtimeMs: performance.now() - startedAt,
     });
@@ -158,7 +158,7 @@ async function runCalculation() {
   const result = solvePlayerLogAgeQuadratureIcm(chipCounts, payouts, heroSeat - 1, options);
   renderMetrics({
     playerCount: chipCounts.length,
-    payoutCount: payouts.length,
+    payoutCount: result.metadata.paidRanks,
     prizePool: result.totalPrizePool,
     runtimeMs: performance.now() - startedAt,
   });
