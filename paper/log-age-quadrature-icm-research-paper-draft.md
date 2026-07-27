@@ -32,6 +32,8 @@ Monte Carlo avoids this by simulating many random finish orders. That is useful,
 
 Log-Age Quadrature ICM takes a different route. It keeps the exponential-race interpretation of ICM, but evaluates the probability calculation directly.
 
+The connection between storage-and-search models and large-field ICM was brought to the author's attention by a GTO Wizard article describing a proprietary large-field ICM method and a Burville-Kingman special case used for exact benchmarking [1, 2]. GTO Wizard did not publish the underlying algorithm, so this paper does not claim that its method and Log-Age Quadrature ICM are mathematically identical. The formulation, implementation, and validation presented here were developed from the public storage-and-search paper and the standard ICM model, without access to GTO Wizard's proprietary method.
+
 ## Method Overview
 
 The method can be explained in layers.
@@ -106,7 +108,7 @@ y = exp(u) - 1
 
 Then it integrates over `u`, the log-age variable.
 
-The implementation uses composite Gauss-Legendre quadrature. The default settings are:
+The implementation uses composite Gauss-Legendre quadrature [5]. The default settings are:
 
 - 192 log-age nodes
 - 32 panels
@@ -191,97 +193,42 @@ The implementation clamps raw equity fractions to `[0, 1]` and rescales them to 
 The tables in this section were generated locally by:
 
 ```sh
-node research/generate-paper-results.mjs
+npm run research:validate
+npm run research:validate-nine-player-mc
+npm run research:stress-main-event
 ```
 
 The saved files are:
 
-- `research/results/log_age_quadrature_icm_paper_results.json`
-- `research/results/log_age_quadrature_icm_paper_tables.md`
+- `research/results/core_validation_results.json`
+- `research/results/core_validation_tables.md`
+- `research/results/nine_player_monte_carlo_1m.json`
+- `research/results/main_event_stress_4000.json`
 
-### Small Exact Comparison
+The current validation set contains only the four studies selected for the paper:
 
-For small fields, I compared Log-Age Quadrature ICM with exact recursive Malmuth-Harville-style ICM. The table rounds dollar amounts to whole dollars.
+1. Nine-player LAQI accuracy against exact Malmuth-Harville recursion.
+2. Nine-player accuracy and runtime for exact recursion, LAQI, and 1-million-trial serial Monte Carlo.
+3. A 522-player LAQI and 3-million-trial serial Monte Carlo comparison.
+4. A 4,000-player LAQI stress test using generated stacks and the observed 2026 WSOP Main Event payout table.
 
-| Scenario | Seat | Chips | Exact MH | Log-Age 192 | Difference |
-| --- | --- | --- | --- | --- | --- |
-| 4-player teaching example | 1 | 40,000 | $3,554 | $3,554 | +$0 |
-| 4-player teaching example | 2 | 30,000 | $2,987 | $2,987 | +$0 |
-| 4-player teaching example | 3 | 20,000 | $2,241 | $2,241 | +$0 |
-| 4-player teaching example | 4 | 10,000 | $1,218 | $1,218 | +$0 |
-| 9-player final table example | 1 | 1,500,000 | $132,037 | $132,037 | +$0 |
-| 9-player final table example | 5 | 400,000 | $81,290 | $81,290 | +$0 |
-| 9-player final table example | 9 | 100,000 | $47,928 | $47,928 | +$0 |
-
-For these small examples, Log-Age Quadrature ICM matches the exact recursion to the displayed dollar. The raw generated results include full floating-point values.
-
-### Quadrature Convergence On The 9-Player Example
-
-The 9-player example was also run at several quadrature resolutions. The displayed dollar errors round to zero. The equity error column shows the scale of the remaining floating-point difference.
-
-| Requested nodes | Actual nodes | Max abs error | Mean abs error | Max equity error |
-| --- | --- | --- | --- | --- |
-| 48 | 128 | $0 | $0 | 2.656e-13 |
-| 96 | 128 | $0 | $0 | 2.656e-13 |
-| 128 | 128 | $0 | $0 | 2.656e-13 |
-| 192 | 192 | $0 | $0 | 1.828e-15 |
-| 384 | 384 | $0 | $0 | 1.791e-15 |
-| 768 | 768 | $0 | $0 | 1.455e-15 |
-
-This does not prove every large input is exact. It does show that, on this final-table shape, the quadrature error is far below a cent at the tested settings.
-
-### Monte Carlo Comparison
-
-Monte Carlo estimates were generated with seeded exponential-race simulations. The table reports the Monte Carlo mean and a 95% confidence interval. A deterministic method should not be judged against only one Monte Carlo point estimate; the interval matters.
-
-| Scenario | Seat | Trials | Log-Age | MC mean | 95% CI | Inside CI? |
-| --- | --- | --- | --- | --- | --- | --- |
-| 4-player teaching example | 1 | 200,000 | $3,554 | $3,553 | $3,544 to $3,563 | yes |
-| 4-player teaching example | 4 | 200,000 | $1,218 | $1,224 | $1,215 to $1,232 | yes |
-| 9-player final table example | 1 | 200,000 | $132,037 | $132,041 | $131,854 to $132,229 | yes |
-| 9-player final table example | 5 | 200,000 | $81,290 | $81,355 | $81,156 to $81,555 | yes |
-| 9-player final table example | 9 | 200,000 | $47,928 | $47,947 | $47,809 to $48,086 | yes |
-| WSOP 2025 Main Event Day 7 - 24 players | 1 | 1,000,000 | $3,073,949 | $3,075,330 | $3,069,595 to $3,081,066 | yes |
-| WSOP 2025 Main Event Day 7 - 24 players | 12 | 1,000,000 | $1,547,794 | $1,547,574 | $1,543,351 to $1,551,798 | yes |
-| WSOP 2025 Main Event Day 7 - 24 players | 24 | 1,000,000 | $678,213 | $676,661 | $674,353 to $678,969 | yes |
-| WSOP 2024 Event 26 High Roller Day 1 - 99 players | 1 | 300,000 | $188,549 | $188,428 | $187,198 to $189,658 | yes |
-| WSOP 2024 Event 26 High Roller Day 1 - 99 players | 50 | 300,000 | $66,885 | $66,918 | $66,198 to $67,637 | yes |
-| WSOP 2024 Event 26 High Roller Day 1 - 99 players | 99 | 300,000 | $13,145 | $13,191 | $12,870 to $13,511 | yes |
-| WSOP 2025 Main Event Snapshot - 522 players | 1 | 500,000 | $366,031 | $363,922 | $360,971 to $366,874 | yes |
-| WSOP 2025 Main Event Snapshot - 522 players | 261 | 500,000 | $122,809 | $123,464 | $122,002 to $124,925 | yes |
-| WSOP 2025 Main Event Snapshot - 522 players | 522 | 500,000 | $46,039 | $45,618 | $45,116 to $46,120 | yes |
-
-In these runs, every Log-Age value falls inside the Monte Carlo 95% interval. The larger fields require more simulation trials, especially for short stacks and tail ranks. That is one practical advantage of deterministic quadrature: it does not need repeated random sampling to stabilize one player's value.
-
-### Real Example Outputs
-
-The repository includes three example datasets so readers can run the method without collecting their own data. These are not meant to cover every poker tournament shape. They are included to show how the method behaves on realistic inputs.
-
-| Scenario | Seat | Chips | Log-Age ICM value | Equity |
-| --- | --- | --- | --- | --- |
-| WSOP 2025 Main Event Day 7 - 24 players | 1 / 24 | 63,600,000 | $3,073,949 | 8.091% |
-| WSOP 2025 Main Event Day 7 - 24 players | 12 / 24 | 22,500,000 | $1,547,794 | 4.074% |
-| WSOP 2025 Main Event Day 7 - 24 players | 24 / 24 | 5,400,000 | $678,213 | 1.785% |
-| WSOP 2024 Event 26 High Roller Day 1 - 99 players | 1 / 99 | 1,211,000 | $188,549 | 2.523% |
-| WSOP 2024 Event 26 High Roller Day 1 - 99 players | 50 / 99 | 344,000 | $66,885 | 0.895% |
-| WSOP 2024 Event 26 High Roller Day 1 - 99 players | 99 / 99 | 61,000 | $13,145 | 0.176% |
-| WSOP 2025 Main Event Snapshot - 522 players | 1 / 522 | 4,195,000 | $366,031 | 0.513% |
-| WSOP 2025 Main Event Snapshot - 522 players | 261 / 522 | 925,000 | $122,809 | 0.172% |
-| WSOP 2025 Main Event Snapshot - 522 players | 522 / 522 | 120,000 | $46,039 | 0.065% |
+The concise, current tables are in `research/results/core_validation_tables.md`. Complete numeric output is retained in the JSON files listed above so displayed values can be checked without relying on rounded paper tables.
 
 ## What The Results Show
 
-The small-field tests show that Log-Age Quadrature ICM agrees with exact recursive ICM on cases where exact recursion is practical. The convergence check shows that the quadrature settings are more than enough for the tested 9-player final-table shape.
+The small-field test shows that Log-Age Quadrature ICM agrees with exact recursive ICM on a case where exact recursion is practical. The 522-player comparison also checks the production 192-node result against a 1,536-node LAQI reference.
 
 The Monte Carlo comparison shows the same values from another angle. Monte Carlo produces intervals, not exact answers. In the tested examples, the deterministic Log-Age values sit inside the Monte Carlo intervals.
 
-The real examples show the method running on field sizes that would be awkward or impractical for direct recursive enumeration.
+The 4,000-player stress test shows the method running at a scale that would be impractical for direct recursive enumeration.
 
 ## What This Method Is Not
 
 Log-Age Quadrature ICM is not Monte Carlo. It does not simulate thousands or millions of tournaments to average the result.
 
 It is also not presented here as a brute-force exact enumerator for every possible field size. It is a deterministic quadrature method based on the exponential-race view of ICM.
+
+ICM itself is a model of tournament finishing probabilities, not an exact model of the underlying poker elimination process; Diaconis and Ethier discuss this distinction in detail [6].
 
 The practical claim is narrower and more useful:
 
@@ -312,13 +259,13 @@ npm start
 Paper result generation:
 
 ```sh
-node research/generate-paper-results.mjs
+npm run research:validate
 ```
 
 The main generated artifact is:
 
 ```text
-research/results/log_age_quadrature_icm_paper_results.json
+research/results/core_validation_results.json
 ```
 
 ## Conclusion
@@ -328,3 +275,21 @@ Log-Age Quadrature ICM is a deterministic way to compute tournament equity from 
 For small fields, it matches exact recursive ICM in the examples tested. For larger real examples, it produces values that agree with seeded Monte Carlo confidence intervals while avoiding Monte Carlo sampling noise.
 
 The result is a practical method for explaining, testing, and running ICM calculations on real tournament data.
+
+## References
+
+1. Burville, P. J., and J. F. C. Kingman. "On a Model for Storage and Search." *Journal of Applied Probability* 10, no. 3 (1973): 697-701. https://doi.org/10.2307/3212792
+
+2. Tombos21. "Theoretical Breakthroughs in ICM." *GTO Wizard Blog*, July 29, 2024. https://blog.gtowizard.com/theoretical-breakthroughs-in-icm/. Accessed July 26, 2026.
+
+3. Harville, David A. "Assigning Probabilities to the Outcomes of Multi-Entry Competitions." *Journal of the American Statistical Association* 68, no. 342 (1973): 312-316. https://doi.org/10.1080/01621459.1973.10482425
+
+4. Malmuth, Mason. *Gambling Theory and Other Topics*. Henderson, Nevada: Two Plus Two Publishing, 1987.
+
+5. Golub, Gene H., and John H. Welsch. "Calculation of Gauss Quadrature Rules." *Mathematics of Computation* 23, no. 106 (1969): 221-230. https://doi.org/10.1090/S0025-5718-69-99647-1
+
+6. Diaconis, Persi, and Stewart N. Ethier. "Gambler's Ruin and the ICM." *Statistical Science* 37, no. 3 (2022): 289-305. https://doi.org/10.1214/21-STS826
+
+7. PokerNews. "2024 WSOP Event #26: $25,000 High Roller No-Limit Hold'em (8-Handed)." Chip counts and payouts. https://www.pokernews.com/tours/wsop/2024-wsop/event-26-25000-high-roller/. Accessed April-May 2026.
+
+8. PokerNews. "2025 WSOP Event #81: $10,000 WSOP Main Event World Championship." Chip counts and payouts. https://www.pokernews.com/tours/wsop/2025-wsop/event-81-10000-wsop-main-event/. Accessed May 2026.

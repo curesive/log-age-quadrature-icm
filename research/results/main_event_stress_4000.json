@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-07-27T04:59:19.203Z",
+  "scenario": {
+    "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
+    "entries": 9208,
+    "playersRemaining": 4000,
+    "paidPlaces": 1383,
+    "prizePoolDollars": 85634400,
+    "totalChips": 552480000,
+    "averageStack": 138120,
+    "chipLeaderStack": 700000,
+    "chipGenerator": {
+      "bundleId": "icm-swap-chip-count-gen-2-4",
+      "bundleName": "ICM Swap Chip Count Gen 2.4",
+      "bundleVersion": "2.4.0",
+      "generatorId": "chip-count-gen-salamando-1-7-9",
+      "algorithmKey": "secret-of-mana-salamando-1-7-9",
+      "model": "salamando-1.7.9-wsop-main-high-active",
+      "defaultOnly": true,
+      "calibrationPath": "calibration/calibration.json",
+      "runtimeMode": "icm-swap-standalone-bundle",
+      "releaseChannel": "icm-swap-next-iphone-build",
+      "releaseStatus": "promoted",
+      "bestInClassSalamando": true,
+      "includedInNextIphoneBuild": true,
+      "safetyGuardrails": false
+    },
+    "payoutSource": {
+      "type": "observed PokerNews 2026 WSOP Main Event paytable",
+      "url": "https://www.pokernews.com/tours/wsop/2026-wsop/2026-wsop-main-event/payouts.htm",
+      "retrievedAt": "2026-07-17T17:51:07.880Z"
+    }
+  },
+  "inputSummary": {
+    "chipCountsSha256": "750285f9678f4e7f91d7e9378da491df928b2c68ac3bbbd883002e0033966784",
+    "payoutsSha256": "9c747cbb5cf95272cc6e82d65034b144698e97d882961020e55f4571bbafa049",
+    "uniqueStackCount": 2361,
+    "chipLeader": 700000,
+    "p25Stack": 190468,
+    "medianStack": 107675,
+    "p75Stack": 59212,
+    "shortestStack": 2115,
+    "firstPrize": 10000000,
+    "minCash": 10000,
+    "payoutTotal": 85634400
+  },
+  "laqi": {
+    "options": {
+      "logAgeNodeCount": 192,
+      "logAgePanelCount": 32,
+      "tailTolerance": 1e-12
+    },
+    "timing": {
+      "warmups": 1,
+      "samples": 5,
+      "medianMs": 2258.8723329999993,
+      "meanMs": 2258.9215584,
+      "minMs": 2255.440834,
+      "maxMs": 2262.4765420000003,
+      "timesMs": [
+        2258.8723329999993,
+        2255.440834,
+        2262.4765420000003,
+        2260.573542,
+        2257.244541
+      ]
+    },
+    "totalPrizePool": 85634400,
+    "resultValueSum": 85634400.0000003,
+    "prizePoolDifference": 2.980232238769531e-7,
+    "selectedResults": [
+      {
+        "playerIndex": 1,
+        "chips": 700000,
+        "chipFraction": 0.0012670141905589342,
+        "equity": 0.0010327018817183238,
+        "value": 88434.80601981963
+      },
+      {
+        "playerIndex": 1566,
+        "chips": 138120,
+        "chipFraction": 0.00025,
+        "equity": 0.0002598400824921813,
+        "value": 22251.24956016845
+      },
+      {
+        "playerIndex": 2000,
+        "chips": 107739,
+        "chipFraction": 0.00019500977410947002,
+        "equity": 0.00020646740151987743,
+        "value": 17680.71204871379
+      },
+      {
+        "playerIndex": 4000,
+        "chips": 2115,
+        "chipFraction": 0.000003828192875760208,
+        "equity": 0.000004347350177270286,
+        "value": 372.28272402043456
+      }
+    ]
+  },
+  "machine": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M3 Ultra",
+    "logicalCpuCount": 28,
+    "memoryBytes": 103079215104,
+    "nodeVersion": "v24.16.0",
+    "execution": "single Node.js process; no worker threads or GPU"
+  }
+}

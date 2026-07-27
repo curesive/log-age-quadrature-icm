@@ -69,6 +69,24 @@ Each file contains:
 
 For each player, Log-Age Quadrature ICM maps chip share to a relative exponential-race rate. It conditions on search age, uses a product polynomial to compute rank probabilities among the other players, and integrates expected payout over log search age with composite Gauss-Legendre quadrature. The full-field implementation uses an adjoint pass so all players can be evaluated in one sweep per quadrature node.
 
+## Paper Validation
+
+The checked-in research artifacts reproduce the four comparisons used for the paper:
+
+```sh
+npm run research:validate
+npm run research:validate-nine-player-mc
+npm run research:stress-main-event
+```
+
+- `research/results/core_validation_tables.md`: concise tables for the 9-player exact comparison, 9-player method comparison, 522-player comparison, and 4,000-player stress test.
+- `research/results/core_validation_results.json`: complete machine-readable output from the combined validation run.
+- `research/results/nine_player_monte_carlo_1m.json`: detailed 1-million-trial 9-player Monte Carlo output.
+- `research/fixtures/wsop-2026-main-event-4000.json`: the complete 4,000-player chip and payout input.
+- `research/results/main_event_stress_4000.json`: detailed 4,000-player LAQI benchmark output.
+
+Benchmark times depend on the machine and current system load. The saved files record the machine and runtime details for their measured runs.
+
 ## License
 
 Released under the [MIT License](./LICENSE).

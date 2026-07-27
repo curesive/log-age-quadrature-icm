@@ -6,7 +6,10 @@
   "description": "Minimal Log-Age Quadrature ICM reference implementation, examples, and local browser calculator.",
   "scripts": {
     "start": "node server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "research:validate": "node research/run-core-validation.mjs",
+    "research:validate-nine-player-mc": "node research/run-nine-player-monte-carlo-1m.mjs",
+    "research:stress-main-event": "node research/run-main-event-stress-4000.mjs"
   },
   "keywords": [
     "poker",
