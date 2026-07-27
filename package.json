@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "node --test",
+    "research:build-paper-results": "node research/build-paper-results.mjs",
     "research:validate": "node research/run-core-validation.mjs",
     "research:validate-nine-player-mc": "node research/run-nine-player-monte-carlo-1m.mjs",
     "research:benchmark-522-full-field-mc": "node research/run-serial-full-field-monte-carlo-522.mjs",

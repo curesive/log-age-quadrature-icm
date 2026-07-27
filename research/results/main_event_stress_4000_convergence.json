@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-27T18:15:39.579Z",
+  "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
+  "players": 4000,
+  "paidRanks": 1383,
+  "heroIndex": 1566,
+  "heroStack": 138120,
+  "referenceNodes": 1536,
+  "note": "Self-convergence comparison; 1536 nodes is not an exact reference.",
+  "runs": [
+    {
+      "nodes": 192,
+      "runtimeMs": 2916.0849160000002,
+      "heroValue": 22251.24956016845,
+      "heroDifferenceVs1536": -4.776734223145468,
+      "maxAbsDollarDifference": 89.81380039823125,
+      "maxAbsPlayerIndex": 1,
+      "rmseDollarDifference": 11.783437335125994,
+      "maxRelativeDifference": 0.0010166258227196601
+    },
+    {
+      "nodes": 384,
+      "runtimeMs": 5367.066124999999,
+      "heroValue": 22256.003053721568,
+      "heroDifferenceVs1536": -0.02324067002700758,
+      "maxAbsDollarDifference": 0.45435635549074505,
+      "maxAbsPlayerIndex": 1,
+      "rmseDollarDifference": 0.05867671223693215,
+      "maxRelativeDifference": 0.000005142978046364706
+    },
+    {
+      "nodes": 768,
+      "runtimeMs": 10685.504124999998,
+      "heroValue": 22256.026294473657,
+      "heroDifferenceVs1536": 8.206188795156777e-8,
+      "maxAbsDollarDifference": 0.000001524880644865334,
+      "maxAbsPlayerIndex": 1,
+      "rmseDollarDifference": 2.004297170229163e-7,
+      "maxRelativeDifference": 1.7260521582004402e-11
+    },
+    {
+      "nodes": 1536,
+      "runtimeMs": 21359.97275,
+      "heroValue": 22256.026294391595,
+      "heroDifferenceVs1536": 0,
+      "maxAbsDollarDifference": 0,
+      "maxAbsPlayerIndex": 1,
+      "rmseDollarDifference": 0,
+      "maxRelativeDifference": 0
+    }
+  ]
+}

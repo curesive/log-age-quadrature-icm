@@ -1,0 +1,608 @@
+{
+  "schema": "log-age-quadrature-icm-paper-results",
+  "schemaVersion": 1,
+  "artifactCreatedAt": "2026-07-27T22:21:39Z",
+  "paper": {
+    "title": "Log-Age Quadrature ICM: Fast Deterministic Dollar Equity for Poker Tournaments",
+    "version": "1.0.0",
+    "status": "preprint draft"
+  },
+  "selectionPolicy": {
+    "canonical": true,
+    "purpose": "Record the exact numerical values and benchmark measurements selected for the manuscript.",
+    "deterministicValues": "Copied from the checked-in solver result artifacts identified below.",
+    "paperTimings": "Recorded aggregate measurements selected from the manuscript results worksheet. Later reruns may differ because benchmark time depends on system state.",
+    "rawTimingSamples": "Available where present in a source artifact; otherwise only the selected aggregate measurement was retained."
+  },
+  "environment": {
+    "cpu": "Apple M3 Ultra",
+    "architecture": "arm64",
+    "logicalCpuCount": 28,
+    "memoryBytes": 103079215104,
+    "nodeVersion": "v24.16.0",
+    "execution": "single Node.js process; no worker threads or GPU"
+  },
+  "solverSettings": {
+    "standard": {
+      "logAgeNodeCount": 192,
+      "logAgePanelCount": 32,
+      "tailTolerance": 1e-12
+    },
+    "convergenceReference": {
+      "logAgeNodeCount": 1536,
+      "logAgePanelCount": 32,
+      "tailTolerance": 1e-12,
+      "exactReference": false
+    }
+  },
+  "sourceArtifacts": [
+    {
+      "id": "core-validation",
+      "path": "research/results/core_validation_results.json",
+      "role": "Nine-player exact values and 522-player comparison values",
+      "sha256": "20d42d201bb7fa94792e2a2db7933589f092d059ce5f667c51ebdee63562a964"
+    },
+    {
+      "id": "nine-player-monte-carlo",
+      "path": "research/results/nine_player_monte_carlo_1m.json",
+      "role": "Nine-player Monte Carlo estimates and uncertainty",
+      "sha256": "bd0967c62e650c29304b198111d0bde266c25954f9ed37b8d5b7b26bc3f19181"
+    },
+    {
+      "id": "main-event-stress",
+      "path": "research/results/main_event_stress_4000.json",
+      "role": "Four-thousand-player fixture metadata and normalized LAQI values",
+      "sha256": "2d05ecb3b20d5861fe3600b2d102d1914d847876adabcca38b9dc50680029457"
+    },
+    {
+      "id": "main-event-convergence",
+      "path": "research/results/main_event_stress_4000_convergence.json",
+      "role": "Four-thousand-player node-count convergence comparison",
+      "sha256": "d0eb58f64eb189cbdf94ba56d03f1b2bf203af5ec94aa402435e78a81ef81349"
+    },
+    {
+      "id": "full-field-monte-carlo-522",
+      "path": "research/results/serial_full_field_monte_carlo_522_1m.json",
+      "role": "Supplemental serial full-field Monte Carlo timing benchmark",
+      "sha256": "aa524bdd4dd15da4520d7878ae49400a9e1f4372d1a48a9b9fa59dd4f746193c"
+    }
+  ],
+  "results": {
+    "table1NinePlayerExactAccuracy": {
+      "playersRemaining": 9,
+      "chipCounts": [
+        1500000,
+        900000,
+        700000,
+        500000,
+        400000,
+        350000,
+        300000,
+        250000,
+        100000
+      ],
+      "payouts": [
+        180000,
+        150000,
+        120000,
+        90000,
+        70000,
+        55000,
+        45000,
+        38000,
+        32000
+      ],
+      "activePrizePool": 780000,
+      "rows": [
+        {
+          "playerIndex": 1,
+          "chips": 1500000,
+          "laqi192Value": 132036.56256461982,
+          "exactMalmuthHarvilleValue": 132036.56256462124,
+          "signedDollarDifference": -1.4260876923799515e-9,
+          "absoluteDollarDifference": 1.4260876923799515e-9
+        },
+        {
+          "playerIndex": 2,
+          "chips": 900000,
+          "laqi192Value": 111705.71638965665,
+          "exactMalmuthHarvilleValue": 111705.71638965656,
+          "signedDollarDifference": 8.731149137020111e-11,
+          "absoluteDollarDifference": 8.731149137020111e-11
+        },
+        {
+          "playerIndex": 3,
+          "chips": 700000,
+          "laqi192Value": 101729.08634054984,
+          "exactMalmuthHarvilleValue": 101729.08634054984,
+          "signedDollarDifference": 0,
+          "absoluteDollarDifference": 0
+        },
+        {
+          "playerIndex": 4,
+          "chips": 500000,
+          "laqi192Value": 89047.48638311883,
+          "exactMalmuthHarvilleValue": 89047.48638311877,
+          "signedDollarDifference": 5.820766091346741e-11,
+          "absoluteDollarDifference": 5.820766091346741e-11
+        },
+        {
+          "playerIndex": 5,
+          "chips": 400000,
+          "laqi192Value": 81290.13148848827,
+          "exactMalmuthHarvilleValue": 81290.13148848776,
+          "signedDollarDifference": 5.093170329928398e-10,
+          "absoluteDollarDifference": 5.093170329928398e-10
+        },
+        {
+          "playerIndex": 6,
+          "chips": 350000,
+          "laqi192Value": 76947.22478496075,
+          "exactMalmuthHarvilleValue": 76947.22478496056,
+          "signedDollarDifference": 1.8917489796876907e-10,
+          "absoluteDollarDifference": 1.8917489796876907e-10
+        },
+        {
+          "playerIndex": 7,
+          "chips": 300000,
+          "laqi192Value": 72232.68096799898,
+          "exactMalmuthHarvilleValue": 72232.68096799942,
+          "signedDollarDifference": -4.3655745685100555e-10,
+          "absoluteDollarDifference": 4.3655745685100555e-10
+        },
+        {
+          "playerIndex": 8,
+          "chips": 250000,
+          "laqi192Value": 67082.9157592349,
+          "exactMalmuthHarvilleValue": 67082.91575923478,
+          "signedDollarDifference": 1.1641532182693481e-10,
+          "absoluteDollarDifference": 1.1641532182693481e-10
+        },
+        {
+          "playerIndex": 9,
+          "chips": 100000,
+          "laqi192Value": 47928.19532137186,
+          "exactMalmuthHarvilleValue": 47928.19532137181,
+          "signedDollarDifference": 5.093170329928398e-11,
+          "absoluteDollarDifference": 5.093170329928398e-11
+        }
+      ],
+      "summary": {
+        "errors": [
+          -1.4260876923799515e-9,
+          8.731149137020111e-11,
+          0,
+          5.820766091346741e-11,
+          5.093170329928398e-10,
+          1.8917489796876907e-10,
+          -4.3655745685100555e-10,
+          1.1641532182693481e-10,
+          5.093170329928398e-11
+        ],
+        "maxAbsDollarError": 1.4260876923799515e-9,
+        "meanAbsDollarError": 3.1933369528916145e-10,
+        "rootMeanSquareDollarError": 5.319416734399926e-10,
+        "maxRelativeError": 1.0800702961969316e-14
+      }
+    },
+    "table2NinePlayerAccuracyAndTime": {
+      "timing": {
+        "laqi192FullField": {
+          "timeMs": 0.106,
+          "basis": "median after warm-up",
+          "timeDividedByLaqi": 1
+        },
+        "exactMalmuthHarvilleFullField": {
+          "timeMs": 42.878,
+          "basis": "median after warm-up",
+          "timeDividedByLaqi": 404.4
+        },
+        "serialMonteCarloFullField": {
+          "trials": 1000000,
+          "timeMs": 360.487,
+          "basis": "one complete serial run",
+          "timeDividedByLaqi": 3399.5
+        }
+      },
+      "laqiErrorVsExact": {
+        "errors": [
+          -1.4260876923799515e-9,
+          8.731149137020111e-11,
+          0,
+          5.820766091346741e-11,
+          5.093170329928398e-10,
+          1.8917489796876907e-10,
+          -4.3655745685100555e-10,
+          1.1641532182693481e-10,
+          5.093170329928398e-11
+        ],
+        "maxAbsDollarError": 1.4260876923799515e-9,
+        "meanAbsDollarError": 3.1933369528916145e-10,
+        "rootMeanSquareDollarError": 5.319416734399926e-10,
+        "maxRelativeError": 1.0800702961969316e-14
+      },
+      "monteCarloErrorVsExact": {
+        "maxAbsDollarError": 55.029488487765775,
+        "rootMeanSquareDollarError": 29.753246502188563,
+        "maxRelativeAbsoluteError": 0.0006769516481291337,
+        "ci95Coverage": "9/9",
+        "minimumMargin95": 61.82045246704044,
+        "maximumMargin95": 92.53403111523093
+      },
+      "monteCarloPlayers": [
+        {
+          "playerIndex": 1,
+          "chips": 1500000,
+          "exactValue": 132036.56256462124,
+          "mean": 132069.223,
+          "error": 32.66043537875521,
+          "absoluteError": 32.66043537875521,
+          "relativeAbsoluteError": 0.000247359024988026,
+          "standardError": 42.81545683908577,
+          "margin95": 83.9182954046081,
+          "ci95Low": 131985.3047045954,
+          "ci95High": 132153.1412954046,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            132051.112,
+            132087.334
+          ]
+        },
+        {
+          "playerIndex": 2,
+          "chips": 900000,
+          "exactValue": 111705.71638965656,
+          "mean": 111671.995,
+          "error": -33.721389656566316,
+          "absoluteError": 33.721389656566316,
+          "relativeAbsoluteError": 0.0003018770278410637,
+          "standardError": 46.691404388893865,
+          "margin95": 91.51515260223198,
+          "ci95Low": 111580.47984739776,
+          "ci95High": 111763.51015260223,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            111688.458,
+            111655.532
+          ]
+        },
+        {
+          "playerIndex": 3,
+          "chips": 700000,
+          "exactValue": 101729.08634054984,
+          "mean": 101747.334,
+          "error": 18.247659450164065,
+          "absoluteError": 18.247659450164065,
+          "relativeAbsoluteError": 0.0001793750450984876,
+          "standardError": 47.21124036491374,
+          "margin95": 92.53403111523093,
+          "ci95Low": 101654.79996888478,
+          "ci95High": 101839.86803111523,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            101734.536,
+            101760.132
+          ]
+        },
+        {
+          "playerIndex": 4,
+          "chips": 500000,
+          "exactValue": 89047.48638311877,
+          "mean": 89088.764,
+          "error": 41.277616881227004,
+          "absoluteError": 41.277616881227004,
+          "relativeAbsoluteError": 0.0004635461208150647,
+          "standardError": 46.670480446274055,
+          "margin95": 91.47414167469715,
+          "ci95Low": 88997.2898583253,
+          "ci95High": 89180.2381416747,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            89051.548,
+            89125.98
+          ]
+        },
+        {
+          "playerIndex": 5,
+          "chips": 400000,
+          "exactValue": 81290.13148848776,
+          "mean": 81235.102,
+          "error": -55.029488487765775,
+          "absoluteError": 55.029488487765775,
+          "relativeAbsoluteError": 0.0006769516481291337,
+          "standardError": 45.485797299897385,
+          "margin95": 89.15216270779888,
+          "ci95Low": 81145.9498372922,
+          "ci95High": 81324.2541627078,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            81165.69,
+            81304.514
+          ]
+        },
+        {
+          "playerIndex": 6,
+          "chips": 350000,
+          "exactValue": 76947.22478496056,
+          "mean": 76923.826,
+          "error": -23.398784960561898,
+          "absoluteError": 23.398784960561898,
+          "relativeAbsoluteError": 0.00030408874427834105,
+          "standardError": 44.56056948879892,
+          "margin95": 87.33871619804587,
+          "ci95Low": 76836.48728380195,
+          "ci95High": 77011.16471619805,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            76953.94,
+            76893.712
+          ]
+        },
+        {
+          "playerIndex": 7,
+          "chips": 300000,
+          "exactValue": 72232.68096799942,
+          "mean": 72237.183,
+          "error": 4.502032000586041,
+          "absoluteError": 4.502032000586041,
+          "relativeAbsoluteError": 0.00006232680194413017,
+          "standardError": 43.32217741567899,
+          "margin95": 84.91146773473082,
+          "ci95Low": 72152.27153226528,
+          "ci95High": 72322.09446773473,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            72235.512,
+            72238.854
+          ]
+        },
+        {
+          "playerIndex": 8,
+          "chips": 250000,
+          "exactValue": 67082.91575923478,
+          "mean": 67093.002,
+          "error": 10.086240765216644,
+          "absoluteError": 10.086240765216644,
+          "relativeAbsoluteError": 0.00015035483552052,
+          "standardError": 41.6594908051115,
+          "margin95": 81.65260197801854,
+          "ci95Low": 67011.34939802198,
+          "ci95High": 67174.654601978,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            67144.132,
+            67041.872
+          ]
+        },
+        {
+          "playerIndex": 9,
+          "chips": 100000,
+          "exactValue": 47928.19532137181,
+          "mean": 47933.571,
+          "error": 5.375678628195601,
+          "absoluteError": 5.375678628195601,
+          "relativeAbsoluteError": 0.00011216108998367639,
+          "standardError": 31.54104717706145,
+          "margin95": 61.82045246704044,
+          "ci95Low": 47871.75054753296,
+          "ci95High": 47995.39145246705,
+          "exactInsideCi95": true,
+          "batchMeans": [
+            47975.072,
+            47892.07
+          ]
+        }
+      ]
+    },
+    "table3FiveHundredTwentyTwoPlayerComparison": {
+      "fixtureId": "wsop-2025-main-event-snapshot-522",
+      "playersRemaining": 522,
+      "activePayoutRows": 522,
+      "monteCarloTrials": 3000000,
+      "rows": [
+        {
+          "playerIndex": 1,
+          "chips": 4195000,
+          "laqi192FullFieldValue": 366030.62433171266,
+          "monteCarloMean": 366112.59975,
+          "monteCarloMinusLaqi": 81.97541828732938,
+          "monteCarloStandardError": 620.1853435811745,
+          "monteCarloCi95Low": 364897.0364765809,
+          "monteCarloCi95High": 367328.1630234191,
+          "laqiInsideMonteCarloCi95": true
+        },
+        {
+          "playerIndex": 261,
+          "chips": 925000,
+          "laqi192FullFieldValue": 122809.40528326013,
+          "monteCarloMean": 122867.0375,
+          "monteCarloMinusLaqi": 57.63221673987573,
+          "monteCarloStandardError": 302.3805701403258,
+          "monteCarloCi95Low": 122274.37158252497,
+          "monteCarloCi95High": 123459.70341747504,
+          "laqiInsideMonteCarloCi95": true
+        },
+        {
+          "playerIndex": 522,
+          "chips": 120000,
+          "laqi192FullFieldValue": 46039.195995755676,
+          "monteCarloMean": 45891.691333333336,
+          "monteCarloMinusLaqi": -147.5046624223396,
+          "monteCarloStandardError": 108.82237595433678,
+          "monteCarloCi95Low": 45678.39947646284,
+          "monteCarloCi95High": 46104.983190203835,
+          "laqiInsideMonteCarloCi95": true
+        }
+      ],
+      "timing": {
+        "laqi192SelectedThree": {
+          "timeMs": 40.462,
+          "basis": "median after warm-up",
+          "output": "three target-only calculations",
+          "timeDividedBySelectedLaqi": 1
+        },
+        "serialMonteCarloSelectedThree": {
+          "timeMs": 34658.816,
+          "basis": "one complete serial run",
+          "output": "three selected players",
+          "trials": 3000000,
+          "timeDividedBySelectedLaqi": 856.6
+        },
+        "laqi192FullField": {
+          "timeMs": 103.271,
+          "basis": "median after warm-up",
+          "output": "all 522 players"
+        }
+      },
+      "valueNote": "Displayed LAQI values are normalized full-field values. Target-only timing is reported separately and does not change the displayed values."
+    },
+    "table4FourThousandPlayerStress": {
+      "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
+      "totalEntrants": 9208,
+      "playersRemaining": 4000,
+      "activePayoutRows": 1383,
+      "totalPrizePool": 85634400,
+      "chipLeaderStack": 700000,
+      "averageStack": 138120,
+      "timing": {
+        "laqi192FullFieldMedianMs": 2470.660083,
+        "laqi192SelectedAverageStackMedianMs": 462.647459,
+        "fullFieldTimeDividedBySelectedPlayerTime": 5.340265108859055,
+        "fullFieldBasis": "median of five measurements after one warm-up",
+        "selectedPlayerBasis": "median of five measurements after one warm-up"
+      },
+      "representativeFullFieldResults": [
+        {
+          "playerIndex": 1,
+          "chips": 700000,
+          "chipFraction": 0.0012670141905589342,
+          "equity": 0.0010327018817183238,
+          "value": 88434.80601981963
+        },
+        {
+          "playerIndex": 1566,
+          "chips": 138120,
+          "chipFraction": 0.00025,
+          "equity": 0.0002598400824921813,
+          "value": 22251.24956016845
+        },
+        {
+          "playerIndex": 4000,
+          "chips": 2115,
+          "chipFraction": 0.000003828192875760208,
+          "equity": 0.000004347350177270286,
+          "value": 372.28272402043456
+        }
+      ],
+      "convergence": {
+        "referenceNodes": 1536,
+        "exactReference": false,
+        "note": "Self-convergence comparison; 1536 nodes is not an exact reference.",
+        "chipLeaderComparison": {
+          "playerIndex": 1,
+          "chips": 700000,
+          "valueAt192Nodes": 88434.80601981963,
+          "valueAt1536Nodes": 88344.9922194214,
+          "absoluteDollarDifference": 89.81380039823125,
+          "relativeDifferenceFraction": 0.0010166258227196601,
+          "relativeDifferencePercent": 0.10166258227196602
+        },
+        "runs": [
+          {
+            "nodes": 192,
+            "runtimeMs": 2916.0849160000002,
+            "heroValue": 22251.24956016845,
+            "heroDifferenceVs1536": -4.776734223145468,
+            "maxAbsDollarDifference": 89.81380039823125,
+            "maxAbsPlayerIndex": 1,
+            "rmseDollarDifference": 11.783437335125994,
+            "maxRelativeDifference": 0.0010166258227196601,
+            "maxRelativeDifferencePercent": 0.10166258227196602
+          },
+          {
+            "nodes": 384,
+            "runtimeMs": 5367.066124999999,
+            "heroValue": 22256.003053721568,
+            "heroDifferenceVs1536": -0.02324067002700758,
+            "maxAbsDollarDifference": 0.45435635549074505,
+            "maxAbsPlayerIndex": 1,
+            "rmseDollarDifference": 0.05867671223693215,
+            "maxRelativeDifference": 0.000005142978046364706,
+            "maxRelativeDifferencePercent": 0.0005142978046364706
+          },
+          {
+            "nodes": 768,
+            "runtimeMs": 10685.504124999998,
+            "heroValue": 22256.026294473657,
+            "heroDifferenceVs1536": 8.206188795156777e-8,
+            "maxAbsDollarDifference": 0.000001524880644865334,
+            "maxAbsPlayerIndex": 1,
+            "rmseDollarDifference": 2.004297170229163e-7,
+            "maxRelativeDifference": 1.7260521582004402e-11,
+            "maxRelativeDifferencePercent": 1.7260521582004402e-9
+          },
+          {
+            "nodes": 1536,
+            "runtimeMs": 21359.97275,
+            "heroValue": 22256.026294391595,
+            "heroDifferenceVs1536": 0,
+            "maxAbsDollarDifference": 0,
+            "maxAbsPlayerIndex": 1,
+            "rmseDollarDifference": 0,
+            "maxRelativeDifference": 0,
+            "maxRelativeDifferencePercent": 0
+          }
+        ]
+      }
+    },
+    "supplementalFullFieldMonteCarlo522": {
+      "purpose": "Support the manuscript's separate full-field runtime comparison.",
+      "fixtureId": "wsop-2025-main-event-snapshot-522",
+      "playersRemaining": 522,
+      "monteCarlo": {
+        "trials": 1000000,
+        "timeMs": 68574.69687500001,
+        "output": "all 522 players",
+        "method": "serial exponential-race Monte Carlo with full finish-order sorting"
+      },
+      "laqi192FullField": {
+        "medianMs": 109.035708,
+        "warmups": 3,
+        "samples": 21
+      },
+      "monteCarloTimeDividedByLaqi": 628.9196276416163,
+      "representativePlayers": [
+        {
+          "playerIndex": 1,
+          "chips": 4195000,
+          "mean": 366008.22875,
+          "standardError": 1076.0074148484644,
+          "margin95": 2108.97453310299,
+          "ci95Low": 363899.254216897,
+          "ci95High": 368117.203283103,
+          "laqi192Value": 366030.62433171266
+        },
+        {
+          "playerIndex": 261,
+          "chips": 925000,
+          "mean": 122313.157,
+          "standardError": 520.0259294721155,
+          "margin95": 1019.2508217653465,
+          "ci95Low": 121293.90617823465,
+          "ci95High": 123332.40782176536,
+          "laqi192Value": 122809.40528326013
+        },
+        {
+          "playerIndex": 522,
+          "chips": 120000,
+          "mean": 45907.63,
+          "standardError": 190.25776180007452,
+          "margin95": 372.90521312814604,
+          "ci95Low": 45534.72478687185,
+          "ci95High": 46280.53521312815,
+          "laqi192Value": 46039.195995755676
+        }
+      ]
+    }
+  }
+}

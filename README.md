@@ -74,6 +74,7 @@ For each player, Log-Age Quadrature ICM maps chip share to a relative exponentia
 The checked-in research artifacts reproduce the four comparisons used for the paper:
 
 ```sh
+npm run research:build-paper-results
 npm run research:validate
 npm run research:validate-nine-player-mc
 npm run research:benchmark-522-full-field-mc
@@ -82,13 +83,18 @@ npm run research:stress-main-event
 
 - `research/results/core_validation_tables.md`: concise tables for the 9-player exact comparison, 9-player method comparison, 522-player comparison, and 4,000-player stress test.
 - `research/results/core_validation_results.json`: complete machine-readable output from the combined validation run.
+- `research/results/paper_results_v1_0_0.json`: canonical record of the exact values and benchmark measurements selected for manuscript version 1.0.0.
 - `research/results/nine_player_monte_carlo_1m.json`: detailed 1-million-trial 9-player Monte Carlo output.
 - `research/results/serial_full_field_monte_carlo_522_1m.json`: complete reproducible output for the 1-million-trial serial full-field Monte Carlo benchmark.
 - `research/results/serial_full_field_monte_carlo_522_1m.md`: concise paper-ready summary of the same full-field benchmark.
 - `research/fixtures/wsop-2026-main-event-4000.json`: the complete 4,000-player chip and payout input.
 - `research/results/main_event_stress_4000.json`: detailed 4,000-player LAQI benchmark output.
+- `research/results/main_event_stress_4000_convergence.json`: saved 192-, 384-, 768-, and 1,536-node full-field convergence comparison.
 
 Benchmark times depend on the machine and current system load. The saved files record the machine and runtime details for their measured runs.
+The canonical paper-results file intentionally preserves the aggregate timing
+measurements selected for the manuscript instead of replacing them with the
+most recent rerun.
 
 The supplemental serial full-field benchmark used the bundled 522-player
 example and returned values for every player. On the recorded Apple M3 Ultra
