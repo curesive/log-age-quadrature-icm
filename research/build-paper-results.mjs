@@ -64,6 +64,12 @@ const paperTimings = {
   fourThousandPlayer: {
     laqi192FullFieldMedianMs: 2470.660083,
     laqi192SelectedAverageStackMedianMs: 462.647459,
+    convergenceRuntimeMsByNode: {
+      192: 2916.0849160000002,
+      384: 5367.066124999999,
+      768: 10685.504124999998,
+      1536: 21359.97275,
+    },
   },
 };
 
@@ -281,6 +287,9 @@ const artifact = {
         },
         runs: convergence.runs.map((run) => ({
           ...run,
+          runtimeMs:
+            paperTimings.fourThousandPlayer.convergenceRuntimeMsByNode[run.nodes] ??
+            run.runtimeMs,
           maxRelativeDifferencePercent: run.maxRelativeDifference * 100,
         })),
       },

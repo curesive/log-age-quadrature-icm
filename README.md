@@ -160,9 +160,21 @@ measurements will vary with the machine and current system load.
 | Table 2, nine-player accuracy and timing | `npm run research:validate` | `research/results/core_validation_tables.md` |
 | Table 2, focused one-million-trial Monte Carlo output | `npm run research:validate-nine-player-mc` | `research/results/nine_player_monte_carlo_1m.json` |
 | Table 3, 522-player LAQI and three-player Monte Carlo comparison | `npm run research:validate` | `research/results/core_validation_results.json` |
-| Table 4, 4,000-player timing and values | `npm run research:stress-main-event` | `research/results/main_event_stress_4000.json` |
+| Table 4, 4,000-player full-field and average-stack target-only timing | `npm run research:stress-main-event` | `research/results/main_event_stress_4000.json` |
 | Table 4, 192/384/768/1,536-node convergence | `npm run research:convergence-main-event` | `research/results/main_event_stress_4000_convergence.json` |
 | Supplemental 522-player full-field serial Monte Carlo | `npm run research:benchmark-522-full-field-mc` | `research/results/serial_full_field_monte_carlo_522_1m.json` |
+| Supplemental 3-13 player exact sweep and 522-player node convergence | `npm run research:sweep-node-accuracy` | `research/results/node_count_accuracy_sweep.json` |
+
+The node-count sweep also writes a readable Markdown table and a standalone
+522-player convergence file:
+
+- `research/results/node_count_accuracy_sweep_tables.md`
+- `research/results/wsop_2025_main_event_522_node_convergence.json`
+
+The 3-13 player portion uses 100 deterministic stack and payout cases at every
+field size and compares 192- and 1,536-node LAQI with a 50-decimal exact
+Malmuth-Harville subset calculation. The 522-player portion is a self-convergence
+comparison against 6,144 nodes, not an exact-ICM claim.
 
 `npm run research:validate` uses one million Monte Carlo trials for the
 nine-player example and three million trials for the three selected players in

@@ -52,13 +52,13 @@
       "id": "main-event-stress",
       "path": "research/results/main_event_stress_4000.json",
       "role": "Four-thousand-player fixture metadata and normalized LAQI values",
-      "sha256": "2d05ecb3b20d5861fe3600b2d102d1914d847876adabcca38b9dc50680029457"
+      "sha256": "ad501a88bb40c1842d35c634b0e476cc3e2d2d17c6ad8e13c2e8eaf99aa311e3"
     },
     {
       "id": "main-event-convergence",
       "path": "research/results/main_event_stress_4000_convergence.json",
       "role": "Four-thousand-player node-count convergence comparison",
-      "sha256": "d0eb58f64eb189cbdf94ba56d03f1b2bf203af5ec94aa402435e78a81ef81349"
+      "sha256": "464291e337f7f1bdad0f7a21802ddefaef3a14ee5355addc660a6c55124804d4"
     },
     {
       "id": "full-field-monte-carlo-522",
@@ -510,6 +510,7 @@
         "runs": [
           {
             "nodes": 192,
+            "actualNodes": 192,
             "runtimeMs": 2916.0849160000002,
             "heroValue": 22251.24956016845,
             "heroDifferenceVs1536": -4.776734223145468,
@@ -521,6 +522,7 @@
           },
           {
             "nodes": 384,
+            "actualNodes": 384,
             "runtimeMs": 5367.066124999999,
             "heroValue": 22256.003053721568,
             "heroDifferenceVs1536": -0.02324067002700758,
@@ -532,6 +534,7 @@
           },
           {
             "nodes": 768,
+            "actualNodes": 768,
             "runtimeMs": 10685.504124999998,
             "heroValue": 22256.026294473657,
             "heroDifferenceVs1536": 8.206188795156777e-8,
@@ -543,6 +546,7 @@
           },
           {
             "nodes": 1536,
+            "actualNodes": 1536,
             "runtimeMs": 21359.97275,
             "heroValue": 22256.026294391595,
             "heroDifferenceVs1536": 0,

@@ -1,4 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
+import { cpus, totalmem } from "node:os";
 import { performance } from "node:perf_hooks";
 import { resolve } from "node:path";
 import { solveLogAgeQuadratureIcm } from "../src/log-age-quadrature-icm.js";
@@ -70,6 +71,20 @@ for (const logAgeNodeCount of nodeCounts) {
 const referenceRun = measuredRuns.at(-1);
 const output = {
   generatedAt: new Date().toISOString(),
+  machine: {
+    platform: process.platform,
+    architecture: process.arch,
+    cpu: cpus()[0]?.model || "unknown",
+    logicalCpuCount: cpus().length,
+    memoryBytes: totalmem(),
+    nodeVersion: process.version,
+    execution: "single Node.js process; no worker threads or GPU",
+  },
+  settings: {
+    requestedNodeCounts: nodeCounts,
+    panelCount,
+    tailTolerance,
+  },
   fixtureId: fixture.id,
   players: fixture.chipCounts.length,
   paidRanks: fixture.payouts.length,

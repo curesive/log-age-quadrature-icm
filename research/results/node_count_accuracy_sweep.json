@@ -1,0 +1,1534 @@
+{
+  "generatedAt": "2026-07-27T22:43:13.524Z",
+  "machine": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M3 Ultra",
+    "logicalCpuCount": 28,
+    "memoryBytes": 103079215104,
+    "nodeVersion": "v24.16.0",
+    "execution": "single Node.js process; no worker threads or GPU"
+  },
+  "design": {
+    "playerRange": [
+      3,
+      13
+    ],
+    "casesPerPlayerCount": 100,
+    "totalPlayerValuesCompared": 8800,
+    "prizePoolDollars": 1000000,
+    "exactMethod": "Malmuth-Harville finish-order recursion aggregated by prior-finisher subset using 50-decimal fixed-point arithmetic",
+    "stackCases": "one fixed realistic descending stack list plus seeded log-normal families with sigma 0.25 to 2.0",
+    "payoutCases": "positive descending power-law payout curves normalized to a $1,000,000 active prize pool",
+    "seed": 445718566,
+    "laqi": {
+      "nodeCounts": [
+        192,
+        1536
+      ],
+      "panelCount": 32,
+      "tailTolerance": 1e-12
+    },
+    "directFinishOrderCrossCheckThroughPlayers": 9,
+    "directCrossCheckMaxAbsDollarError": 5.386266674e-41
+  },
+  "summaries": [
+    {
+      "playerCount": 3,
+      "cases": 100,
+      "valuesCompared": 300,
+      "exactPrizePoolResidual": 3.67793e-44,
+      "error192VsExact": {
+        "comparisonCount": 300,
+        "maxAbsDollarError": 1.1059455573558807e-9,
+        "rootMeanSquareDollarError": 3.161887075219877e-10,
+        "maxRelativeError": 2.9161530205690173e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 3,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447
+          ],
+          "payouts": [
+            535296,
+            272425,
+            192279
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 523305.83892867476,
+          "approximateValue": 523305.83892867365,
+          "dollarError": -1.1059455573558807e-9,
+          "relativeError": 2.1133827966070492e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 300,
+        "maxAbsDollarError": 1.6298145055770874e-9,
+        "rootMeanSquareDollarError": 4.622319916000863e-10,
+        "maxRelativeError": 4.424348164332378e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 3,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447
+          ],
+          "payouts": [
+            535296,
+            272425,
+            192279
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 523305.83892867476,
+          "approximateValue": 523305.8389286731,
+          "dollarError": -1.6298145055770874e-9,
+          "relativeError": 3.114458858157757e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 300,
+        "maxAbsDollarError": 1.280568540096283e-9,
+        "rootMeanSquareDollarError": 4.1802935770694046e-10,
+        "maxRelativeError": 4.8329739036484685e-15,
+        "worst": {
+          "caseIndex": 99,
+          "playerCount": 3,
+          "chipCounts": [
+            13283413,
+            5142358,
+            3271898
+          ],
+          "payouts": [
+            542455,
+            268532,
+            189013
+          ],
+          "stackSigma": 2,
+          "payoutExponent": 1.238992636615876,
+          "payoutFloorWeight": 0.14132222703192382,
+          "playerIndex": 3,
+          "exactValue": 264964.9192455947,
+          "approximateValue": 264964.919245596,
+          "dollarError": 1.280568540096283e-9,
+          "relativeError": 4.8329739036484685e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 0.6841580000000018,
+        "laqi192": 5.874871000000006,
+        "laqi1536": 34.83691800000007
+      }
+    },
+    {
+      "playerCount": 4,
+      "cases": 100,
+      "valuesCompared": 400,
+      "exactPrizePoolResidual": 9.800306e-44,
+      "error192VsExact": {
+        "comparisonCount": 400,
+        "maxAbsDollarError": 1.1059455573558807e-9,
+        "rootMeanSquareDollarError": 2.664192999719469e-10,
+        "maxRelativeError": 2.7946627696645273e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 4,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707
+          ],
+          "payouts": [
+            463726,
+            236001,
+            166571,
+            133702
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 449498.3164657235,
+          "approximateValue": 449498.3164657224,
+          "dollarError": -1.1059455573558807e-9,
+          "relativeError": 2.4603997764699405e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 400,
+        "maxAbsDollarError": 9.89530235528946e-10,
+        "rootMeanSquareDollarError": 3.633931122893134e-10,
+        "maxRelativeError": 4.222050195421826e-15,
+        "worst": {
+          "caseIndex": 21,
+          "playerCount": 4,
+          "chipCounts": [
+            1142351,
+            622829,
+            449220,
+            445985
+          ],
+          "payouts": [
+            508351,
+            229237,
+            149386,
+            113026
+          ],
+          "stackSigma": 0.6212121212121212,
+          "payoutExponent": 1.2641022249474192,
+          "payoutFloorWeight": 0.06298954028170556,
+          "playerIndex": 1,
+          "exactValue": 324979.7660271036,
+          "approximateValue": 324979.7660271026,
+          "dollarError": -9.89530235528946e-10,
+          "relativeError": 3.0448979874224485e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 400,
+        "maxAbsDollarError": 1.1641532182693481e-9,
+        "rootMeanSquareDollarError": 3.4485275958661514e-10,
+        "maxRelativeError": 5.100936354573231e-15,
+        "worst": {
+          "caseIndex": 66,
+          "playerCount": 4,
+          "chipCounts": [
+            1505884,
+            1503363,
+            1181265,
+            879177
+          ],
+          "payouts": [
+            479907,
+            224004,
+            161103,
+            134986
+          ],
+          "stackSigma": 1.4166666666666665,
+          "payoutExponent": 1.5234366567921827,
+          "payoutFloorWeight": 0.22299583337735385,
+          "playerIndex": 1,
+          "exactValue": 268579.8306332184,
+          "approximateValue": 268579.83063321724,
+          "dollarError": -1.1641532182693481e-9,
+          "relativeError": 4.334477445773487e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 0.6256610000000649,
+        "laqi192": 4.433499000000019,
+        "laqi1536": 32.08333699999995
+      }
+    },
+    {
+      "playerCount": 5,
+      "cases": 100,
+      "valuesCompared": 500,
+      "exactPrizePoolResidual": 2.1610793999999997e-43,
+      "error192VsExact": {
+        "comparisonCount": 500,
+        "maxAbsDollarError": 9.313225746154785e-10,
+        "rootMeanSquareDollarError": 2.2209674397287814e-10,
+        "maxRelativeError": 3.5196684088589306e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 5,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213
+          ],
+          "payouts": [
+            415989,
+            211707,
+            149424,
+            119939,
+            102941
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 400285.1220953423,
+          "approximateValue": 400285.1220953414,
+          "dollarError": -9.313225746154785e-10,
+          "relativeError": 2.3266479896638538e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 500,
+        "maxAbsDollarError": 1.0477378964424133e-9,
+        "rootMeanSquareDollarError": 3.180650563254589e-10,
+        "maxRelativeError": 5.471350532714807e-15,
+        "worst": {
+          "caseIndex": 78,
+          "playerCount": 5,
+          "chipCounts": [
+            26717974,
+            4792193,
+            1866020,
+            1639545,
+            1330941
+          ],
+          "payouts": [
+            411651,
+            215017,
+            151416,
+            120198,
+            101718
+          ],
+          "stackSigma": 1.6287878787878787,
+          "payoutExponent": 1.0522495204466396,
+          "payoutFloorWeight": 0.08397889418993146,
+          "playerIndex": 1,
+          "exactValue": 356117.5667851892,
+          "approximateValue": 356117.56678518816,
+          "dollarError": -1.0477378964424133e-9,
+          "relativeError": 2.942112364466454e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 500,
+        "maxAbsDollarError": 9.022187441587448e-10,
+        "rootMeanSquareDollarError": 2.6784222121932713e-10,
+        "maxRelativeError": 4.536011735440891e-15,
+        "worst": {
+          "caseIndex": 75,
+          "playerCount": 5,
+          "chipCounts": [
+            1198272,
+            1107448,
+            991022,
+            914112,
+            840332
+          ],
+          "payouts": [
+            390687,
+            214289,
+            156447,
+            127815,
+            110762
+          ],
+          "stackSigma": 1.5757575757575757,
+          "payoutExponent": 1.0284857313265092,
+          "payoutFloorWeight": 0.129056670027785,
+          "playerIndex": 3,
+          "exactValue": 198901.32494797237,
+          "approximateValue": 198901.32494797328,
+          "dollarError": 9.022187441587448e-10,
+          "relativeError": 4.536011735440891e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 1.1872049999999774,
+        "laqi192": 5.468505000000036,
+        "laqi1536": 40.68537299999977
+      }
+    },
+    {
+      "playerCount": 6,
+      "cases": 100,
+      "valuesCompared": 600,
+      "exactPrizePoolResidual": 4.8885961999999995e-43,
+      "error192VsExact": {
+        "comparisonCount": 600,
+        "maxAbsDollarError": 8.731149137020111e-10,
+        "rootMeanSquareDollarError": 2.0863863963940755e-10,
+        "maxRelativeError": 3.8257606131859875e-15,
+        "worst": {
+          "caseIndex": 58,
+          "playerCount": 6,
+          "chipCounts": [
+            9372214,
+            2530240,
+            1792487,
+            752085,
+            409259,
+            356652
+          ],
+          "payouts": [
+            381923,
+            190008,
+            135041,
+            109996,
+            95953,
+            87079
+          ],
+          "stackSigma": 1.2752525252525253,
+          "payoutExponent": 1.2621800263528713,
+          "payoutFloorWeight": 0.16037747028749438,
+          "playerIndex": 1,
+          "exactValue": 301284.0319104987,
+          "approximateValue": 301284.0319104978,
+          "dollarError": -8.731149137020111e-10,
+          "relativeError": 2.8979793856495657e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 600,
+        "maxAbsDollarError": 1.4551915228366852e-9,
+        "rootMeanSquareDollarError": 2.9192099486143e-10,
+        "maxRelativeError": 6.898794086236799e-15,
+        "worst": {
+          "caseIndex": 84,
+          "playerCount": 6,
+          "chipCounts": [
+            26906063,
+            7242138,
+            4444707,
+            1405834,
+            1333138,
+            1087950
+          ],
+          "payouts": [
+            313118,
+            195439,
+            151057,
+            127114,
+            111926,
+            101346
+          ],
+          "stackSigma": 1.7348484848484849,
+          "payoutExponent": 0.7843837013118901,
+          "payoutFloorWeight": 0.11592575169634074,
+          "playerIndex": 1,
+          "exactValue": 265054.8569817217,
+          "approximateValue": 265054.85698172025,
+          "dollarError": -1.4551915228366852e-9,
+          "relativeError": 5.490152262846615e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 600,
+        "maxAbsDollarError": 9.313225746154785e-10,
+        "rootMeanSquareDollarError": 2.441117213312656e-10,
+        "maxRelativeError": 5.155169197112302e-15,
+        "worst": {
+          "caseIndex": 72,
+          "playerCount": 6,
+          "chipCounts": [
+            13349247,
+            6790504,
+            2260755,
+            1283056,
+            1146070,
+            1021586
+          ],
+          "payouts": [
+            491501,
+            188652,
+            113908,
+            82798,
+            66468,
+            56673
+          ],
+          "stackSigma": 1.5227272727272727,
+          "payoutExponent": 1.5165248382254504,
+          "payoutFloorWeight": 0.055667961458675565,
+          "playerIndex": 1,
+          "exactValue": 330073.8583107797,
+          "approximateValue": 330073.85831077874,
+          "dollarError": -9.313225746154785e-10,
+          "relativeError": 2.8215581184820628e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 2.5209930000000327,
+        "laqi192": 6.810834999999997,
+        "laqi1536": 51.23725100000016
+      }
+    },
+    {
+      "playerCount": 7,
+      "cases": 100,
+      "valuesCompared": 700,
+      "exactPrizePoolResidual": 1.0624682499999999e-42,
+      "error192VsExact": {
+        "comparisonCount": 700,
+        "maxAbsDollarError": 7.566995918750763e-10,
+        "rootMeanSquareDollarError": 1.8745442597294056e-10,
+        "maxRelativeError": 3.643113845993595e-15,
+        "worst": {
+          "caseIndex": 72,
+          "playerCount": 7,
+          "chipCounts": [
+            13349247,
+            6790504,
+            2260755,
+            1283056,
+            1146070,
+            1021586,
+            780388
+          ],
+          "payouts": [
+            467980,
+            179624,
+            108456,
+            78836,
+            63287,
+            53961,
+            47856
+          ],
+          "stackSigma": 1.5227272727272727,
+          "payoutExponent": 1.5165248382254504,
+          "payoutFloorWeight": 0.055667961458675565,
+          "playerIndex": 1,
+          "exactValue": 308022.7214087485,
+          "approximateValue": 308022.7214087477,
+          "dollarError": -7.566995918750763e-10,
+          "relativeError": 2.4566356287428882e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 700,
+        "maxAbsDollarError": 7.8580342233181e-10,
+        "rootMeanSquareDollarError": 2.3510946940205326e-10,
+        "maxRelativeError": 6.457313732914327e-15,
+        "worst": {
+          "caseIndex": 70,
+          "playerCount": 7,
+          "chipCounts": [
+            11227360,
+            3645135,
+            2907567,
+            2447121,
+            1370521,
+            486512,
+            468383
+          ],
+          "payouts": [
+            328308,
+            169473,
+            125871,
+            106511,
+            95859,
+            89227,
+            84751
+          ],
+          "stackSigma": 1.4873737373737375,
+          "payoutExponent": 1.3349879373214208,
+          "payoutFloorWeight": 0.24763080959673972,
+          "playerIndex": 1,
+          "exactValue": 237314.49268668023,
+          "approximateValue": 237314.49268667944,
+          "dollarError": -7.8580342233181e-10,
+          "relativeError": 3.3112323374589875e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 700,
+        "maxAbsDollarError": 6.693881005048752e-10,
+        "rootMeanSquareDollarError": 2.0245848185855287e-10,
+        "maxRelativeError": 4.336831077375514e-15,
+        "worst": {
+          "caseIndex": 77,
+          "playerCount": 7,
+          "chipCounts": [
+            3464595,
+            2215379,
+            1437097,
+            678960,
+            440060,
+            174410,
+            143102
+          ],
+          "payouts": [
+            334539,
+            183848,
+            132442,
+            106370,
+            90564,
+            79939,
+            72298
+          ],
+          "stackSigma": 1.6111111111111112,
+          "payoutExponent": 0.959723605553154,
+          "payoutFloorWeight": 0.0785945508396253,
+          "playerIndex": 2,
+          "exactValue": 191435.48039547214,
+          "approximateValue": 191435.48039547147,
+          "dollarError": -6.693881005048752e-10,
+          "relativeError": 3.496677309357893e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 4.299709000000206,
+        "laqi192": 7.97888099999966,
+        "laqi1536": 60.300539999999984
+      }
+    },
+    {
+      "playerCount": 8,
+      "cases": 100,
+      "valuesCompared": 800,
+      "exactPrizePoolResidual": 2.30207584e-42,
+      "error192VsExact": {
+        "comparisonCount": 800,
+        "maxAbsDollarError": 6.693881005048752e-10,
+        "rootMeanSquareDollarError": 1.6719313113064785e-10,
+        "maxRelativeError": 4.968629299101465e-15,
+        "worst": {
+          "caseIndex": 79,
+          "playerCount": 8,
+          "chipCounts": [
+            13552985,
+            1177135,
+            917768,
+            801713,
+            727712,
+            711222,
+            679363,
+            659191
+          ],
+          "payouts": [
+            298016,
+            165141,
+            122163,
+            101068,
+            88581,
+            80345,
+            74513,
+            70173
+          ],
+          "stackSigma": 1.6464646464646466,
+          "payoutExponent": 1.0523050771676936,
+          "payoutFloorWeight": 0.16133849055040628,
+          "playerIndex": 1,
+          "exactValue": 255054.9404189163,
+          "approximateValue": 255054.94041891562,
+          "dollarError": -6.693881005048752e-10,
+          "relativeError": 2.6244859221524402e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 800,
+        "maxAbsDollarError": 9.89530235528946e-10,
+        "rootMeanSquareDollarError": 2.1804956704980863e-10,
+        "maxRelativeError": 8.375689389913899e-15,
+        "worst": {
+          "caseIndex": 78,
+          "playerCount": 8,
+          "chipCounts": [
+            26717974,
+            4792193,
+            1866020,
+            1639545,
+            1330941,
+            550917,
+            475414,
+            192459
+          ],
+          "payouts": [
+            330669,
+            172719,
+            121629,
+            96552,
+            81708,
+            71916,
+            64984,
+            59823
+          ],
+          "stackSigma": 1.6287878787878787,
+          "payoutExponent": 1.0522495204466396,
+          "payoutFloorWeight": 0.08397889418993146,
+          "playerIndex": 1,
+          "exactValue": 281394.74533806177,
+          "approximateValue": 281394.7453380608,
+          "dollarError": -9.89530235528946e-10,
+          "relativeError": 3.5165199490137777e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 800,
+        "maxAbsDollarError": 6.111804395914078e-10,
+        "rootMeanSquareDollarError": 1.8086444980099888e-10,
+        "maxRelativeError": 5.990574444461604e-15,
+        "worst": {
+          "caseIndex": 50,
+          "playerCount": 8,
+          "chipCounts": [
+            1913298,
+            1768901,
+            1520526,
+            1338499,
+            634291,
+            505109,
+            468649,
+            296675
+          ],
+          "payouts": [
+            358328,
+            170595,
+            116084,
+            91038,
+            76909,
+            67938,
+            61784,
+            57324
+          ],
+          "stackSigma": 1.1338383838383839,
+          "payoutExponent": 1.2386376102105716,
+          "payoutFloorWeight": 0.09984793884214015,
+          "playerIndex": 1,
+          "exactValue": 168003.42952720105,
+          "approximateValue": 168003.42952720044,
+          "dollarError": -6.111804395914078e-10,
+          "relativeError": 3.637904543445364e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 9.3322890000004,
+        "laqi192": 9.583884999999839,
+        "laqi1536": 73.54292399999974
+      }
+    },
+    {
+      "playerCount": 9,
+      "cases": 100,
+      "valuesCompared": 900,
+      "exactPrizePoolResidual": 4.98635045e-42,
+      "error192VsExact": {
+        "comparisonCount": 900,
+        "maxAbsDollarError": 1.1059455573558807e-9,
+        "rootMeanSquareDollarError": 1.6893701893471894e-10,
+        "maxRelativeError": 5.562999747451704e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 9,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508
+          ],
+          "payouts": [
+            312907,
+            159246,
+            112396,
+            90218,
+            77432,
+            69172,
+            63425,
+            59210,
+            55994
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 297571.02786717896,
+          "approximateValue": 297571.02786717785,
+          "dollarError": -1.1059455573558807e-9,
+          "relativeError": 3.716576728865958e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 900,
+        "maxAbsDollarError": 8.731149137020111e-10,
+        "rootMeanSquareDollarError": 1.9411494942173371e-10,
+        "maxRelativeError": 5.839353624174025e-15,
+        "worst": {
+          "caseIndex": 99,
+          "playerCount": 9,
+          "chipCounts": [
+            13283413,
+            5142358,
+            3271898,
+            1339465,
+            1337099,
+            781348,
+            588338,
+            304843,
+            284488
+          ],
+          "payouts": [
+            316360,
+            156608,
+            110232,
+            88926,
+            76909,
+            69279,
+            64044,
+            60252,
+            57390
+          ],
+          "stackSigma": 2,
+          "payoutExponent": 1.238992636615876,
+          "payoutFloorWeight": 0.14132222703192382,
+          "playerIndex": 1,
+          "exactValue": 225684.29948083573,
+          "approximateValue": 225684.29948083486,
+          "dollarError": -8.731149137020111e-10,
+          "relativeError": 3.86874459459752e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 900,
+        "maxAbsDollarError": 7.275957614183426e-10,
+        "rootMeanSquareDollarError": 1.6548285465489025e-10,
+        "maxRelativeError": 5.2847984944866595e-15,
+        "worst": {
+          "caseIndex": 70,
+          "playerCount": 9,
+          "chipCounts": [
+            11227360,
+            3645135,
+            2907567,
+            2447121,
+            1370521,
+            486512,
+            468383,
+            403953,
+            327360
+          ],
+          "payouts": [
+            282849,
+            146006,
+            108442,
+            91763,
+            82585,
+            76872,
+            73016,
+            70261,
+            68206
+          ],
+          "stackSigma": 1.4873737373737375,
+          "payoutExponent": 1.3349879373214208,
+          "payoutFloorWeight": 0.24763080959673972,
+          "playerIndex": 1,
+          "exactValue": 201245.30682110967,
+          "approximateValue": 201245.30682110894,
+          "dollarError": -7.275957614183426e-10,
+          "relativeError": 3.6154669786417165e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 19.412159000000997,
+        "laqi192": 10.777581999999654,
+        "laqi1536": 80.10016899999988
+      }
+    },
+    {
+      "playerCount": 10,
+      "cases": 100,
+      "valuesCompared": 1000,
+      "exactPrizePoolResidual": 1.1040779009999999e-41,
+      "error192VsExact": {
+        "comparisonCount": 1000,
+        "maxAbsDollarError": 1.280568540096283e-9,
+        "rootMeanSquareDollarError": 1.6164060186142762e-10,
+        "maxRelativeError": 5.935745193590188e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 10,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021
+          ],
+          "payouts": [
+            297026,
+            151164,
+            106692,
+            85639,
+            73502,
+            65662,
+            60206,
+            56205,
+            53152,
+            50752
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 282053.5514934353,
+          "approximateValue": 282053.551493434,
+          "dollarError": -1.280568540096283e-9,
+          "relativeError": 4.540161020188706e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 1000,
+        "maxAbsDollarError": 9.313225746154785e-10,
+        "rootMeanSquareDollarError": 1.816946622786667e-10,
+        "maxRelativeError": 6.730302461735579e-15,
+        "worst": {
+          "caseIndex": 88,
+          "playerCount": 10,
+          "chipCounts": [
+            25138524,
+            6143628,
+            5678604,
+            3023162,
+            1451348,
+            1393721,
+            538089,
+            136479,
+            85866,
+            82045
+          ],
+          "payouts": [
+            388539,
+            157736,
+            98773,
+            73713,
+            60356,
+            52248,
+            46887,
+            43124,
+            40362,
+            38262
+          ],
+          "stackSigma": 1.8055555555555554,
+          "payoutExponent": 1.4578074877732434,
+          "payoutFloorWeight": 0.07057838316541165,
+          "playerIndex": 1,
+          "exactValue": 280479.77807127824,
+          "approximateValue": 280479.7780712773,
+          "dollarError": -9.313225746154785e-10,
+          "relativeError": 3.3204624626407177e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 1000,
+        "maxAbsDollarError": 6.402842700481415e-10,
+        "rootMeanSquareDollarError": 1.5247723566708845e-10,
+        "maxRelativeError": 5.920610168471068e-15,
+        "worst": {
+          "caseIndex": 99,
+          "playerCount": 10,
+          "chipCounts": [
+            13283413,
+            5142358,
+            3271898,
+            1339465,
+            1337099,
+            781348,
+            588338,
+            304843,
+            284488,
+            176815
+          ],
+          "payouts": [
+            299822,
+            148421,
+            104470,
+            84278,
+            72888,
+            65657,
+            60696,
+            57102,
+            54389,
+            52277
+          ],
+          "stackSigma": 2,
+          "payoutExponent": 1.238992636615876,
+          "payoutFloorWeight": 0.14132222703192382,
+          "playerIndex": 1,
+          "exactValue": 213109.1145354328,
+          "approximateValue": 213109.11453543216,
+          "dollarError": -6.402842700481415e-10,
+          "relativeError": 3.0044903121292073e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 44.16395699999953,
+        "laqi192": 12.73941699999989,
+        "laqi1536": 91.55045900000027
+      }
+    },
+    {
+      "playerCount": 11,
+      "cases": 100,
+      "valuesCompared": 1100,
+      "exactPrizePoolResidual": 2.3866991759999996e-41,
+      "error192VsExact": {
+        "comparisonCount": 1100,
+        "maxAbsDollarError": 1.979060471057892e-9,
+        "rootMeanSquareDollarError": 1.7065254803883512e-10,
+        "maxRelativeError": 7.528645925559322e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 11,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021,
+            79248
+          ],
+          "payouts": [
+            283200,
+            144127,
+            101726,
+            81653,
+            70081,
+            62606,
+            57404,
+            53588,
+            50678,
+            48390,
+            46547
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 268637.87041862187,
+          "approximateValue": 268637.8704186199,
+          "dollarError": -1.979060471057892e-9,
+          "relativeError": 7.367019653535431e-15
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 1100,
+        "maxAbsDollarError": 8.440110832452774e-10,
+        "rootMeanSquareDollarError": 1.7574426237381406e-10,
+        "maxRelativeError": 9.181275518974783e-15,
+        "worst": {
+          "caseIndex": 70,
+          "playerCount": 11,
+          "chipCounts": [
+            11227360,
+            3645135,
+            2907567,
+            2447121,
+            1370521,
+            486512,
+            468383,
+            403953,
+            327360,
+            296633,
+            178297
+          ],
+          "payouts": [
+            249868,
+            128982,
+            95797,
+            81063,
+            72956,
+            67909,
+            64502,
+            62068,
+            60253,
+            58854,
+            57748
+          ],
+          "stackSigma": 1.4873737373737375,
+          "payoutExponent": 1.3349879373214208,
+          "payoutFloorWeight": 0.24763080959673972,
+          "playerIndex": 1,
+          "exactValue": 176008.61379343187,
+          "approximateValue": 176008.61379343102,
+          "dollarError": -8.440110832452774e-10,
+          "relativeError": 4.795282827667912e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 1100,
+        "maxAbsDollarError": 1.1641532182693481e-9,
+        "rootMeanSquareDollarError": 1.4261653094816146e-10,
+        "maxRelativeError": 5.749495354110856e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 11,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021,
+            79248
+          ],
+          "payouts": [
+            283200,
+            144127,
+            101726,
+            81653,
+            70081,
+            62606,
+            57404,
+            53588,
+            50678,
+            48390,
+            46547
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 268637.87041862105,
+          "approximateValue": 268637.8704186199,
+          "dollarError": -1.1641532182693481e-9,
+          "relativeError": 4.333540972667914e-15
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 104.29104899999959,
+        "laqi192": 18.910335999999575,
+        "laqi1536": 139.0424949999998
+      }
+    },
+    {
+      "playerCount": 12,
+      "cases": 100,
+      "valuesCompared": 1200,
+      "exactPrizePoolResidual": 5.157629598e-41,
+      "error192VsExact": {
+        "comparisonCount": 1200,
+        "maxAbsDollarError": 4.045432433485985e-9,
+        "rootMeanSquareDollarError": 2.2538974314236362e-10,
+        "maxRelativeError": 1.5748709100625536e-14,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 12,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021,
+            79248,
+            54594
+          ],
+          "payouts": [
+            270997,
+            137917,
+            97342,
+            78135,
+            67061,
+            59908,
+            54930,
+            51279,
+            48494,
+            46305,
+            44541,
+            43091
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 256873.9067842266,
+          "approximateValue": 256873.90678422255,
+          "dollarError": -4.045432433485985e-9,
+          "relativeError": 1.5748709100625536e-14
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 1200,
+        "maxAbsDollarError": 1.0477378964424133e-9,
+        "rootMeanSquareDollarError": 1.6366484564663188e-10,
+        "maxRelativeError": 6.8277437242277905e-15,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 12,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021,
+            79248,
+            54594
+          ],
+          "payouts": [
+            270997,
+            137917,
+            97342,
+            78135,
+            67061,
+            59908,
+            54930,
+            51279,
+            48494,
+            46305,
+            44541,
+            43091
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 256873.9067842266,
+          "approximateValue": 256873.90678422555,
+          "dollarError": -1.0477378964424133e-9,
+          "relativeError": 4.078802356996542e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 1200,
+        "maxAbsDollarError": 2.9976945370435715e-9,
+        "rootMeanSquareDollarError": 1.7917208748445348e-10,
+        "maxRelativeError": 1.1669906743629041e-14,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 12,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021,
+            79248,
+            54594
+          ],
+          "payouts": [
+            270997,
+            137917,
+            97342,
+            78135,
+            67061,
+            59908,
+            54930,
+            51279,
+            48494,
+            46305,
+            44541,
+            43091
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 256873.90678422555,
+          "approximateValue": 256873.90678422255,
+          "dollarError": -2.9976945370435715e-9,
+          "relativeError": 1.1669906743629041e-14
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 214.83279099999936,
+        "laqi192": 20.79384800000048,
+        "laqi1536": 148.47004299999935
+      }
+    },
+    {
+      "playerCount": 13,
+      "cases": 100,
+      "valuesCompared": 1300,
+      "exactPrizePoolResidual": 1.1008773773999999e-40,
+      "error192VsExact": {
+        "comparisonCount": 1300,
+        "maxAbsDollarError": 1.2689270079135895e-8,
+        "rootMeanSquareDollarError": 4.82463645825815e-10,
+        "maxRelativeError": 5.147962359678177e-14,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 13,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021,
+            79248,
+            54594,
+            17356
+          ],
+          "payouts": [
+            260104,
+            132373,
+            93429,
+            74994,
+            64365,
+            57500,
+            52722,
+            49218,
+            46545,
+            44444,
+            42750,
+            41359,
+            40197
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 246491.12003082244,
+          "approximateValue": 246491.12003080975,
+          "dollarError": -1.2689270079135895e-8,
+          "relativeError": 5.147962359678177e-14
+        }
+      },
+      "error1536VsExact": {
+        "comparisonCount": 1300,
+        "maxAbsDollarError": 7.566995918750763e-10,
+        "rootMeanSquareDollarError": 1.5108394014290792e-10,
+        "maxRelativeError": 7.112872228342294e-15,
+        "worst": {
+          "caseIndex": 83,
+          "playerCount": 13,
+          "chipCounts": [
+            11128876,
+            2409454,
+            1919817,
+            1073390,
+            831309,
+            757242,
+            544594,
+            538036,
+            445993,
+            359367,
+            291559,
+            121383,
+            71902
+          ],
+          "payouts": [
+            230967,
+            114512,
+            84348,
+            71419,
+            64487,
+            60258,
+            57451,
+            55474,
+            54018,
+            52908,
+            52039,
+            51343,
+            50776
+          ],
+          "stackSigma": 1.7171717171717171,
+          "payoutExponent": 1.4342705225921235,
+          "payoutFloorWeight": 0.24941760108340533,
+          "playerIndex": 1,
+          "exactValue": 170887.51942521663,
+          "approximateValue": 170887.51942521587,
+          "dollarError": -7.566995918750763e-10,
+          "relativeError": 4.428056504186201e-15
+        }
+      },
+      "difference192Vs1536": {
+        "comparisonCount": 1300,
+        "maxAbsDollarError": 1.210719347000122e-8,
+        "rootMeanSquareDollarError": 4.462202178982758e-10,
+        "maxRelativeError": 4.91181729730763e-14,
+        "worst": {
+          "caseIndex": 87,
+          "playerCount": 13,
+          "chipCounts": [
+            33154648,
+            951952,
+            621447,
+            606707,
+            529213,
+            376766,
+            187415,
+            186183,
+            113508,
+            109021,
+            79248,
+            54594,
+            17356
+          ],
+          "payouts": [
+            260104,
+            132373,
+            93429,
+            74994,
+            64365,
+            57500,
+            52722,
+            49218,
+            46545,
+            44444,
+            42750,
+            41359,
+            40197
+          ],
+          "stackSigma": 1.7878787878787878,
+          "payoutExponent": 1.1545092498068699,
+          "payoutFloorWeight": 0.12157910692039878,
+          "playerIndex": 1,
+          "exactValue": 246491.12003082185,
+          "approximateValue": 246491.12003080975,
+          "dollarError": -1.210719347000122e-8,
+          "relativeError": 4.91181729730763e-14
+        }
+      },
+      "totalRuntimeMs": {
+        "exactSubsetDynamicProgram": 447.25091699999984,
+        "laqi192": 22.268458999999666,
+        "laqi1536": 160.6506670000008
+      }
+    }
+  ],
+  "largeFieldSelfConvergence": {
+    "fixtureId": "wsop-2025-main-event-snapshot-522",
+    "players": 522,
+    "activePayoutRows": 522,
+    "activePrizePool": 71323000,
+    "referenceNodes": 6144,
+    "note": "Self-convergence only; the 6,144-node result is not asserted to be an exact ICM reference.",
+    "runs": [
+      {
+        "requestedNodes": 192,
+        "actualNodes": 192,
+        "runtimeMs": 116.7152500000002,
+        "comparisonTo6144": {
+          "comparisonCount": 522,
+          "maxAbsDollarError": 0.00976113713113591,
+          "rootMeanSquareDollarError": 0.004693628859346916,
+          "maxRelativeError": 9.947898395906975e-8,
+          "worst": {
+            "requestedNodes": 192,
+            "referenceNodes": 6144,
+            "playerIndex": 1,
+            "exactValue": 366030.61457057553,
+            "approximateValue": 366030.62433171266,
+            "dollarError": 0.00976113713113591,
+            "relativeError": 2.6667542939236398e-8
+          }
+        }
+      },
+      {
+        "requestedNodes": 384,
+        "actualNodes": 384,
+        "runtimeMs": 231.22254199999998,
+        "comparisonTo6144": {
+          "comparisonCount": 522,
+          "maxAbsDollarError": 4.487810656428337e-8,
+          "rootMeanSquareDollarError": 9.148306955812924e-9,
+          "maxRelativeError": 1.226075218241896e-13,
+          "worst": {
+            "requestedNodes": 384,
+            "referenceNodes": 6144,
+            "playerIndex": 1,
+            "exactValue": 366030.61457057553,
+            "approximateValue": 366030.61457053066,
+            "dollarError": -4.487810656428337e-8,
+            "relativeError": 1.226075218241896e-13
+          }
+        }
+      },
+      {
+        "requestedNodes": 768,
+        "actualNodes": 768,
+        "runtimeMs": 463.722542,
+        "comparisonTo6144": {
+          "comparisonCount": 522,
+          "maxAbsDollarError": 1.5133991837501526e-9,
+          "rootMeanSquareDollarError": 4.0501077920916626e-10,
+          "maxRelativeError": 7.554884913885464e-15,
+          "worst": {
+            "requestedNodes": 768,
+            "referenceNodes": 6144,
+            "playerIndex": 15,
+            "exactValue": 287895.9559078426,
+            "approximateValue": 287895.9559078441,
+            "dollarError": 1.5133991837501526e-9,
+            "relativeError": 5.256757355197451e-15
+          }
+        }
+      },
+      {
+        "requestedNodes": 1536,
+        "actualNodes": 1536,
+        "runtimeMs": 960.3868749999997,
+        "comparisonTo6144": {
+          "comparisonCount": 522,
+          "maxAbsDollarError": 1.6589183360338211e-9,
+          "rootMeanSquareDollarError": 4.5195972545862437e-10,
+          "maxRelativeError": 1.0449073679695782e-14,
+          "worst": {
+            "requestedNodes": 1536,
+            "referenceNodes": 6144,
+            "playerIndex": 72,
+            "exactValue": 201875.80404129517,
+            "approximateValue": 201875.8040412935,
+            "dollarError": -1.6589183360338211e-9,
+            "relativeError": 8.21751939967247e-15
+          }
+        }
+      },
+      {
+        "requestedNodes": 3072,
+        "actualNodes": 3072,
+        "runtimeMs": 1862.2546659999998,
+        "comparisonTo6144": {
+          "comparisonCount": 522,
+          "maxAbsDollarError": 2.7939677238464355e-9,
+          "rootMeanSquareDollarError": 5.229808670375727e-10,
+          "maxRelativeError": 1.2162036578006566e-14,
+          "worst": {
+            "requestedNodes": 3072,
+            "referenceNodes": 6144,
+            "playerIndex": 1,
+            "exactValue": 366030.61457057553,
+            "approximateValue": 366030.61457057274,
+            "dollarError": -2.7939677238464355e-9,
+            "relativeError": 7.633153109677173e-15
+          }
+        }
+      },
+      {
+        "requestedNodes": 6144,
+        "actualNodes": 6144,
+        "runtimeMs": 3657.031582999999,
+        "comparisonTo6144": {
+          "comparisonCount": 522,
+          "maxAbsDollarError": 0,
+          "rootMeanSquareDollarError": 0,
+          "maxRelativeError": 0,
+          "worst": null
+        }
+      }
+    ]
+  }
+}

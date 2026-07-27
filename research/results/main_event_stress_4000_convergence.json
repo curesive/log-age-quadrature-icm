@@ -1,5 +1,24 @@
 {
-  "generatedAt": "2026-07-27T18:15:39.579Z",
+  "generatedAt": "2026-07-27T22:46:18.913Z",
+  "machine": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M3 Ultra",
+    "logicalCpuCount": 28,
+    "memoryBytes": 103079215104,
+    "nodeVersion": "v24.16.0",
+    "execution": "single Node.js process; no worker threads or GPU"
+  },
+  "settings": {
+    "requestedNodeCounts": [
+      192,
+      384,
+      768,
+      1536
+    ],
+    "panelCount": 32,
+    "tailTolerance": 1e-12
+  },
   "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
   "players": 4000,
   "paidRanks": 1383,
@@ -10,7 +29,8 @@
   "runs": [
     {
       "nodes": 192,
-      "runtimeMs": 2916.0849160000002,
+      "actualNodes": 192,
+      "runtimeMs": 2829.0525,
       "heroValue": 22251.24956016845,
       "heroDifferenceVs1536": -4.776734223145468,
       "maxAbsDollarDifference": 89.81380039823125,
@@ -20,7 +40,8 @@
     },
     {
       "nodes": 384,
-      "runtimeMs": 5367.066124999999,
+      "actualNodes": 384,
+      "runtimeMs": 5569.708500000001,
       "heroValue": 22256.003053721568,
       "heroDifferenceVs1536": -0.02324067002700758,
       "maxAbsDollarDifference": 0.45435635549074505,
@@ -30,7 +51,8 @@
     },
     {
       "nodes": 768,
-      "runtimeMs": 10685.504124999998,
+      "actualNodes": 768,
+      "runtimeMs": 11219.438209,
       "heroValue": 22256.026294473657,
       "heroDifferenceVs1536": 8.206188795156777e-8,
       "maxAbsDollarDifference": 0.000001524880644865334,
@@ -40,7 +62,8 @@
     },
     {
       "nodes": 1536,
-      "runtimeMs": 21359.97275,
+      "actualNodes": 1536,
+      "runtimeMs": 22259.230667,
       "heroValue": 22256.026294391595,
       "heroDifferenceVs1536": 0,
       "maxAbsDollarDifference": 0,

@@ -1,7 +1,10 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { cpus, totalmem } from "node:os";
 import { performance } from "node:perf_hooks";
-import { solveLogAgeQuadratureIcm } from "../src/log-age-quadrature-icm.js";
+import {
+  solveLogAgeQuadratureIcm,
+  solvePlayerLogAgeQuadratureIcm,
+} from "../src/log-age-quadrature-icm.js";
 
 const fixtureUrl = new URL("./fixtures/wsop-2026-main-event-4000.json", import.meta.url);
 const resultUrl = new URL("./results/main_event_stress_4000.json", import.meta.url);
@@ -63,6 +66,13 @@ if (heroIndex < 0) throw new Error("The fixture does not contain its Hero stack 
 
 console.log("Running the 4,000-player LAQI stress benchmark...");
 const measured = benchmark(() => solveLogAgeQuadratureIcm(chipCounts, payouts, LAQI_OPTIONS));
+console.log("Running the average-stack target-only benchmark...");
+const measuredTarget = benchmark(() => solvePlayerLogAgeQuadratureIcm(
+  chipCounts,
+  payouts,
+  heroIndex,
+  LAQI_OPTIONS,
+));
 const resultValueSum = sum(measured.result.players.map((player) => player.value));
 const selectedIndexes = [...new Set([0, heroIndex, 1_999, 3_999])];
 
@@ -107,6 +117,21 @@ const output = {
       maxMs: measured.maxMs,
       timesMs: measured.timesMs,
     },
+    targetOnlyAverageStack: {
+      playerIndex: heroIndex + 1,
+      chips: chipCounts[heroIndex],
+      value: measuredTarget.result.player.value,
+      normalization: measuredTarget.result.metadata.normalization,
+      timing: {
+        warmups: measuredTarget.warmups,
+        samples: measuredTarget.samples,
+        medianMs: measuredTarget.medianMs,
+        meanMs: measuredTarget.meanMs,
+        minMs: measuredTarget.minMs,
+        maxMs: measuredTarget.maxMs,
+        timesMs: measuredTarget.timesMs,
+      },
+    },
     totalPrizePool: measured.result.totalPrizePool,
     resultValueSum,
     prizePoolDifference: resultValueSum - measured.result.totalPrizePool,
@@ -132,6 +157,7 @@ console.log(JSON.stringify({
   paidPlaces: payouts.length,
   heroRank: heroIndex + 1,
   medianMs: measured.medianMs,
+  targetOnlyMedianMs: measuredTarget.medianMs,
   minMs: measured.minMs,
   maxMs: measured.maxMs,
   prizePoolDifference: output.laqi.prizePoolDifference,

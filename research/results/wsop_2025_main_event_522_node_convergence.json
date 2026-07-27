@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-07-27T22:43:13.524Z",
+  "machine": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M3 Ultra",
+    "logicalCpuCount": 28,
+    "memoryBytes": 103079215104,
+    "nodeVersion": "v24.16.0",
+    "execution": "single Node.js process; no worker threads or GPU"
+  },
+  "settings": {
+    "panelCount": 32,
+    "tailTolerance": 1e-12,
+    "requestedNodeCounts": [
+      192,
+      384,
+      768,
+      1536,
+      3072,
+      6144
+    ]
+  },
+  "fixtureId": "wsop-2025-main-event-snapshot-522",
+  "players": 522,
+  "activePayoutRows": 522,
+  "activePrizePool": 71323000,
+  "referenceNodes": 6144,
+  "note": "Self-convergence only; the 6,144-node result is not asserted to be an exact ICM reference.",
+  "runs": [
+    {
+      "requestedNodes": 192,
+      "actualNodes": 192,
+      "runtimeMs": 116.7152500000002,
+      "comparisonTo6144": {
+        "comparisonCount": 522,
+        "maxAbsDollarError": 0.00976113713113591,
+        "rootMeanSquareDollarError": 0.004693628859346916,
+        "maxRelativeError": 9.947898395906975e-8,
+        "worst": {
+          "requestedNodes": 192,
+          "referenceNodes": 6144,
+          "playerIndex": 1,
+          "exactValue": 366030.61457057553,
+          "approximateValue": 366030.62433171266,
+          "dollarError": 0.00976113713113591,
+          "relativeError": 2.6667542939236398e-8
+        }
+      }
+    },
+    {
+      "requestedNodes": 384,
+      "actualNodes": 384,
+      "runtimeMs": 231.22254199999998,
+      "comparisonTo6144": {
+        "comparisonCount": 522,
+        "maxAbsDollarError": 4.487810656428337e-8,
+        "rootMeanSquareDollarError": 9.148306955812924e-9,
+        "maxRelativeError": 1.226075218241896e-13,
+        "worst": {
+          "requestedNodes": 384,
+          "referenceNodes": 6144,
+          "playerIndex": 1,
+          "exactValue": 366030.61457057553,
+          "approximateValue": 366030.61457053066,
+          "dollarError": -4.487810656428337e-8,
+          "relativeError": 1.226075218241896e-13
+        }
+      }
+    },
+    {
+      "requestedNodes": 768,
+      "actualNodes": 768,
+      "runtimeMs": 463.722542,
+      "comparisonTo6144": {
+        "comparisonCount": 522,
+        "maxAbsDollarError": 1.5133991837501526e-9,
+        "rootMeanSquareDollarError": 4.0501077920916626e-10,
+        "maxRelativeError": 7.554884913885464e-15,
+        "worst": {
+          "requestedNodes": 768,
+          "referenceNodes": 6144,
+          "playerIndex": 15,
+          "exactValue": 287895.9559078426,
+          "approximateValue": 287895.9559078441,
+          "dollarError": 1.5133991837501526e-9,
+          "relativeError": 5.256757355197451e-15
+        }
+      }
+    },
+    {
+      "requestedNodes": 1536,
+      "actualNodes": 1536,
+      "runtimeMs": 960.3868749999997,
+      "comparisonTo6144": {
+        "comparisonCount": 522,
+        "maxAbsDollarError": 1.6589183360338211e-9,
+        "rootMeanSquareDollarError": 4.5195972545862437e-10,
+        "maxRelativeError": 1.0449073679695782e-14,
+        "worst": {
+          "requestedNodes": 1536,
+          "referenceNodes": 6144,
+          "playerIndex": 72,
+          "exactValue": 201875.80404129517,
+          "approximateValue": 201875.8040412935,
+          "dollarError": -1.6589183360338211e-9,
+          "relativeError": 8.21751939967247e-15
+        }
+      }
+    },
+    {
+      "requestedNodes": 3072,
+      "actualNodes": 3072,
+      "runtimeMs": 1862.2546659999998,
+      "comparisonTo6144": {
+        "comparisonCount": 522,
+        "maxAbsDollarError": 2.7939677238464355e-9,
+        "rootMeanSquareDollarError": 5.229808670375727e-10,
+        "maxRelativeError": 1.2162036578006566e-14,
+        "worst": {
+          "requestedNodes": 3072,
+          "referenceNodes": 6144,
+          "playerIndex": 1,
+          "exactValue": 366030.61457057553,
+          "approximateValue": 366030.61457057274,
+          "dollarError": -2.7939677238464355e-9,
+          "relativeError": 7.633153109677173e-15
+        }
+      }
+    },
+    {
+      "requestedNodes": 6144,
+      "actualNodes": 6144,
+      "runtimeMs": 3657.031582999999,
+      "comparisonTo6144": {
+        "comparisonCount": 522,
+        "maxAbsDollarError": 0,
+        "rootMeanSquareDollarError": 0,
+        "maxRelativeError": 0,
+        "worst": null
+      }
+    }
+  ]
+}
