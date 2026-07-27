@@ -29,7 +29,8 @@ Open `http://localhost:5173` to use the calculator.
 ```js
 import {
   solveLogAgeQuadratureIcm,
-  solvePlayerLogAgeQuadratureIcm,
+  solveNormalizedPlayerLogAgeQuadratureIcm,
+  solveRawPlayerLogAgeQuadratureIcm,
 } from "./src/log-age-quadrature-icm.js";
 
 const chipCounts = [40000, 30000, 20000, 10000];
@@ -41,7 +42,13 @@ const options = {
 };
 
 const fullField = solveLogAgeQuadratureIcm(chipCounts, payouts, options);
-const heroOnly = solvePlayerLogAgeQuadratureIcm(
+const normalizedHero = solveNormalizedPlayerLogAgeQuadratureIcm(
+  chipCounts,
+  payouts,
+  0,
+  options,
+);
+const fastRawHeroEstimate = solveRawPlayerLogAgeQuadratureIcm(
   chipCounts,
   payouts,
   0,
@@ -49,15 +56,20 @@ const heroOnly = solvePlayerLogAgeQuadratureIcm(
 );
 ```
 
-`solveLogAgeQuadratureIcm` returns values for every player.
-`solvePlayerLogAgeQuadratureIcm` returns one player selected by a zero-based
-index.
+- `solveLogAgeQuadratureIcm` returns normalized values for every player.
+- `solveNormalizedPlayerLogAgeQuadratureIcm` performs the normalized full-field
+  calculation and returns one selected player.
+- `solveRawPlayerLogAgeQuadratureIcm` evaluates only one player and returns an
+  explicitly labeled raw estimate without full-field normalization.
+
+`solvePlayerLogAgeQuadratureIcm` remains available as a compatibility alias for
+the raw target-only function. New code should use one of the explicit names.
 
 ### Inputs
 
 - `chipCounts`: a nonempty array of positive, finite stack sizes.
 - `payouts`: an array containing at least one positive, finite prize.
-- `targetPlayerIndex`: a zero-based index into `chipCounts`, for the target-only solver.
+- `targetPlayerIndex`: a zero-based index into `chipCounts`, for either selected-player function.
 - `options`: an optional object containing the numerical settings below.
 
 Payout values are converted to numbers. Nonfinite, zero, and negative payout
@@ -98,6 +110,10 @@ The full-field result has this shape:
     quadratureNodes,
     paidRanks,
     searchAgeUpperBound,
+    outputValueType: "normalized-full-field",
+    normalizationApplied: true,
+    rawEquitySum,
+    normalizationFactor,
     normalizedEquitySum,
   },
 }
@@ -107,14 +123,26 @@ The full-field solver normalizes the computed equities so that their sum is
 one. Subject only to floating-point rounding, the returned dollar values
 therefore sum to `totalPrizePool`.
 
-### Target-Only Output
+### Normalized Selected-Player Output
 
-The target-only result returns the same player fields under `player`, plus
-solver metadata. It computes that player's raw quadrature equity without
-materializing or normalizing all other players. This is useful when only one or
-a few values are needed. Because no full-field normalization factor is applied,
-a target-only value can differ slightly from the corresponding normalized
-full-field value.
+`solveNormalizedPlayerLogAgeQuadratureIcm` uses the full-field calculation and
+returns only the requested row. Its `equity` and `value` are the same normalized
+numbers returned for that player by `solveLogAgeQuadratureIcm`. The browser
+calculator uses this function for its selected-player mode.
+
+### Raw Target-Only Output
+
+`solveRawPlayerLogAgeQuadratureIcm` avoids materializing other player results.
+It returns `player.rawEquityEstimate` and `player.rawValueEstimate`, with
+`metadata.normalizationApplied` set to `false`. This faster operation is useful
+for performance testing and exploratory calculations, but it is not the
+authoritative normalized ICM output used in the paper. The legacy
+`player.equity` and `player.value` fields remain as compatibility aliases for
+the explicitly named raw fields.
+
+All dollar values reported in the paper artifacts come from normalized
+full-field calculations. Raw target-only output is used only for separately
+labeled timing measurements.
 
 ## Example Data
 
@@ -144,8 +172,9 @@ npm test
 
 The suite covers the four-player golden values, a nine-player comparison with
 exact Malmuth-Harville recursion at sub-cent precision, malformed inputs,
-prize-pool conservation, target-only behavior, payout activation, and a
-99-player example. GitHub Actions runs it on Node.js 18, 20, 22, and 24.
+prize-pool conservation, normalized selected-player and raw target-only
+contracts, payout activation, and a 99-player example. GitHub Actions runs it
+on Node.js 18, 20, 22, and 24.
 
 ## Paper Results and Reproduction
 
@@ -160,7 +189,7 @@ measurements will vary with the machine and current system load.
 | Table 2, nine-player accuracy and timing | `npm run research:validate` | `research/results/core_validation_tables.md` |
 | Table 2, focused one-million-trial Monte Carlo output | `npm run research:validate-nine-player-mc` | `research/results/nine_player_monte_carlo_1m.json` |
 | Table 3, 522-player LAQI and three-player Monte Carlo comparison | `npm run research:validate` | `research/results/core_validation_results.json` |
-| Table 4, 4,000-player full-field and average-stack target-only timing | `npm run research:stress-main-event` | `research/results/main_event_stress_4000.json` |
+| Table 4, 4,000-player full-field and average-stack raw target-only timing | `npm run research:stress-main-event` | `research/results/main_event_stress_4000.json` |
 | Table 4, 192/384/768/1,536-node convergence | `npm run research:convergence-main-event` | `research/results/main_event_stress_4000_convergence.json` |
 | Supplemental 522-player full-field serial Monte Carlo | `npm run research:benchmark-522-full-field-mc` | `research/results/serial_full_field_monte_carlo_522_1m.json` |
 | Supplemental 3-13 player exact sweep and 522-player node convergence | `npm run research:sweep-node-accuracy` | `research/results/node_count_accuracy_sweep.json` |

@@ -3,7 +3,7 @@ import { performance } from "node:perf_hooks";
 import { cpus, totalmem } from "node:os";
 import {
   solveLogAgeQuadratureIcm,
-  solvePlayerLogAgeQuadratureIcm,
+  solveRawPlayerLogAgeQuadratureIcm,
 } from "../src/log-age-quadrature-icm.js";
 
 const DEFAULT_OPTIONS = {
@@ -353,7 +353,7 @@ const laqi522HighPrecisionBenchmark = benchmark(
 );
 const laqi522SelectedBenchmark = benchmark(
   () => representativeIndexes.map((playerIndex) =>
-    solvePlayerLogAgeQuadratureIcm(
+    solveRawPlayerLogAgeQuadratureIcm(
       largeField.chipCounts,
       largeField.payouts,
       playerIndex,
@@ -475,7 +475,7 @@ const results = {
     timing: {
       laqi192FullField: stripBenchmarkResult(laqi522Benchmark),
       laqi1536FullField: stripBenchmarkResult(laqi522HighPrecisionBenchmark),
-      laqi192SelectedThree: stripBenchmarkResult(laqi522SelectedBenchmark),
+      laqi192RawTargetSelectedThree: stripBenchmarkResult(laqi522SelectedBenchmark),
       monteCarloSelectedThreeRuntimeMs: monteCarlo522.runtimeMs,
     },
   },
@@ -560,8 +560,8 @@ const largeFieldTimingRows = [
     formatDuration(laqi522Benchmark.medianMs),
   ],
   [
-    "LAQI 192",
-    "3 selected players",
+    "LAQI 192 target-only raw estimate",
+    "3 selected players (timing only)",
     "deterministic",
     formatDuration(laqi522SelectedBenchmark.medianMs),
   ],
@@ -630,7 +630,7 @@ const markdown = [
     largeFieldTimingRows,
   ),
   "",
-  "The selected-player Monte Carlo run used the same simulated finish for all three reported players in each trial. It did not compute values for the other 519 players.",
+  "The displayed LAQI dollar values are normalized full-field results. The LAQI target-only raw estimates were measured only for the timing comparison. The selected-player Monte Carlo run used the same simulated finish for all three reported players in each trial and did not compute values for the other 519 players.",
   "",
   "## 4. 4,000-Player LAQI Stress Test",
   "",

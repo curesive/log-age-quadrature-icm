@@ -3,7 +3,7 @@ import { cpus, totalmem } from "node:os";
 import { performance } from "node:perf_hooks";
 import {
   solveLogAgeQuadratureIcm,
-  solvePlayerLogAgeQuadratureIcm,
+  solveRawPlayerLogAgeQuadratureIcm,
 } from "../src/log-age-quadrature-icm.js";
 
 const fixtureUrl = new URL("./fixtures/wsop-2026-main-event-4000.json", import.meta.url);
@@ -67,7 +67,7 @@ if (heroIndex < 0) throw new Error("The fixture does not contain its Hero stack 
 console.log("Running the 4,000-player LAQI stress benchmark...");
 const measured = benchmark(() => solveLogAgeQuadratureIcm(chipCounts, payouts, LAQI_OPTIONS));
 console.log("Running the average-stack target-only benchmark...");
-const measuredTarget = benchmark(() => solvePlayerLogAgeQuadratureIcm(
+const measuredTarget = benchmark(() => solveRawPlayerLogAgeQuadratureIcm(
   chipCounts,
   payouts,
   heroIndex,
@@ -117,10 +117,13 @@ const output = {
       maxMs: measured.maxMs,
       timesMs: measured.timesMs,
     },
-    targetOnlyAverageStack: {
+    rawTargetAverageStack: {
       playerIndex: heroIndex + 1,
       chips: chipCounts[heroIndex],
-      value: measuredTarget.result.player.value,
+      rawEquityEstimate: measuredTarget.result.player.rawEquityEstimate,
+      rawValueEstimate: measuredTarget.result.player.rawValueEstimate,
+      outputValueType: measuredTarget.result.metadata.outputValueType,
+      normalizationApplied: measuredTarget.result.metadata.normalizationApplied,
       normalization: measuredTarget.result.metadata.normalization,
       timing: {
         warmups: measuredTarget.warmups,

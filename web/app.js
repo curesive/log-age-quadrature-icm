@@ -1,6 +1,6 @@
 import {
   solveLogAgeQuadratureIcm,
-  solvePlayerLogAgeQuadratureIcm,
+  solveNormalizedPlayerLogAgeQuadratureIcm,
 } from "../src/log-age-quadrature-icm.js";
 
 const exampleSelect = document.querySelector("#example-select");
@@ -155,7 +155,12 @@ async function runCalculation() {
     return;
   }
 
-  const result = solvePlayerLogAgeQuadratureIcm(chipCounts, payouts, heroSeat - 1, options);
+  const result = solveNormalizedPlayerLogAgeQuadratureIcm(
+    chipCounts,
+    payouts,
+    heroSeat - 1,
+    options,
+  );
   renderMetrics({
     playerCount: chipCounts.length,
     payoutCount: result.metadata.paidRanks,
@@ -163,7 +168,7 @@ async function runCalculation() {
     runtimeMs: performance.now() - startedAt,
   });
   renderRows([result.player], heroSeat);
-  setStatus("Selected player complete");
+  setStatus("Selected player complete (normalized full field)");
 }
 
 exampleSelect.addEventListener("change", async () => {

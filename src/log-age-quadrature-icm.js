@@ -281,9 +281,15 @@ function buildLeaveOneOutDistribution(distribution, aheadProbabilities, targetIn
 
 function normalizeEquities(rawEquities) {
   const clamped = Array.from(rawEquities, clampProbability);
-  const total = sum(clamped);
-  if (total <= 0) return clamped;
-  return clamped.map((equity) => equity / total);
+  const rawEquitySum = sum(clamped);
+  const normalizationFactor = rawEquitySum > 0 ? 1 / rawEquitySum : 1;
+  return {
+    equities: rawEquitySum > 0
+      ? clamped.map((equity) => equity / rawEquitySum)
+      : clamped,
+    rawEquitySum,
+    normalizationFactor,
+  };
 }
 
 function buildContext(chipCounts, payouts, options = {}) {
@@ -352,6 +358,34 @@ function formatPlayerResult({
   };
 }
 
+function formatRawPlayerResult({
+  index,
+  stack,
+  chipFraction,
+  rawEquityEstimate,
+  totalPrizePool,
+}) {
+  const rawValueEstimate = rawEquityEstimate * totalPrizePool;
+  return {
+    playerIndex: index + 1,
+    chips: stack,
+    chipFraction,
+    rawEquityEstimate,
+    rawValueEstimate,
+    // Compatibility aliases retained for callers of the v1.0 target API.
+    equity: rawEquityEstimate,
+    value: rawValueEstimate,
+  };
+}
+
+function resolveTargetIndex(targetPlayerIndex, playerCount) {
+  const targetIndex = Number(targetPlayerIndex);
+  if (!Number.isInteger(targetIndex) || targetIndex < 0 || targetIndex >= playerCount) {
+    throw new Error("targetPlayerIndex must be a zero-based index into chipCounts.");
+  }
+  return targetIndex;
+}
+
 export function solveLogAgeQuadratureIcm(chipCounts, payouts, options = {}) {
   const context = buildContext(chipCounts, payouts, options);
   const {
@@ -396,7 +430,8 @@ export function solveLogAgeQuadratureIcm(chipCounts, payouts, options = {}) {
     });
   }
 
-  const equities = normalizeEquities(rawEquities);
+  const normalization = normalizeEquities(rawEquities);
+  const { equities } = normalization;
   const players = equities.map((equity, index) =>
     formatPlayerResult({
       index,
@@ -417,12 +452,16 @@ export function solveLogAgeQuadratureIcm(chipCounts, payouts, options = {}) {
       quadratureNodes: quadratureRule.order,
       paidRanks: rankLimit,
       searchAgeUpperBound: context.upperBound.searchAgeUpperBound,
+      outputValueType: "normalized-full-field",
+      normalizationApplied: true,
+      rawEquitySum: normalization.rawEquitySum,
+      normalizationFactor: normalization.normalizationFactor,
       normalizedEquitySum: sum(equities),
     },
   };
 }
 
-export function solvePlayerLogAgeQuadratureIcm(
+export function solveRawPlayerLogAgeQuadratureIcm(
   chipCounts,
   payouts,
   targetPlayerIndex,
@@ -440,10 +479,7 @@ export function solvePlayerLogAgeQuadratureIcm(
     tailBaseFraction,
     quadratureRule,
   } = context;
-  const targetIndex = Number(targetPlayerIndex);
-  if (!Number.isInteger(targetIndex) || targetIndex < 0 || targetIndex >= playerCount) {
-    throw new Error("targetPlayerIndex must be a zero-based index into chipCounts.");
-  }
+  const targetIndex = resolveTargetIndex(targetPlayerIndex, playerCount);
 
   const aheadProbabilities = new Float64Array(playerCount);
   const distribution = new Float64Array(rankLimit);
@@ -479,15 +515,15 @@ export function solvePlayerLogAgeQuadratureIcm(
     }
   }
 
-  const equity = clampProbability(rawEquity);
+  const rawEquityEstimate = clampProbability(rawEquity);
   return {
     model: "Log-Age Quadrature ICM",
     totalPrizePool,
-    player: formatPlayerResult({
+    player: formatRawPlayerResult({
       index: targetIndex,
       stack: stacks[targetIndex],
       chipFraction: chipFractions[targetIndex],
-      equity,
+      rawEquityEstimate,
       totalPrizePool,
     }),
     metadata: {
@@ -496,7 +532,39 @@ export function solvePlayerLogAgeQuadratureIcm(
       quadratureNodes: quadratureRule.order,
       paidRanks: rankLimit,
       searchAgeUpperBound: context.upperBound.searchAgeUpperBound,
-      normalization: "target-only raw equity",
+      outputValueType: "raw-target-estimate",
+      normalizationApplied: false,
+      normalization: "none; target-only raw estimate",
+      compatibilityAliases: {
+        "player.equity": "player.rawEquityEstimate",
+        "player.value": "player.rawValueEstimate",
+      },
     },
   };
 }
+
+export function solveNormalizedPlayerLogAgeQuadratureIcm(
+  chipCounts,
+  payouts,
+  targetPlayerIndex,
+  options = {},
+) {
+  const fullFieldResult = solveLogAgeQuadratureIcm(chipCounts, payouts, options);
+  const targetIndex = resolveTargetIndex(
+    targetPlayerIndex,
+    fullFieldResult.players.length,
+  );
+
+  return {
+    model: fullFieldResult.model,
+    totalPrizePool: fullFieldResult.totalPrizePool,
+    player: fullFieldResult.players[targetIndex],
+    metadata: {
+      ...fullFieldResult.metadata,
+      output: "selected player from normalized full-field calculation",
+    },
+  };
+}
+
+// Compatibility alias for the v1.0 target-only API.
+export const solvePlayerLogAgeQuadratureIcm = solveRawPlayerLogAgeQuadratureIcm;

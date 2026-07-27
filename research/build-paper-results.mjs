@@ -56,14 +56,14 @@ const paperTimings = {
     monteCarloTimeDividedByLaqi: 3399.5,
   },
   fiveHundredTwentyTwoPlayer: {
-    laqi192SelectedThreeMedianMs: 40.462,
+    laqi192RawTargetSelectedThreeMedianMs: 40.462,
     monteCarloSelectedThreeRuntimeMs: 34658.816,
     laqi192FullFieldMedianMs: 103.271,
     monteCarloTimeDividedBySelectedLaqi: 856.6,
   },
   fourThousandPlayer: {
     laqi192FullFieldMedianMs: 2470.660083,
-    laqi192SelectedAverageStackMedianMs: 462.647459,
+    laqi192RawTargetAverageStackMedianMs: 462.647459,
     convergenceRuntimeMsByNode: {
       192: 2916.0849160000002,
       384: 5367.066124999999,
@@ -134,14 +134,18 @@ const fiveHundredTwentyTwoRows =
 const stressResultsByPlayer = new Map(
   stress.laqi.selectedResults.map((player) => [player.playerIndex, player]),
 );
-const representativeStressPlayers = [1, 1566, 4000].map((playerIndex) =>
+const representativeStress192Players = [1, 1566, 4000].map((playerIndex) =>
   stressResultsByPlayer.get(playerIndex),
 );
+const representativeStressReferencePlayers =
+  convergence.referenceRepresentativeFullFieldResults;
 const stressSpeedRatio =
   paperTimings.fourThousandPlayer.laqi192FullFieldMedianMs /
-  paperTimings.fourThousandPlayer.laqi192SelectedAverageStackMedianMs;
+  paperTimings.fourThousandPlayer.laqi192RawTargetAverageStackMedianMs;
 const chipLeader192Value = stressResultsByPlayer.get(1).value;
-const chipLeader1536Value = 88344.9922194214;
+const chipLeader1536Value = representativeStressReferencePlayers.find(
+  (player) => player.playerIndex === 1,
+).value;
 
 const artifact = {
   schema: "log-age-quadrature-icm-paper-results",
@@ -224,11 +228,12 @@ const artifact = {
       monteCarloTrials: core.fiveHundredTwentyTwoPlayer.monteCarlo.trials,
       rows: fiveHundredTwentyTwoRows,
       timing: {
-        laqi192SelectedThree: {
+        laqi192RawTargetSelectedThree: {
           timeMs:
-            paperTimings.fiveHundredTwentyTwoPlayer.laqi192SelectedThreeMedianMs,
+            paperTimings.fiveHundredTwentyTwoPlayer
+              .laqi192RawTargetSelectedThreeMedianMs,
           basis: "median after warm-up",
-          output: "three target-only calculations",
+          output: "three target-only raw-equity estimates; timing only",
           timeDividedBySelectedLaqi: 1,
         },
         serialMonteCarloSelectedThree: {
@@ -248,7 +253,7 @@ const artifact = {
         },
       },
       valueNote:
-        "Displayed LAQI values are normalized full-field values. Target-only timing is reported separately and does not change the displayed values.",
+        "Displayed LAQI values are normalized 192-node full-field values. Target-only raw-estimate timing is reported separately and does not produce the displayed values.",
     },
     table4FourThousandPlayerStress: {
       fixtureId: stress.scenario.fixtureId,
@@ -261,13 +266,18 @@ const artifact = {
       timing: {
         laqi192FullFieldMedianMs:
           paperTimings.fourThousandPlayer.laqi192FullFieldMedianMs,
-        laqi192SelectedAverageStackMedianMs:
-          paperTimings.fourThousandPlayer.laqi192SelectedAverageStackMedianMs,
-        fullFieldTimeDividedBySelectedPlayerTime: stressSpeedRatio,
+        laqi192RawTargetAverageStackMedianMs:
+          paperTimings.fourThousandPlayer.laqi192RawTargetAverageStackMedianMs,
+        fullFieldTimeDividedByRawTargetTime: stressSpeedRatio,
         fullFieldBasis: "median of five measurements after one warm-up",
-        selectedPlayerBasis: "median of five measurements after one warm-up",
+        rawTargetBasis:
+          "median of five target-only raw-equity measurements after one warm-up; timing only",
       },
-      representativeFullFieldResults: representativeStressPlayers,
+      representativeFullFieldResultNodes: convergence.referenceNodes,
+      representativeFullFieldResults: representativeStressReferencePlayers,
+      representativeFullFieldResultsAt192Nodes: representativeStress192Players,
+      valueNote:
+        "Representative ICM values use normalized 1,536-node full-field results. The 192-node target-only calculation is a raw estimate used only for timing.",
       convergence: {
         referenceNodes: convergence.referenceNodes,
         exactReference: false,

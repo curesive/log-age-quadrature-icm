@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T22:46:18.913Z",
+  "generatedAt": "2026-07-27T23:15:14.968Z",
   "machine": {
     "platform": "darwin",
     "architecture": "arm64",
@@ -26,11 +26,34 @@
   "heroStack": 138120,
   "referenceNodes": 1536,
   "note": "Self-convergence comparison; 1536 nodes is not an exact reference.",
+  "referenceRepresentativeFullFieldResults": [
+    {
+      "playerIndex": 1,
+      "chips": 700000,
+      "chipFraction": 0.0012670141905589342,
+      "equity": 0.0010316530765606042,
+      "value": 88344.9922194214
+    },
+    {
+      "playerIndex": 1566,
+      "chips": 138120,
+      "chipFraction": 0.00025,
+      "equity": 0.00025989586304559376,
+      "value": 22256.026294391595
+    },
+    {
+      "playerIndex": 4000,
+      "chips": 2115,
+      "chipFraction": 0.000003828192875760208,
+      "equity": 0.000004351365303951736,
+      "value": 372.6265569847245
+    }
+  ],
   "runs": [
     {
       "nodes": 192,
       "actualNodes": 192,
-      "runtimeMs": 2829.0525,
+      "runtimeMs": 2787.845208,
       "heroValue": 22251.24956016845,
       "heroDifferenceVs1536": -4.776734223145468,
       "maxAbsDollarDifference": 89.81380039823125,
@@ -41,7 +64,7 @@
     {
       "nodes": 384,
       "actualNodes": 384,
-      "runtimeMs": 5569.708500000001,
+      "runtimeMs": 5649.355625,
       "heroValue": 22256.003053721568,
       "heroDifferenceVs1536": -0.02324067002700758,
       "maxAbsDollarDifference": 0.45435635549074505,
@@ -52,7 +75,7 @@
     {
       "nodes": 768,
       "actualNodes": 768,
-      "runtimeMs": 11219.438209,
+      "runtimeMs": 11179.427708,
       "heroValue": 22256.026294473657,
       "heroDifferenceVs1536": 8.206188795156777e-8,
       "maxAbsDollarDifference": 0.000001524880644865334,
@@ -63,7 +86,7 @@
     {
       "nodes": 1536,
       "actualNodes": 1536,
-      "runtimeMs": 22259.230667,
+      "runtimeMs": 22206.305582999998,
       "heroValue": 22256.026294391595,
       "heroDifferenceVs1536": 0,
       "maxAbsDollarDifference": 0,

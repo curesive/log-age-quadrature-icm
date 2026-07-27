@@ -40,7 +40,7 @@
       "id": "core-validation",
       "path": "research/results/core_validation_results.json",
       "role": "Nine-player exact values and 522-player comparison values",
-      "sha256": "20d42d201bb7fa94792e2a2db7933589f092d059ce5f667c51ebdee63562a964"
+      "sha256": "d74a354e81e0956a13a53183bf9dff330fe21deba7624be47456bfbc03e0bcf1"
     },
     {
       "id": "nine-player-monte-carlo",
@@ -52,13 +52,13 @@
       "id": "main-event-stress",
       "path": "research/results/main_event_stress_4000.json",
       "role": "Four-thousand-player fixture metadata and normalized LAQI values",
-      "sha256": "ad501a88bb40c1842d35c634b0e476cc3e2d2d17c6ad8e13c2e8eaf99aa311e3"
+      "sha256": "0c821bbb2229bfce05c489fb5329edc68c610082f3fd6c4704718926415eee43"
     },
     {
       "id": "main-event-convergence",
       "path": "research/results/main_event_stress_4000_convergence.json",
       "role": "Four-thousand-player node-count convergence comparison",
-      "sha256": "464291e337f7f1bdad0f7a21802ddefaef3a14ee5355addc660a6c55124804d4"
+      "sha256": "aab2a87cfb6bfd69d272c06ba554b2cc4084462721b59051c816240f6bd7235b"
     },
     {
       "id": "full-field-monte-carlo-522",
@@ -435,10 +435,10 @@
         }
       ],
       "timing": {
-        "laqi192SelectedThree": {
+        "laqi192RawTargetSelectedThree": {
           "timeMs": 40.462,
           "basis": "median after warm-up",
-          "output": "three target-only calculations",
+          "output": "three target-only raw-equity estimates; timing only",
           "timeDividedBySelectedLaqi": 1
         },
         "serialMonteCarloSelectedThree": {
@@ -454,7 +454,7 @@
           "output": "all 522 players"
         }
       },
-      "valueNote": "Displayed LAQI values are normalized full-field values. Target-only timing is reported separately and does not change the displayed values."
+      "valueNote": "Displayed LAQI values are normalized 192-node full-field values. Target-only raw-estimate timing is reported separately and does not produce the displayed values."
     },
     "table4FourThousandPlayerStress": {
       "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
@@ -466,12 +466,36 @@
       "averageStack": 138120,
       "timing": {
         "laqi192FullFieldMedianMs": 2470.660083,
-        "laqi192SelectedAverageStackMedianMs": 462.647459,
-        "fullFieldTimeDividedBySelectedPlayerTime": 5.340265108859055,
+        "laqi192RawTargetAverageStackMedianMs": 462.647459,
+        "fullFieldTimeDividedByRawTargetTime": 5.340265108859055,
         "fullFieldBasis": "median of five measurements after one warm-up",
-        "selectedPlayerBasis": "median of five measurements after one warm-up"
+        "rawTargetBasis": "median of five target-only raw-equity measurements after one warm-up; timing only"
       },
+      "representativeFullFieldResultNodes": 1536,
       "representativeFullFieldResults": [
+        {
+          "playerIndex": 1,
+          "chips": 700000,
+          "chipFraction": 0.0012670141905589342,
+          "equity": 0.0010316530765606042,
+          "value": 88344.9922194214
+        },
+        {
+          "playerIndex": 1566,
+          "chips": 138120,
+          "chipFraction": 0.00025,
+          "equity": 0.00025989586304559376,
+          "value": 22256.026294391595
+        },
+        {
+          "playerIndex": 4000,
+          "chips": 2115,
+          "chipFraction": 0.000003828192875760208,
+          "equity": 0.000004351365303951736,
+          "value": 372.6265569847245
+        }
+      ],
+      "representativeFullFieldResultsAt192Nodes": [
         {
           "playerIndex": 1,
           "chips": 700000,
@@ -494,6 +518,7 @@
           "value": 372.28272402043456
         }
       ],
+      "valueNote": "Representative ICM values use normalized 1,536-node full-field results. The 192-node target-only calculation is a raw estimate used only for timing.",
       "convergence": {
         "referenceNodes": 1536,
         "exactReference": false,

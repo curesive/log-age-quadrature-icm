@@ -3,7 +3,9 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   solveLogAgeQuadratureIcm,
+  solveNormalizedPlayerLogAgeQuadratureIcm,
   solvePlayerLogAgeQuadratureIcm,
+  solveRawPlayerLogAgeQuadratureIcm,
 } from "../src/log-age-quadrature-icm.js";
 import { logAgeQuadratureIcm } from "../paper/log-age-quadrature-icm-snippet.js";
 
@@ -65,11 +67,36 @@ test("full-field solver matches 4-player golden values", () => {
   assert.equal(cents(result.players[3].value), 1217.86);
 });
 
-test("target solver matches the full-field result for a selected player", () => {
+test("normalized selected-player solver returns the full-field value", () => {
   const full = solveLogAgeQuadratureIcm(ninePlayer.chipCounts, ninePlayer.payouts);
-  const target = solvePlayerLogAgeQuadratureIcm(ninePlayer.chipCounts, ninePlayer.payouts, 0);
-  assert.equal(cents(target.player.value), cents(full.players[0].value));
-  assert.equal(cents(target.player.value), 132036.56);
+  const selected = solveNormalizedPlayerLogAgeQuadratureIcm(
+    ninePlayer.chipCounts,
+    ninePlayer.payouts,
+    0,
+  );
+  assert.deepEqual(selected.player, full.players[0]);
+  assert.equal(cents(selected.player.value), 132036.56);
+  assert.equal(selected.metadata.outputValueType, "normalized-full-field");
+  assert.equal(selected.metadata.normalizationApplied, true);
+});
+
+test("raw target solver labels its estimate and retains v1.0 aliases", () => {
+  const raw = solveRawPlayerLogAgeQuadratureIcm(
+    ninePlayer.chipCounts,
+    ninePlayer.payouts,
+    0,
+  );
+  const compatibility = solvePlayerLogAgeQuadratureIcm(
+    ninePlayer.chipCounts,
+    ninePlayer.payouts,
+    0,
+  );
+
+  assert.equal(raw.metadata.outputValueType, "raw-target-estimate");
+  assert.equal(raw.metadata.normalizationApplied, false);
+  assert.equal(raw.player.value, raw.player.rawValueEstimate);
+  assert.equal(raw.player.equity, raw.player.rawEquityEstimate);
+  assert.deepEqual(compatibility, raw);
 });
 
 test("192-node solver matches exact 9-player ICM to substantially less than one cent", () => {
@@ -91,6 +118,10 @@ test("full-field equities conserve the prize pool", () => {
   const valueSum = result.players.reduce((total, player) => total + player.value, 0);
   assert.ok(Math.abs(equitySum - 1) < 1e-9);
   assert.ok(Math.abs(valueSum - result.totalPrizePool) < 1e-6);
+  assert.equal(result.metadata.outputValueType, "normalized-full-field");
+  assert.equal(result.metadata.normalizationApplied, true);
+  assert.ok(result.metadata.rawEquitySum > 0);
+  assert.ok(result.metadata.normalizationFactor > 0);
 });
 
 test("payout rows beyond the remaining player count are ignored", () => {
@@ -99,7 +130,7 @@ test("payout rows beyond the remaining player count are ignored", () => {
   const fullEventPayouts = [400, 6000, 300, 3000, 1000, 500];
   const expected = solveLogAgeQuadratureIcm(chipCounts, activePayouts);
   const result = solveLogAgeQuadratureIcm(chipCounts, fullEventPayouts);
-  const target = solvePlayerLogAgeQuadratureIcm(chipCounts, fullEventPayouts, 0);
+  const target = solveRawPlayerLogAgeQuadratureIcm(chipCounts, fullEventPayouts, 0);
   const snippet = logAgeQuadratureIcm(chipCounts, fullEventPayouts);
 
   assert.equal(result.totalPrizePool, 10500);
@@ -108,7 +139,7 @@ test("payout rows beyond the remaining player count are ignored", () => {
     result.players.map((player) => cents(player.value)),
     expected.players.map((player) => cents(player.value)),
   );
-  assert.equal(cents(target.player.value), cents(expected.players[0].value));
+  assert.equal(cents(target.player.rawValueEstimate), cents(expected.players[0].value));
   assert.ok(
     Math.abs(snippet.reduce((total, player) => total + player.value, 0) - 10500) < 1e-6,
   );
@@ -148,7 +179,11 @@ test("solver rejects malformed inputs and invalid target indexes", () => {
     /options must be an object/,
   );
   assert.throws(
-    () => solvePlayerLogAgeQuadratureIcm([40000, 30000], [1000], 2),
+    () => solveRawPlayerLogAgeQuadratureIcm([40000, 30000], [1000], 2),
+    /zero-based index/,
+  );
+  assert.throws(
+    () => solveNormalizedPlayerLogAgeQuadratureIcm([40000, 30000], [1000], 2),
     /zero-based index/,
   );
 });
@@ -161,6 +196,16 @@ test("99-player example produces finite values and conserves the active prize po
     ),
   );
   const result = solveLogAgeQuadratureIcm(fixture.chipCounts, fixture.payouts);
+  const selected = solveNormalizedPlayerLogAgeQuadratureIcm(
+    fixture.chipCounts,
+    fixture.payouts,
+    49,
+  );
+  const raw = solveRawPlayerLogAgeQuadratureIcm(
+    fixture.chipCounts,
+    fixture.payouts,
+    49,
+  );
   const valueSum = result.players.reduce((total, player) => total + player.value, 0);
 
   assert.equal(result.players.length, 99);
@@ -168,4 +213,9 @@ test("99-player example produces finite values and conserves the active prize po
   assert.ok(result.players.every((player) =>
     Number.isFinite(player.equity) && Number.isFinite(player.value) && player.value >= 0));
   assert.ok(Math.abs(valueSum - result.totalPrizePool) < 1e-6);
+  assert.deepEqual(selected.player, result.players[49]);
+  assert.ok(
+    Math.abs(raw.player.rawValueEstimate - selected.player.value) > 1e-6,
+    "raw target estimate should remain distinguishable from normalized output",
+  );
 });

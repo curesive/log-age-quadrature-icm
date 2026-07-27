@@ -1,6 +1,6 @@
 # Core Validation Results
 
-Generated: 2026-07-27T05:00:13.090Z
+Generated: 2026-07-27T23:16:21.705Z
 
 Machine: Apple M3 Ultra, 96 GB RAM, Node.js v24.16.0, single Node.js process; no worker threads or GPU.
 
@@ -26,9 +26,9 @@ Maximum absolute LAQI error: 1.426088e-9 dollars. Maximum relative error: 1.0800
 
 | Method | Output | Time | Max abs error vs exact | RMSE vs exact | Exact values inside 95% CI |
 | --- | --- | --- | --- | --- | --- |
-| Exact Malmuth-Harville recursion | all 9 players | 40.42 ms | baseline | baseline | n/a |
-| LAQI (192 nodes, 32 panels) | all 9 players | 0.088 ms | 1.4261e-9 | 5.3194e-10 | n/a |
-| Serial Monte Carlo (1,000,000 trials) | all 9 players | 325.73 ms | $55.03 | $29.75 | 9/9 |
+| Exact Malmuth-Harville recursion | all 9 players | 44.50 ms | baseline | baseline | n/a |
+| LAQI (192 nodes, 32 panels) | all 9 players | 0.189 ms | 1.4261e-9 | 5.3194e-10 | n/a |
+| Serial Monte Carlo (1,000,000 trials) | all 9 players | 404.06 ms | $55.03 | $29.75 | 9/9 |
 
 ## 3. 522-Player LAQI and Monte Carlo Comparison
 
@@ -44,12 +44,12 @@ The largest Monte Carlo-reference difference was 1.355 standard errors. 3 of 3 i
 
 | Method | Output | Sampling | Time |
 | --- | --- | --- | --- |
-| LAQI 192 | all 522 players | deterministic | 97.92 ms |
-| LAQI 192 | 3 selected players | deterministic | 38.70 ms |
-| LAQI 1536 reference | all 522 players | deterministic | 780.73 ms |
-| Serial Monte Carlo | 3 selected players | 3,000,000 trials | 33.549 s |
+| LAQI 192 | all 522 players | deterministic | 115.07 ms |
+| LAQI 192 target-only raw estimate | 3 selected players (timing only) | deterministic | 45.54 ms |
+| LAQI 1536 reference | all 522 players | deterministic | 922.68 ms |
+| Serial Monte Carlo | 3 selected players | 3,000,000 trials | 39.440 s |
 
-The selected-player Monte Carlo run used the same simulated finish for all three reported players in each trial. It did not compute values for the other 519 players.
+The displayed LAQI dollar values are normalized full-field results. The LAQI target-only raw estimates were measured only for the timing comparison. The selected-player Monte Carlo run used the same simulated finish for all three reported players in each trial and did not compute values for the other 519 players.
 
 ## 4. 4,000-Player LAQI Stress Test
 
@@ -61,8 +61,8 @@ This stress test uses 4,000 deterministic stacks from ICM Swap Chip Count Gen 2.
 | Players remaining | 4,000 |
 | Active paid ranks | 1,383 |
 | LAQI settings | 192 nodes, 32 panels |
-| Median full-field time | 2.259 s |
-| Fastest / slowest measured | 2.252 s / 2.260 s |
+| Median full-field time | 2.769 s |
+| Fastest / slowest measured | 2.763 s / 2.804 s |
 | Prize-pool conservation error | 2.9802e-7 |
 
 Official event dimensions: https://www.wsop.com/tournaments/result/619/

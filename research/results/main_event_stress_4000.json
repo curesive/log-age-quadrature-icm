@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T22:43:38.111Z",
+  "generatedAt": "2026-07-27T23:14:30.751Z",
   "scenario": {
     "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
     "entries": 9208,
@@ -53,36 +53,39 @@
     "timing": {
       "warmups": 1,
       "samples": 5,
-      "medianMs": 2800.135459,
-      "meanMs": 2807.0381749999997,
-      "minMs": 2783.3165420000005,
-      "maxMs": 2835.152041999998,
+      "medianMs": 2799.4742919999994,
+      "meanMs": 2792.6625085999995,
+      "minMs": 2758.118875,
+      "maxMs": 2809.166625,
       "timesMs": [
-        2820.8364160000006,
-        2800.135459,
-        2795.750415999999,
-        2783.3165420000005,
-        2835.152041999998
+        2799.4742919999994,
+        2808.248292,
+        2788.304458999999,
+        2758.118875,
+        2809.166625
       ]
     },
-    "targetOnlyAverageStack": {
+    "rawTargetAverageStack": {
       "playerIndex": 1566,
       "chips": 138120,
-      "value": 22223.039128790195,
-      "normalization": "target-only raw equity",
+      "rawEquityEstimate": 0.00025951065376519477,
+      "rawValueEstimate": 22223.039128790195,
+      "outputValueType": "raw-target-estimate",
+      "normalizationApplied": false,
+      "normalization": "none; target-only raw estimate",
       "timing": {
         "warmups": 1,
         "samples": 5,
-        "medianMs": 489.39512500000274,
-        "meanMs": 494.49690840000113,
-        "minMs": 486.9213750000017,
-        "maxMs": 508.7127500000024,
+        "medianMs": 486.1804590000029,
+        "meanMs": 487.55841700000093,
+        "minMs": 480.6332919999986,
+        "maxMs": 497.5597080000007,
         "timesMs": [
-          487.44737499999974,
-          489.39512500000274,
-          508.7127500000024,
-          486.9213750000017,
-          500.007916999999
+          480.6332919999986,
+          491.44741700000304,
+          497.5597080000007,
+          486.1804590000029,
+          481.97120899999936
         ]
       }
     },

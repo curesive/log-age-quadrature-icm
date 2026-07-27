@@ -49,6 +49,7 @@ function compareValues(values, referenceValues) {
 const fixture = JSON.parse(await readFile(fixtureUrl, "utf8"));
 const heroIndex = fixture.chipCounts.indexOf(fixture.generation.heroStack);
 if (heroIndex < 0) throw new Error("The fixture does not contain its Hero stack anchor.");
+const representativeIndexes = [0, heroIndex, fixture.chipCounts.length - 1];
 
 const measuredRuns = [];
 for (const logAgeNodeCount of nodeCounts) {
@@ -64,6 +65,9 @@ for (const logAgeNodeCount of nodeCounts) {
     actualNodes: result.metadata.quadratureNodes,
     runtimeMs: performance.now() - startedAt,
     heroValue: result.players[heroIndex].value,
+    representativeFullFieldResults: representativeIndexes.map(
+      (playerIndex) => result.players[playerIndex],
+    ),
     values: result.players.map((player) => player.value),
   });
 }
@@ -92,7 +96,9 @@ const output = {
   heroStack: fixture.chipCounts[heroIndex],
   referenceNodes: referenceRun.nodes,
   note: "Self-convergence comparison; 1536 nodes is not an exact reference.",
-  runs: measuredRuns.map(({ values, ...run }) => ({
+  referenceRepresentativeFullFieldResults:
+    referenceRun.representativeFullFieldResults,
+  runs: measuredRuns.map(({ values, representativeFullFieldResults, ...run }) => ({
     ...run,
     heroDifferenceVs1536: run.heroValue - referenceRun.heroValue,
     ...compareValues(values, referenceRun.values),
