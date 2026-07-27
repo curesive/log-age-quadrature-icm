@@ -243,7 +243,9 @@ The public repository contains:
 - the browser calculator,
 - the example datasets,
 - the tests used for golden values,
-- and the MIT License.
+- the MIT-licensed source code,
+- the CC BY 4.0 paper license,
+- and the dataset provenance and reuse statement.
 
 Repository:
 

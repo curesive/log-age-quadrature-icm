@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software in research, please cite the archived release using the metadata below."
+title: "Log-Age Quadrature ICM"
+type: software
+authors:
+  - family-names: "Wolters"
+    given-names: "Derek"
+version: "1.0.0"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21610089"
+    description: "Zenodo archive of the software release"
+repository-code: "https://github.com/curesive/log-age-quadrature-icm"
+url: "https://doi.org/10.5281/zenodo.21610089"
+license: MIT
+abstract: >-
+  A dependency-free JavaScript reference implementation, browser calculator,
+  example datasets, and reproducible benchmarks for Log-Age Quadrature ICM, a
+  deterministic poker tournament ICM method based on integration over log
+  search age.
+keywords:
+  - poker
+  - independent chip model
+  - ICM
+  - numerical quadrature
+  - Gauss-Legendre quadrature
+  - tournament equity

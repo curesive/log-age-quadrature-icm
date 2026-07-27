@@ -103,6 +103,21 @@ nodes took a median of 109.036 milliseconds on the same input, a 628.9x runtime
 ratio. The run used one Node.js process without worker threads or GPU
 acceleration.
 
-## License
+## Citation
 
-Released under the [MIT License](./LICENSE).
+Please cite the archived software release:
+
+> Wolters, Derek. *Log-Age Quadrature ICM*, version 1.0.0. Zenodo, 2026.
+> https://doi.org/10.5281/zenodo.21610089
+
+GitHub and compatible reference managers can read the same metadata from
+[`CITATION.cff`](./CITATION.cff).
+
+## Licensing and Data
+
+- Source code and code listings: [MIT License](./LICENSE).
+- Paper prose: [Creative Commons Attribution 4.0 International](./paper/LICENSE.md).
+- Example and research data: see [dataset provenance and reuse terms](./DATA_PROVENANCE.md).
+
+The code and paper licenses do not relicense third-party chip counts, payout
+schedules, or event facts.
