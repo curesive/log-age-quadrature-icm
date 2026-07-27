@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   solveLogAgeQuadratureIcm,
@@ -24,6 +25,38 @@ function cents(value) {
   return Math.round(value * 100) / 100;
 }
 
+function exactMalmuthHarvilleIcm(chipCounts, payouts) {
+  const values = Array.from({ length: chipCounts.length }, () => 0);
+  const activePayouts = payouts.slice(0, chipCounts.length);
+
+  function recurse(remainingIndexes, remainingChips, rank, probability) {
+    if (rank >= activePayouts.length) return;
+
+    for (let offset = 0; offset < remainingIndexes.length; offset += 1) {
+      const playerIndex = remainingIndexes[offset];
+      const branchProbability = probability * (chipCounts[playerIndex] / remainingChips);
+      values[playerIndex] += branchProbability * activePayouts[rank];
+
+      if (rank + 1 < activePayouts.length) {
+        recurse(
+          remainingIndexes.slice(0, offset).concat(remainingIndexes.slice(offset + 1)),
+          remainingChips - chipCounts[playerIndex],
+          rank + 1,
+          branchProbability,
+        );
+      }
+    }
+  }
+
+  recurse(
+    Array.from({ length: chipCounts.length }, (_, index) => index),
+    chipCounts.reduce((total, chips) => total + chips, 0),
+    0,
+    1,
+  );
+  return values;
+}
+
 test("full-field solver matches 4-player golden values", () => {
   const result = solveLogAgeQuadratureIcm(fourPlayer.chipCounts, fourPlayer.payouts);
   assert.equal(cents(result.players[0].value), 3553.97);
@@ -37,6 +70,19 @@ test("target solver matches the full-field result for a selected player", () => 
   const target = solvePlayerLogAgeQuadratureIcm(ninePlayer.chipCounts, ninePlayer.payouts, 0);
   assert.equal(cents(target.player.value), cents(full.players[0].value));
   assert.equal(cents(target.player.value), 132036.56);
+});
+
+test("192-node solver matches exact 9-player ICM to substantially less than one cent", () => {
+  const exactValues = exactMalmuthHarvilleIcm(ninePlayer.chipCounts, ninePlayer.payouts);
+  const result = solveLogAgeQuadratureIcm(ninePlayer.chipCounts, ninePlayer.payouts);
+  const errors = result.players.map((player, index) =>
+    Math.abs(player.value - exactValues[index]));
+  const maximumError = Math.max(...errors);
+
+  assert.ok(
+    maximumError < 2e-8,
+    `maximum 9-player dollar error ${maximumError} exceeded 2e-8`,
+  );
 });
 
 test("full-field equities conserve the prize pool", () => {
@@ -66,4 +112,60 @@ test("payout rows beyond the remaining player count are ignored", () => {
   assert.ok(
     Math.abs(snippet.reduce((total, player) => total + player.value, 0) - 10500) < 1e-6,
   );
+});
+
+test("solver rejects malformed inputs and invalid target indexes", () => {
+  assert.throws(
+    () => solveLogAgeQuadratureIcm("40000,30000", [1000]),
+    /chipCounts must be an array/,
+  );
+  assert.throws(
+    () => solveLogAgeQuadratureIcm([40000, 30000], "1000,500"),
+    /payouts must be an array/,
+  );
+  assert.throws(
+    () => solveLogAgeQuadratureIcm([], [1000]),
+    /positive numeric stack sizes/,
+  );
+  assert.throws(
+    () => solveLogAgeQuadratureIcm([40000, 0], [1000]),
+    /positive numeric stack sizes/,
+  );
+  assert.throws(
+    () => solveLogAgeQuadratureIcm([40000, -1], [1000]),
+    /positive numeric stack sizes/,
+  );
+  assert.throws(
+    () => solveLogAgeQuadratureIcm([Number.MAX_VALUE, Number.MAX_VALUE], [1000]),
+    /finite positive total/,
+  );
+  assert.throws(
+    () => solveLogAgeQuadratureIcm([40000, 30000], [0, -1, "not a prize"]),
+    /at least one positive prize/,
+  );
+  assert.throws(
+    () => solveLogAgeQuadratureIcm([40000, 30000], [1000], null),
+    /options must be an object/,
+  );
+  assert.throws(
+    () => solvePlayerLogAgeQuadratureIcm([40000, 30000], [1000], 2),
+    /zero-based index/,
+  );
+});
+
+test("99-player example produces finite values and conserves the active prize pool", () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL("../examples/wsop-2024-high-roller-day1-99.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const result = solveLogAgeQuadratureIcm(fixture.chipCounts, fixture.payouts);
+  const valueSum = result.players.reduce((total, player) => total + player.value, 0);
+
+  assert.equal(result.players.length, 99);
+  assert.equal(result.metadata.paidRanks, 48);
+  assert.ok(result.players.every((player) =>
+    Number.isFinite(player.equity) && Number.isFinite(player.value) && player.value >= 0));
+  assert.ok(Math.abs(valueSum - result.totalPrizePool) < 1e-6);
 });

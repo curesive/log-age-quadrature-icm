@@ -24,6 +24,13 @@ function clampProbability(value) {
 }
 
 function sanitizeInputs(chipCounts, payouts) {
+  if (!Array.isArray(chipCounts)) {
+    throw new Error("chipCounts must be an array.");
+  }
+  if (!Array.isArray(payouts)) {
+    throw new Error("payouts must be an array.");
+  }
+
   const stacks = chipCounts.map(Number);
   if (!stacks.length || stacks.some((stack) => !Number.isFinite(stack) || stack <= 0)) {
     throw new Error("chipCounts must contain positive numeric stack sizes.");
@@ -40,6 +47,12 @@ function sanitizeInputs(chipCounts, payouts) {
 
   const totalChips = sum(stacks);
   const totalPrizePool = sum(activePayouts);
+  if (!Number.isFinite(totalChips) || totalChips <= 0) {
+    throw new Error("chipCounts must have a finite positive total.");
+  }
+  if (!Number.isFinite(totalPrizePool) || totalPrizePool <= 0) {
+    throw new Error("payouts must have a finite positive total.");
+  }
   return { stacks, activePayouts, totalChips, totalPrizePool };
 }
 
@@ -274,6 +287,10 @@ function normalizeEquities(rawEquities) {
 }
 
 function buildContext(chipCounts, payouts, options = {}) {
+  if (options === null || typeof options !== "object" || Array.isArray(options)) {
+    throw new Error("options must be an object.");
+  }
+
   const { stacks, activePayouts, totalChips, totalPrizePool } =
     sanitizeInputs(chipCounts, payouts);
   const playerCount = stacks.length;

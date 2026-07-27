@@ -4,14 +4,19 @@
   "private": false,
   "type": "module",
   "description": "Minimal Log-Age Quadrature ICM reference implementation, examples, and local browser calculator.",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "node --test",
     "research:build-paper-results": "node research/build-paper-results.mjs",
+    "research:verify-paper-results": "node research/build-paper-results.mjs && git diff --exit-code -- research/results/paper_results_v1_0_0.json",
     "research:validate": "node research/run-core-validation.mjs",
     "research:validate-nine-player-mc": "node research/run-nine-player-monte-carlo-1m.mjs",
     "research:benchmark-522-full-field-mc": "node research/run-serial-full-field-monte-carlo-522.mjs",
-    "research:stress-main-event": "node research/run-main-event-stress-4000.mjs"
+    "research:stress-main-event": "node research/run-main-event-stress-4000.mjs",
+    "research:convergence-main-event": "node research/run-main-event-convergence-4000.mjs"
   },
   "keywords": [
     "poker",
