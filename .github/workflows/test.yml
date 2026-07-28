@@ -38,3 +38,5 @@ jobs:
           node-version: 22.x
       - name: Rebuild and verify artifact
         run: npm run research:verify-paper-results
+      - name: Verify 25-billion-trial Monte Carlo artifact
+        run: npm run research:verify-522-mc-25b

@@ -57,5 +57,11 @@ scripts from the documented inputs. Their formatting and repository-authored
 commentary are available under CC BY 4.0, but that grant does not extend to any
 underlying third-party input data represented in the results.
 
+`research/results/parallel_full_field_monte_carlo_522_25b.json` is a derived
+simulation ledger, not a new empirical data source. Its chip counts and payout
+list match `examples/wsop-2025-main-event-snapshot-522.json`, identified by the
+scenario SHA-256 stored in the ledger. The ledger adds only simulation settings,
+session metadata, aggregate moments, and per-player Monte Carlo estimates.
+
 This provenance statement is informational and does not replace the terms of
 the original data providers.

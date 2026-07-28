@@ -2,3 +2,7 @@ node_modules/
 .DS_Store
 coverage/
 npm-debug.log*
+monte-carlo/runs/
+*.job.json
+*.launchd.plist
+*.launchd-*.log

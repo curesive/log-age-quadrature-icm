@@ -20,6 +20,7 @@ Open `http://localhost:5173` to use the calculator.
 - `src/log-age-quadrature-icm.js`: dependency-free solver used by the app and tests.
 - `paper/log-age-quadrature-icm-snippet.js`: slower reference version intended for reading and citation.
 - `research/`: reproducible benchmark scripts, fixtures, and saved paper results.
+- `monte-carlo/`: resumable multi-process Monte Carlo engine, documentation, and tests.
 - `examples/*.json`: three tournament examples with chip counts and active payouts.
 - `web/`: plain HTML, CSS, and JavaScript browser calculator.
 - `test/golden.test.js`: exact, validation, conservation, and larger-field tests.
@@ -173,8 +174,9 @@ npm test
 The suite covers the four-player golden values, a nine-player comparison with
 exact Malmuth-Harville recursion at sub-cent precision, malformed inputs,
 prize-pool conservation, normalized selected-player and raw target-only
-contracts, payout activation, and a 99-player example. GitHub Actions runs it
-on Node.js 18, 20, 22, and 24.
+contracts, payout activation, a 99-player example, and the Monte Carlo engine's
+parallel reproducibility, checkpoint, resume, recovery, timing, and persistent
+macOS-launch behavior. GitHub Actions runs it on Node.js 18, 20, 22, and 24.
 
 ## Paper Results and Reproduction
 
@@ -193,6 +195,7 @@ measurements will vary with the machine and current system load.
 | Table 4, 192/384/768/1,536-node convergence | `npm run research:convergence-main-event` | `research/results/main_event_stress_4000_convergence.json` |
 | Supplemental 522-player full-field serial Monte Carlo | `npm run research:benchmark-522-full-field-mc` | `research/results/serial_full_field_monte_carlo_522_1m.json` |
 | Supplemental 3-13 player exact sweep and 522-player node convergence | `npm run research:sweep-node-accuracy` | `research/results/node_count_accuracy_sweep.json` |
+| Final 522-player full-field parallel Monte Carlo validation | `npm run research:verify-522-mc-25b` | `research/results/parallel_full_field_monte_carlo_522_25b.json` |
 
 The node-count sweep also writes a readable Markdown table and a standalone
 522-player convergence file:
@@ -233,6 +236,48 @@ canonical file without changing it:
 ```sh
 npm run research:verify-paper-results
 ```
+
+### 25-Billion-Trial Monte Carlo Artifact
+
+The final 522-player validation ledger is
+`research/results/parallel_full_field_monte_carlo_522_25b.json`. It contains the
+complete aggregate from 25,000,000,000 full-field trials: the normalized
+scenario, fixed random base seed, task-stream counter, four session records,
+stable first and second moments, and all 522 per-player results with standard
+errors and individual 95% intervals. The ledger is approximately 346 KiB
+because it stores aggregate statistics rather than individual trial records.
+
+Verify its internal consistency, match it to the bundled public scenario, and
+recalculate the 192-node LAQI comparison without running more Monte Carlo
+trials:
+
+```sh
+npm run research:verify-522-mc-25b
+```
+
+The concise paper-facing report is
+[`research/results/parallel_full_field_monte_carlo_522_25b.md`](./research/results/parallel_full_field_monte_carlo_522_25b.md).
+The full engine documentation, including start, pause, resume, worker, and
+checkpoint options, is in [`monte-carlo/README.md`](./monte-carlo/README.md).
+
+For an independent replication on macOS, create a new ledger rather than
+modifying the archived result:
+
+```sh
+npm run monte-carlo -- start \
+  --ledger monte-carlo/runs/independent-522-replication.json \
+  --scenario examples/wsop-2025-main-event-snapshot-522.json \
+  --seed 15ee86b6d93f7b6455be7e7dc36e0022 \
+  --trials 25000000000 \
+  --chunk-trials 1060 \
+  --workers 20
+```
+
+The worker count may be changed to fit the replication machine. On non-macOS
+systems, use the foreground `run` command under an external long-running
+process supervisor. Independent replications should agree statistically; wall
+clock time and floating-point merge order can differ by machine and worker
+schedule.
 
 ## Citation
 

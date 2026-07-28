@@ -9,9 +9,12 @@
   },
   "scripts": {
     "start": "node server.js",
+    "monte-carlo": "node monte-carlo/cli.mjs",
     "test": "node --test",
+    "test:monte-carlo": "node --test monte-carlo/test/*.test.mjs",
     "research:build-paper-results": "node research/build-paper-results.mjs",
     "research:verify-paper-results": "node research/build-paper-results.mjs && git diff --exit-code -- research/results/paper_results_v1_0_0.json",
+    "research:verify-522-mc-25b": "node research/verify-parallel-monte-carlo-522-25b.mjs",
     "research:validate": "node research/run-core-validation.mjs",
     "research:validate-nine-player-mc": "node research/run-nine-player-monte-carlo-1m.mjs",
     "research:benchmark-522-full-field-mc": "node research/run-serial-full-field-monte-carlo-522.mjs",

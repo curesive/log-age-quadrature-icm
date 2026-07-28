@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
+import { solveLogAgeQuadratureIcm } from "../src/log-age-quadrature-icm.js";
 
-const ARTIFACT_CREATED_AT = "2026-07-27T22:21:39Z";
+const ARTIFACT_CREATED_AT = "2026-07-28T21:40:20Z";
 const PAPER_VERSION = "1.0.0";
 const outputUrl = new URL(
   `./results/paper_results_v${PAPER_VERSION.replaceAll(".", "_")}.json`,
@@ -44,6 +45,24 @@ const sourceDefinitions = [
       import.meta.url,
     ),
     role: "Supplemental serial full-field Monte Carlo timing benchmark",
+  },
+  {
+    id: "parallel-full-field-monte-carlo-522-25b",
+    path: "research/results/parallel_full_field_monte_carlo_522_25b.json",
+    url: new URL(
+      "./results/parallel_full_field_monte_carlo_522_25b.json",
+      import.meta.url,
+    ),
+    role: "Final 25-billion-trial full-field Monte Carlo validation ledger",
+  },
+  {
+    id: "node-convergence-522",
+    path: "research/results/wsop_2025_main_event_522_node_convergence.json",
+    url: new URL(
+      "./results/wsop_2025_main_event_522_node_convergence.json",
+      import.meta.url,
+    ),
+    role: "522-player 192-to-6,144-node LAQI self-convergence comparison",
   },
 ];
 
@@ -99,6 +118,9 @@ const ninePlayerMonteCarlo = sources["nine-player-monte-carlo"];
 const stress = sources["main-event-stress"];
 const convergence = sources["main-event-convergence"];
 const fullFieldMonteCarlo = sources["full-field-monte-carlo-522"];
+const parallelFullFieldMonteCarlo =
+  sources["parallel-full-field-monte-carlo-522-25b"];
+const nodeConvergence522 = sources["node-convergence-522"];
 
 const ninePlayerRows = core.ninePlayer.scenario.chipCounts.map((chips, index) => {
   const exactValue = core.ninePlayer.exactValues[index];
@@ -130,6 +152,59 @@ const fiveHundredTwentyTwoRows =
         laqiValue >= monteCarlo.ci95Low && laqiValue <= monteCarlo.ci95High,
     };
   });
+
+const parallelMonteCarloLaqi192 = solveLogAgeQuadratureIcm(
+  parallelFullFieldMonteCarlo.scenario.chipCounts,
+  parallelFullFieldMonteCarlo.scenario.payouts,
+  {
+    logAgeNodeCount: 192,
+    logAgePanelCount: 32,
+    tailTolerance: 1e-12,
+  },
+);
+const parallelMonteCarloComparisons = parallelFullFieldMonteCarlo.results.map(
+  (monteCarlo, index) => {
+    const laqi192Value = parallelMonteCarloLaqi192.players[index].value;
+    const monteCarloMinusLaqi = monteCarlo.meanIcmValue - laqi192Value;
+    return {
+      playerIndex: index + 1,
+      chips: monteCarlo.chips,
+      laqi192Value,
+      monteCarloMean: monteCarlo.meanIcmValue,
+      monteCarloMinusLaqi,
+      monteCarloStandardError: monteCarlo.standardError,
+      monteCarloMargin95: monteCarlo.margin95,
+      standardErrorUnits: monteCarloMinusLaqi / monteCarlo.standardError,
+      laqiInsideIndividualMonteCarlo95:
+        Math.abs(monteCarloMinusLaqi) <= monteCarlo.margin95,
+    };
+  },
+);
+const parallelMonteCarloActiveRuntimeMs =
+  parallelFullFieldMonteCarlo.sessions.reduce(
+    (total, session) => total + session.runtimeMs,
+    0,
+  );
+const parallelMonteCarloMargin95Values =
+  parallelFullFieldMonteCarlo.results.map((player) => player.margin95);
+const parallelMonteCarloIndividual95Coverage =
+  parallelMonteCarloComparisons.filter(
+    (player) => player.laqiInsideIndividualMonteCarlo95,
+  ).length;
+const parallelMonteCarloLargestAbsoluteDifference =
+  parallelMonteCarloComparisons.reduce((largest, player) =>
+    Math.abs(player.monteCarloMinusLaqi) >
+    Math.abs(largest.monteCarloMinusLaqi)
+      ? player
+      : largest);
+const parallelMonteCarloLargestAbsoluteStandardErrorGap =
+  parallelMonteCarloComparisons.reduce((largest, player) =>
+    Math.abs(player.standardErrorUnits) > Math.abs(largest.standardErrorUnits)
+      ? player
+      : largest);
+const nodeConvergence522At192 = nodeConvergence522.runs.find(
+  (run) => run.requestedNodes === 192,
+);
 
 const stressResultsByPlayer = new Map(
   stress.laqi.selectedResults.map((player) => [player.playerIndex, player]),
@@ -303,6 +378,82 @@ const artifact = {
           maxRelativeDifferencePercent: run.maxRelativeDifference * 100,
         })),
       },
+    },
+    table5TwentyFiveBillionTrialValidation: {
+      purpose:
+        "Validate 192-node LAQI against a high-precision full-field Monte Carlo benchmark.",
+      fixtureId: core.fiveHundredTwentyTwoPlayer.scenario.id,
+      scenarioSha256: parallelFullFieldMonteCarlo.scenario.id,
+      playersRemaining: parallelFullFieldMonteCarlo.scenario.playerCount,
+      activePayoutRows: parallelFullFieldMonteCarlo.scenario.paidRankCount,
+      activePrizePool: parallelFullFieldMonteCarlo.scenario.totalPrizePool,
+      monteCarlo: {
+        method: "parallel full-field exponential-race Monte Carlo",
+        trials: parallelFullFieldMonteCarlo.aggregate.trials,
+        sessions: parallelFullFieldMonteCarlo.sessions.length,
+        workersBySession: parallelFullFieldMonteCarlo.sessions.map(
+          (session) => session.workers,
+        ),
+        activeRuntimeMs: parallelMonteCarloActiveRuntimeMs,
+        activeRuntimeHours: parallelMonteCarloActiveRuntimeMs / 3_600_000,
+        averageTrialsPerSecond:
+          parallelFullFieldMonteCarlo.aggregate.trials /
+          (parallelMonteCarloActiveRuntimeMs / 1_000),
+        random: parallelFullFieldMonteCarlo.random,
+        host: {
+          cpuModel: parallelFullFieldMonteCarlo.sessions.at(-1).host.cpuModel,
+          platform: parallelFullFieldMonteCarlo.sessions.at(-1).host.platform,
+          logicalCpuCount:
+            parallelFullFieldMonteCarlo.sessions.at(-1).host.logicalCpuCount,
+          performanceCoreCount:
+            parallelFullFieldMonteCarlo.sessions.at(-1).host.performanceCoreCount,
+        },
+        individual95MarginRange: {
+          minimum: Math.min(...parallelMonteCarloMargin95Values),
+          maximum: Math.max(...parallelMonteCarloMargin95Values),
+        },
+      },
+      laqi192: {
+        settings: {
+          logAgeNodeCount: 192,
+          logAgePanelCount: 32,
+          tailTolerance: 1e-12,
+        },
+        paperTimingMs:
+          paperTimings.fiveHundredTwentyTwoPlayer.laqi192FullFieldMedianMs,
+        monteCarloActiveRuntimeDividedByLaqiTiming:
+          parallelMonteCarloActiveRuntimeMs /
+          paperTimings.fiveHundredTwentyTwoPlayer.laqi192FullFieldMedianMs,
+        maximumDifferenceFrom6144Nodes:
+          nodeConvergence522At192.comparisonTo6144.maxAbsDollarError,
+        convergenceReferenceIsExact: false,
+      },
+      comparison: {
+        individual95Coverage: {
+          count: parallelMonteCarloIndividual95Coverage,
+          total: parallelMonteCarloComparisons.length,
+          percent:
+            (100 * parallelMonteCarloIndividual95Coverage) /
+            parallelMonteCarloComparisons.length,
+          note:
+            "Individual normal intervals; not a simultaneous 522-player confidence band.",
+        },
+        rootMeanSquareDollarDifference: Math.sqrt(
+          parallelMonteCarloComparisons.reduce(
+            (total, player) => total + player.monteCarloMinusLaqi ** 2,
+            0,
+          ) / parallelMonteCarloComparisons.length,
+        ),
+        largestAbsoluteDollarDifference:
+          parallelMonteCarloLargestAbsoluteDifference,
+        largestAbsoluteStandardErrorGap:
+          parallelMonteCarloLargestAbsoluteStandardErrorGap,
+        representativePlayers: [0, 260, 521].map(
+          (index) => parallelMonteCarloComparisons[index],
+        ),
+      },
+      ledgerNote:
+        "The first session was recovered from its last durable checkpoint after an unclean shutdown; all checkpointed trials were retained and session totals sum to the aggregate.",
     },
     supplementalFullFieldMonteCarlo522: {
       purpose: "Support the manuscript's separate full-field runtime comparison.",

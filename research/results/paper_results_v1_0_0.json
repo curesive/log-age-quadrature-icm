@@ -1,7 +1,7 @@
 {
   "schema": "log-age-quadrature-icm-paper-results",
   "schemaVersion": 1,
-  "artifactCreatedAt": "2026-07-27T22:21:39Z",
+  "artifactCreatedAt": "2026-07-28T21:40:20Z",
   "paper": {
     "title": "Log-Age Quadrature ICM: Fast Deterministic Dollar Equity for Poker Tournaments",
     "version": "1.0.0",
@@ -65,6 +65,18 @@
       "path": "research/results/serial_full_field_monte_carlo_522_1m.json",
       "role": "Supplemental serial full-field Monte Carlo timing benchmark",
       "sha256": "aa524bdd4dd15da4520d7878ae49400a9e1f4372d1a48a9b9fa59dd4f746193c"
+    },
+    {
+      "id": "parallel-full-field-monte-carlo-522-25b",
+      "path": "research/results/parallel_full_field_monte_carlo_522_25b.json",
+      "role": "Final 25-billion-trial full-field Monte Carlo validation ledger",
+      "sha256": "ef10f7ebf7b1b4a13845470d44dcb4e4a5e287088ad6600ab54e962f2b6c581c"
+    },
+    {
+      "id": "node-convergence-522",
+      "path": "research/results/wsop_2025_main_event_522_node_convergence.json",
+      "role": "522-player 192-to-6,144-node LAQI self-convergence comparison",
+      "sha256": "39968667f897260cdd075a7a89271b21ca25b6e8fa52ca52fa62141759e6377a"
     }
   ],
   "results": {
@@ -583,6 +595,121 @@
           }
         ]
       }
+    },
+    "table5TwentyFiveBillionTrialValidation": {
+      "purpose": "Validate 192-node LAQI against a high-precision full-field Monte Carlo benchmark.",
+      "fixtureId": "wsop-2025-main-event-snapshot-522",
+      "scenarioSha256": "8c5c0c12851f1cd75bd752330bf6b6689671606a11e86c0ac0c0a78315a15c14",
+      "playersRemaining": 522,
+      "activePayoutRows": 522,
+      "activePrizePool": 71323000,
+      "monteCarlo": {
+        "method": "parallel full-field exponential-race Monte Carlo",
+        "trials": 25000000000,
+        "sessions": 4,
+        "workersBySession": [
+          8,
+          20,
+          16,
+          20
+        ],
+        "activeRuntimeMs": 92570542,
+        "activeRuntimeHours": 25.714039444444445,
+        "averageTrialsPerSecond": 270064.31484434864,
+        "random": {
+          "algorithm": "xoshiro128**",
+          "streamDerivation": "SHA-256(baseSeed:taskId)",
+          "baseSeed": "15ee86b6d93f7b6455be7e7dc36e0022"
+        },
+        "host": {
+          "cpuModel": "Apple M3 Ultra",
+          "platform": "darwin 25.5.0 arm64",
+          "logicalCpuCount": 28,
+          "performanceCoreCount": 20
+        },
+        "individual95MarginRange": {
+          "minimum": 2.3702178621553753,
+          "maximum": 13.3323482663504
+        }
+      },
+      "laqi192": {
+        "settings": {
+          "logAgeNodeCount": 192,
+          "logAgePanelCount": 32,
+          "tailTolerance": 1e-12
+        },
+        "paperTimingMs": 103.271,
+        "monteCarloActiveRuntimeDividedByLaqiTiming": 896384.6772085096,
+        "maximumDifferenceFrom6144Nodes": 0.00976113713113591,
+        "convergenceReferenceIsExact": false
+      },
+      "comparison": {
+        "individual95Coverage": {
+          "count": 490,
+          "total": 522,
+          "percent": 93.86973180076629,
+          "note": "Individual normal intervals; not a simultaneous 522-player confidence band."
+        },
+        "rootMeanSquareDollarDifference": 3.9349091650201977,
+        "largestAbsoluteDollarDifference": {
+          "playerIndex": 3,
+          "chips": 3600000,
+          "laqi192Value": 325426.39635199826,
+          "monteCarloMean": 325409.52499218896,
+          "monteCarloMinusLaqi": -16.871359809301794,
+          "monteCarloStandardError": 6.3371326254696925,
+          "monteCarloMargin95": 12.420779945920597,
+          "standardErrorUnits": -2.6623018337179474,
+          "laqiInsideIndividualMonteCarlo95": false
+        },
+        "largestAbsoluteStandardErrorGap": {
+          "playerIndex": 353,
+          "chips": 685000,
+          "laqi192Value": 101600.32858112994,
+          "monteCarloMean": 101609.1813534491,
+          "monteCarloMinusLaqi": 8.852772319150972,
+          "monteCarloStandardError": 2.8602999842273458,
+          "monteCarloMargin95": 5.606187969085598,
+          "standardErrorUnits": 3.0950502982093244,
+          "laqiInsideIndividualMonteCarlo95": false
+        },
+        "representativePlayers": [
+          {
+            "playerIndex": 1,
+            "chips": 4195000,
+            "laqi192Value": 366030.62433171266,
+            "monteCarloMean": 366038.3033055118,
+            "monteCarloMinusLaqi": 7.678973799163941,
+            "monteCarloStandardError": 6.80221850324,
+            "monteCarloMargin95": 13.3323482663504,
+            "standardErrorUnits": 1.128892551085551,
+            "laqiInsideIndividualMonteCarlo95": true
+          },
+          {
+            "playerIndex": 261,
+            "chips": 925000,
+            "laqi192Value": 122809.40528326013,
+            "monteCarloMean": 122812.93296767949,
+            "monteCarloMinusLaqi": 3.5276844193576835,
+            "monteCarloStandardError": 3.3119459760382597,
+            "monteCarloMargin95": 6.491414113034989,
+            "standardErrorUnits": 1.0651394814046724,
+            "laqiInsideIndividualMonteCarlo95": true
+          },
+          {
+            "playerIndex": 522,
+            "chips": 120000,
+            "laqi192Value": 46039.195995755676,
+            "monteCarloMean": 46039.262314756306,
+            "monteCarloMinusLaqi": 0.06631900063075591,
+            "monteCarloStandardError": 1.2092948276302935,
+            "monteCarloMargin95": 2.3702178621553753,
+            "standardErrorUnits": 0.054841052087118494,
+            "laqiInsideIndividualMonteCarlo95": true
+          }
+        ]
+      },
+      "ledgerNote": "The first session was recovered from its last durable checkpoint after an unclean shutdown; all checkpointed trials were retained and session totals sum to the aggregate."
     },
     "supplementalFullFieldMonteCarlo522": {
       "purpose": "Support the manuscript's separate full-field runtime comparison.",

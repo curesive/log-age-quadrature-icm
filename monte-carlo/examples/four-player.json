@@ -1,0 +1,5 @@
+{
+  "name": "Four-player example",
+  "chipCounts": [40000, 30000, 20000, 10000],
+  "payouts": [6000, 3000, 1000, 0]
+}
