@@ -100,6 +100,10 @@ function sum(values) {
   return values.reduce((total, value) => total + value, 0);
 }
 
+function roundForArtifact(value, decimalPlaces = 6) {
+  return Number(value.toFixed(decimalPlaces));
+}
+
 async function loadSource(definition) {
   const text = await readFile(definition.url, "utf8");
   return {
@@ -164,8 +168,14 @@ const parallelMonteCarloLaqi192 = solveLogAgeQuadratureIcm(
 );
 const parallelMonteCarloComparisons = parallelFullFieldMonteCarlo.results.map(
   (monteCarlo, index) => {
-    const laqi192Value = parallelMonteCarloLaqi192.players[index].value;
-    const monteCarloMinusLaqi = monteCarlo.meanIcmValue - laqi192Value;
+    // Transcendental functions can differ by a few last-place bits across
+    // operating-system math libraries. Paper-facing dollar values are rounded
+    // below one millionth of a dollar so the canonical artifact is portable.
+    const rawLaqi192Value = parallelMonteCarloLaqi192.players[index].value;
+    const laqi192Value = roundForArtifact(rawLaqi192Value);
+    const monteCarloMinusLaqi = roundForArtifact(
+      monteCarlo.meanIcmValue - rawLaqi192Value,
+    );
     return {
       playerIndex: index + 1,
       chips: monteCarlo.chips,
@@ -174,7 +184,10 @@ const parallelMonteCarloComparisons = parallelFullFieldMonteCarlo.results.map(
       monteCarloMinusLaqi,
       monteCarloStandardError: monteCarlo.standardError,
       monteCarloMargin95: monteCarlo.margin95,
-      standardErrorUnits: monteCarloMinusLaqi / monteCarlo.standardError,
+      standardErrorUnits: roundForArtifact(
+        monteCarloMinusLaqi / monteCarlo.standardError,
+        9,
+      ),
       laqiInsideIndividualMonteCarlo95:
         Math.abs(monteCarloMinusLaqi) <= monteCarlo.margin95,
     };
@@ -438,11 +451,13 @@ const artifact = {
           note:
             "Individual normal intervals; not a simultaneous 522-player confidence band.",
         },
-        rootMeanSquareDollarDifference: Math.sqrt(
-          parallelMonteCarloComparisons.reduce(
-            (total, player) => total + player.monteCarloMinusLaqi ** 2,
-            0,
-          ) / parallelMonteCarloComparisons.length,
+        rootMeanSquareDollarDifference: roundForArtifact(
+          Math.sqrt(
+            parallelMonteCarloComparisons.reduce(
+              (total, player) => total + player.monteCarloMinusLaqi ** 2,
+              0,
+            ) / parallelMonteCarloComparisons.length,
+          ),
         ),
         largestAbsoluteDollarDifference:
           parallelMonteCarloLargestAbsoluteDifference,

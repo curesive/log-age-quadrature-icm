@@ -650,61 +650,61 @@
           "percent": 93.86973180076629,
           "note": "Individual normal intervals; not a simultaneous 522-player confidence band."
         },
-        "rootMeanSquareDollarDifference": 3.9349091650201977,
+        "rootMeanSquareDollarDifference": 3.934909,
         "largestAbsoluteDollarDifference": {
           "playerIndex": 3,
           "chips": 3600000,
-          "laqi192Value": 325426.39635199826,
+          "laqi192Value": 325426.396352,
           "monteCarloMean": 325409.52499218896,
-          "monteCarloMinusLaqi": -16.871359809301794,
+          "monteCarloMinusLaqi": -16.87136,
           "monteCarloStandardError": 6.3371326254696925,
           "monteCarloMargin95": 12.420779945920597,
-          "standardErrorUnits": -2.6623018337179474,
+          "standardErrorUnits": -2.662301864,
           "laqiInsideIndividualMonteCarlo95": false
         },
         "largestAbsoluteStandardErrorGap": {
           "playerIndex": 353,
           "chips": 685000,
-          "laqi192Value": 101600.32858112994,
+          "laqi192Value": 101600.328581,
           "monteCarloMean": 101609.1813534491,
-          "monteCarloMinusLaqi": 8.852772319150972,
+          "monteCarloMinusLaqi": 8.852772,
           "monteCarloStandardError": 2.8602999842273458,
           "monteCarloMargin95": 5.606187969085598,
-          "standardErrorUnits": 3.0950502982093244,
+          "standardErrorUnits": 3.095050187,
           "laqiInsideIndividualMonteCarlo95": false
         },
         "representativePlayers": [
           {
             "playerIndex": 1,
             "chips": 4195000,
-            "laqi192Value": 366030.62433171266,
+            "laqi192Value": 366030.624332,
             "monteCarloMean": 366038.3033055118,
-            "monteCarloMinusLaqi": 7.678973799163941,
+            "monteCarloMinusLaqi": 7.678974,
             "monteCarloStandardError": 6.80221850324,
             "monteCarloMargin95": 13.3323482663504,
-            "standardErrorUnits": 1.128892551085551,
+            "standardErrorUnits": 1.128892581,
             "laqiInsideIndividualMonteCarlo95": true
           },
           {
             "playerIndex": 261,
             "chips": 925000,
-            "laqi192Value": 122809.40528326013,
+            "laqi192Value": 122809.405283,
             "monteCarloMean": 122812.93296767949,
-            "monteCarloMinusLaqi": 3.5276844193576835,
+            "monteCarloMinusLaqi": 3.527684,
             "monteCarloStandardError": 3.3119459760382597,
             "monteCarloMargin95": 6.491414113034989,
-            "standardErrorUnits": 1.0651394814046724,
+            "standardErrorUnits": 1.065139355,
             "laqiInsideIndividualMonteCarlo95": true
           },
           {
             "playerIndex": 522,
             "chips": 120000,
-            "laqi192Value": 46039.195995755676,
+            "laqi192Value": 46039.195996,
             "monteCarloMean": 46039.262314756306,
-            "monteCarloMinusLaqi": 0.06631900063075591,
+            "monteCarloMinusLaqi": 0.066319,
             "monteCarloStandardError": 1.2092948276302935,
             "monteCarloMargin95": 2.3702178621553753,
-            "standardErrorUnits": 0.054841052087118494,
+            "standardErrorUnits": 0.054841052,
             "laqiInsideIndividualMonteCarlo95": true
           }
         ]
