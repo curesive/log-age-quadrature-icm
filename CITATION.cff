@@ -1,19 +1,13 @@
 cff-version: 1.2.0
-message: "If you use this software in research, please cite the archived release using the metadata below."
+message: "If you use this software in research, please cite version 1.0.1 using the metadata below. The reserved Zenodo DOI is not active yet."
 title: "Log-Age Quadrature ICM"
 type: software
 authors:
   - family-names: "Wolters"
     given-names: "Derek"
-version: "1.0.0"
-date-released: 2026-07-27
-identifiers:
-  - type: doi
-    value: "10.5281/zenodo.21610089"
-    description: "Zenodo archive of the software release"
+version: "1.0.1"
 repository-code: "https://github.com/curesive/log-age-quadrature-icm"
-repository-artifact: "https://github.com/curesive/log-age-quadrature-icm/releases/tag/v1.0.0"
-url: "https://doi.org/10.5281/zenodo.21610089"
+url: "https://github.com/curesive/log-age-quadrature-icm"
 license: MIT
 abstract: >-
   A dependency-free JavaScript reference implementation, browser calculator,

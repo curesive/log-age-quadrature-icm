@@ -483,31 +483,8 @@
         "fullFieldBasis": "median of five measurements after one warm-up",
         "rawTargetBasis": "median of five target-only raw-equity measurements after one warm-up; timing only"
       },
-      "representativeFullFieldResultNodes": 1536,
+      "representativeFullFieldResultNodes": 192,
       "representativeFullFieldResults": [
-        {
-          "playerIndex": 1,
-          "chips": 700000,
-          "chipFraction": 0.0012670141905589342,
-          "equity": 0.0010316530765606042,
-          "value": 88344.9922194214
-        },
-        {
-          "playerIndex": 1566,
-          "chips": 138120,
-          "chipFraction": 0.00025,
-          "equity": 0.00025989586304559376,
-          "value": 22256.026294391595
-        },
-        {
-          "playerIndex": 4000,
-          "chips": 2115,
-          "chipFraction": 0.000003828192875760208,
-          "equity": 0.000004351365303951736,
-          "value": 372.6265569847245
-        }
-      ],
-      "representativeFullFieldResultsAt192Nodes": [
         {
           "playerIndex": 1,
           "chips": 700000,
@@ -530,7 +507,31 @@
           "value": 372.28272402043456
         }
       ],
-      "valueNote": "Representative ICM values use normalized 1,536-node full-field results. The 192-node target-only calculation is a raw estimate used only for timing.",
+      "convergenceReferenceFullFieldResultNodes": 1536,
+      "convergenceReferenceFullFieldResults": [
+        {
+          "playerIndex": 1,
+          "chips": 700000,
+          "chipFraction": 0.0012670141905589342,
+          "equity": 0.0010316530765606042,
+          "value": 88344.9922194214
+        },
+        {
+          "playerIndex": 1566,
+          "chips": 138120,
+          "chipFraction": 0.00025,
+          "equity": 0.00025989586304559376,
+          "value": 22256.026294391595
+        },
+        {
+          "playerIndex": 4000,
+          "chips": 2115,
+          "chipFraction": 0.000003828192875760208,
+          "equity": 0.000004351365303951736,
+          "value": 372.6265569847245
+        }
+      ],
+      "valueNote": "Representative Table 4 ICM values use normalized 192-node full-field results. The separately reported raw target-only calculation is used only for timing.",
       "convergence": {
         "referenceNodes": 1536,
         "exactReference": false,

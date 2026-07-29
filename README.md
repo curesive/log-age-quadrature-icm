@@ -281,14 +281,16 @@ schedule.
 
 ## Citation
 
-Please cite the archived software release:
+Until the reserved Zenodo archive is published, please cite the public
+repository version:
 
-> Wolters, Derek. *Log-Age Quadrature ICM*, version 1.0.0. Zenodo, 2026.
-> https://doi.org/10.5281/zenodo.21610089
+> Wolters, Derek. *Log-Age Quadrature ICM*, version 1.0.1. GitHub, 2026.
+> https://github.com/curesive/log-age-quadrature-icm
 
 GitHub and compatible reference managers can read the same metadata from
-[`CITATION.cff`](./CITATION.cff). The source release is available as
-[`v1.0.0`](https://github.com/curesive/log-age-quadrature-icm/releases/tag/v1.0.0).
+[`CITATION.cff`](./CITATION.cff). The reserved DOI is
+`10.5281/zenodo.21610089`, but it is not active and should not be cited as a
+resolvable archive until the Zenodo record is published.
 
 ## Licensing and Data
 

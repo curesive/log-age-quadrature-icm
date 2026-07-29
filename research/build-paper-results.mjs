@@ -361,11 +361,12 @@ const artifact = {
         rawTargetBasis:
           "median of five target-only raw-equity measurements after one warm-up; timing only",
       },
-      representativeFullFieldResultNodes: convergence.referenceNodes,
-      representativeFullFieldResults: representativeStressReferencePlayers,
-      representativeFullFieldResultsAt192Nodes: representativeStress192Players,
+      representativeFullFieldResultNodes: 192,
+      representativeFullFieldResults: representativeStress192Players,
+      convergenceReferenceFullFieldResultNodes: convergence.referenceNodes,
+      convergenceReferenceFullFieldResults: representativeStressReferencePlayers,
       valueNote:
-        "Representative ICM values use normalized 1,536-node full-field results. The 192-node target-only calculation is a raw estimate used only for timing.",
+        "Representative Table 4 ICM values use normalized 192-node full-field results. The separately reported raw target-only calculation is used only for timing.",
       convergence: {
         referenceNodes: convergence.referenceNodes,
         exactReference: false,

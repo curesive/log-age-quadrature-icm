@@ -1,6 +1,6 @@
 {
   "name": "log-age-quadrature-icm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "type": "module",
   "description": "Minimal Log-Age Quadrature ICM reference implementation, examples, and local browser calculator.",
