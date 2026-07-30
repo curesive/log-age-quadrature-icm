@@ -1,7 +1,7 @@
 {
   "schema": "log-age-quadrature-icm-paper-results",
   "schemaVersion": 1,
-  "artifactCreatedAt": "2026-07-28T21:40:20Z",
+  "artifactCreatedAt": "2026-07-30T23:00:04Z",
   "paper": {
     "title": "Log-Age Quadrature ICM: Fast Deterministic Dollar Equity for Poker Tournaments",
     "version": "1.0.0",
@@ -61,10 +61,16 @@
       "sha256": "aab2a87cfb6bfd69d272c06ba554b2cc4084462721b59051c816240f6bd7235b"
     },
     {
+      "id": "main-event-convergence-timing",
+      "path": "research/results/main_event_stress_4000_convergence_timing.json",
+      "role": "Four-thousand-player standardized full-field runtime scaling benchmark",
+      "sha256": "93ad270d24d5eeb3e9e5f235b29a28a6ad774643b70576f237bf400450227ef8"
+    },
+    {
       "id": "full-field-monte-carlo-522",
-      "path": "research/results/serial_full_field_monte_carlo_522_1m.json",
-      "role": "Supplemental serial full-field Monte Carlo timing benchmark",
-      "sha256": "aa524bdd4dd15da4520d7878ae49400a9e1f4372d1a48a9b9fa59dd4f746193c"
+      "path": "research/results/serial_full_field_monte_carlo_522_3m.json",
+      "role": "Matched 522-player full-field LAQI and three-million-trial serial Monte Carlo timing benchmark",
+      "sha256": "b27bc7f28f7e7fbf31769cd3245fba693b32621516a1e81cf0886895c3fddb84"
     },
     {
       "id": "parallel-full-field-monte-carlo-522-25b",
@@ -416,57 +422,67 @@
           "playerIndex": 1,
           "chips": 4195000,
           "laqi192FullFieldValue": 366030.62433171266,
-          "monteCarloMean": 366112.59975,
-          "monteCarloMinusLaqi": 81.97541828732938,
-          "monteCarloStandardError": 620.1853435811745,
-          "monteCarloCi95Low": 364897.0364765809,
-          "monteCarloCi95High": 367328.1630234191,
+          "monteCarloMean": 365756.04191666667,
+          "monteCarloMinusLaqi": -274.58241504599573,
+          "monteCarloStandardError": 620.5500483209781,
+          "monteCarloCi95Low": 364539.7638219576,
+          "monteCarloCi95High": 366972.32001137576,
+          "absoluteRelativeDifference": 0.0007501624093539162,
           "laqiInsideMonteCarloCi95": true
         },
         {
           "playerIndex": 261,
           "chips": 925000,
           "laqi192FullFieldValue": 122809.40528326013,
-          "monteCarloMean": 122867.0375,
-          "monteCarloMinusLaqi": 57.63221673987573,
-          "monteCarloStandardError": 302.3805701403258,
-          "monteCarloCi95Low": 122274.37158252497,
-          "monteCarloCi95High": 123459.70341747504,
+          "monteCarloMean": 122641.43741666667,
+          "monteCarloMinusLaqi": -167.96786659346253,
+          "monteCarloStandardError": 301.632959732648,
+          "monteCarloCi95Low": 122050.23681559067,
+          "monteCarloCi95High": 123232.63801774266,
+          "absoluteRelativeDifference": 0.0013677117498130077,
           "laqiInsideMonteCarloCi95": true
         },
         {
           "playerIndex": 522,
           "chips": 120000,
           "laqi192FullFieldValue": 46039.195995755676,
-          "monteCarloMean": 45891.691333333336,
-          "monteCarloMinusLaqi": -147.5046624223396,
-          "monteCarloStandardError": 108.82237595433678,
-          "monteCarloCi95Low": 45678.39947646284,
-          "monteCarloCi95High": 46104.983190203835,
+          "monteCarloMean": 45938.765583333334,
+          "monteCarloMinusLaqi": -100.43041242234176,
+          "monteCarloStandardError": 109.42227535519635,
+          "monteCarloCi95Low": 45724.29792363715,
+          "monteCarloCi95High": 46153.23324302952,
+          "absoluteRelativeDifference": 0.0021814110835384785,
           "laqiInsideMonteCarloCi95": true
         }
       ],
+      "fieldWideComparison": {
+        "playerCount": 522,
+        "withinOnePercentCount": 522,
+        "withinHalfPercentCount": 497,
+        "individual95IntervalContainsLaqiCount": 491,
+        "maximumAbsoluteRelativeDifference": 0.008635855682032954,
+        "maximumAbsoluteRelativeDifferencePlayerIndex": 164,
+        "maximumAbsoluteDollarDifference": 1756.5695538501022,
+        "maximumAbsoluteDollarDifferencePlayerIndex": 13,
+        "meanAbsoluteDollarDifference": 261.33122400176615,
+        "rootMeanSquareDollarDifference": 352.00059295861956
+      },
       "timing": {
-        "laqi192RawTargetSelectedThree": {
-          "timeMs": 40.462,
-          "basis": "median after warm-up",
-          "output": "three target-only raw-equity estimates; timing only",
-          "timeDividedBySelectedLaqi": 1
-        },
-        "serialMonteCarloSelectedThree": {
-          "timeMs": 34658.816,
-          "basis": "one complete serial run",
-          "output": "three selected players",
-          "trials": 3000000,
-          "timeDividedBySelectedLaqi": 856.6
-        },
         "laqi192FullField": {
-          "timeMs": 103.271,
-          "basis": "median after warm-up",
-          "output": "all 522 players"
+          "timeMs": 105.16433300000006,
+          "basis": "median of 21 measurements after 3 warm-up runs",
+          "output": "all 522 players",
+          "timeDividedByLaqi": 1
+        },
+        "serialMonteCarloFullField": {
+          "timeMs": 199761.83379200002,
+          "basis": "one complete serial run",
+          "output": "all 522 players",
+          "trials": 3000000,
+          "timeDividedByLaqi": 1899.520760446414
         }
       },
-      "valueNote": "Displayed LAQI values are normalized 192-node full-field values. Target-only raw-estimate timing is reported separately and does not produce the displayed values."
+      "valueNote": "All displayed values and timings come from the same matched full-field benchmark, in which both methods returned all 522 normalized player values."
     },
     "table4FourThousandPlayerStress": {
       "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
@@ -549,7 +565,7 @@
           {
             "nodes": 192,
             "actualNodes": 192,
-            "runtimeMs": 2916.0849160000002,
+            "runtimeMs": 2787.845208,
             "heroValue": 22251.24956016845,
             "heroDifferenceVs1536": -4.776734223145468,
             "maxAbsDollarDifference": 89.81380039823125,
@@ -561,7 +577,7 @@
           {
             "nodes": 384,
             "actualNodes": 384,
-            "runtimeMs": 5367.066124999999,
+            "runtimeMs": 5649.355625,
             "heroValue": 22256.003053721568,
             "heroDifferenceVs1536": -0.02324067002700758,
             "maxAbsDollarDifference": 0.45435635549074505,
@@ -573,7 +589,7 @@
           {
             "nodes": 768,
             "actualNodes": 768,
-            "runtimeMs": 10685.504124999998,
+            "runtimeMs": 11179.427708,
             "heroValue": 22256.026294473657,
             "heroDifferenceVs1536": 8.206188795156777e-8,
             "maxAbsDollarDifference": 0.000001524880644865334,
@@ -585,7 +601,7 @@
           {
             "nodes": 1536,
             "actualNodes": 1536,
-            "runtimeMs": 21359.97275,
+            "runtimeMs": 22206.305582999998,
             "heroValue": 22256.026294391595,
             "heroDifferenceVs1536": 0,
             "maxAbsDollarDifference": 0,
@@ -593,6 +609,89 @@
             "rmseDollarDifference": 0,
             "maxRelativeDifference": 0,
             "maxRelativeDifferencePercent": 0
+          }
+        ]
+      },
+      "standardizedRuntimeScaling": {
+        "benchmark": "4,000-player full-field LAQI runtime scaling across quadrature node counts",
+        "settings": {
+          "nodeCounts": [
+            192,
+            384,
+            768,
+            1536
+          ],
+          "panelCount": 32,
+          "tailTolerance": 1e-12,
+          "warmups": 1,
+          "samples": 5,
+          "timingBasis": "median of five measurements after one warm-up at each node count"
+        },
+        "machine": {
+          "platform": "darwin",
+          "architecture": "arm64",
+          "cpu": "Apple M3 Ultra",
+          "logicalCpuCount": 28,
+          "memoryBytes": 103079215104,
+          "nodeVersion": "v24.16.0",
+          "execution": "single Node.js process; no worker threads or GPU"
+        },
+        "runs": [
+          {
+            "nodes": 192,
+            "medianMs": 2527.1129999999994,
+            "meanMs": 2529.2287665999997,
+            "minMs": 2517.608625,
+            "maxMs": 2548.194,
+            "timesMs": [
+              2548.194,
+              2517.608625,
+              2527.1129999999994,
+              2522.2992079999985,
+              2530.929
+            ]
+          },
+          {
+            "nodes": 384,
+            "medianMs": 5056.350458000001,
+            "meanMs": 5040.9120330000005,
+            "minMs": 4998.305916000005,
+            "maxMs": 5068.038832999999,
+            "timesMs": [
+              5068.038832999999,
+              5058.8453329999975,
+              5056.350458000001,
+              4998.305916000005,
+              5023.019625000001
+            ]
+          },
+          {
+            "nodes": 768,
+            "medianMs": 10022.579959000002,
+            "meanMs": 10031.804466800004,
+            "minMs": 9954.823292000001,
+            "maxMs": 10115.190500000012,
+            "timesMs": [
+              10022.579959000002,
+              10012.57475,
+              10053.853833000001,
+              10115.190500000012,
+              9954.823292000001
+            ]
+          },
+          {
+            "nodes": 1536,
+            "medianMs": 20041.426625000022,
+            "meanMs": 20053.492941600012,
+            "minMs": 20022.419042000023,
+            "maxMs": 20104.269750000007,
+            "timesMs": [
+              20072.478416000013,
+              20022.419042000023,
+              20041.426625000022,
+              20104.269750000007,
+              20026.870874999993
+            ]
           }
         ]
       }
@@ -639,8 +738,8 @@
           "logAgePanelCount": 32,
           "tailTolerance": 1e-12
         },
-        "paperTimingMs": 103.271,
-        "monteCarloActiveRuntimeDividedByLaqiTiming": 896384.6772085096,
+        "paperTimingMs": 105.16433300000006,
+        "monteCarloActiveRuntimeDividedByLaqiTiming": 880246.5565963315,
         "maximumDifferenceFrom6144Nodes": 0.00976113713113591,
         "convergenceReferenceIsExact": false
       },
@@ -713,51 +812,60 @@
       "ledgerNote": "The first session was recovered from its last durable checkpoint after an unclean shutdown; all checkpointed trials were retained and session totals sum to the aggregate."
     },
     "supplementalFullFieldMonteCarlo522": {
-      "purpose": "Support the manuscript's separate full-field runtime comparison.",
+      "purpose": "Support the manuscript's matched 522-player full-field runtime comparison.",
       "fixtureId": "wsop-2025-main-event-snapshot-522",
       "playersRemaining": 522,
       "monteCarlo": {
-        "trials": 1000000,
-        "timeMs": 68574.69687500001,
+        "trials": 3000000,
+        "timeMs": 199761.83379200002,
         "output": "all 522 players",
         "method": "serial exponential-race Monte Carlo with full finish-order sorting"
       },
       "laqi192FullField": {
-        "medianMs": 109.035708,
+        "medianMs": 105.16433300000006,
         "warmups": 3,
         "samples": 21
       },
-      "monteCarloTimeDividedByLaqi": 628.9196276416163,
+      "monteCarloTimeDividedByLaqi": 1899.520760446414,
       "representativePlayers": [
         {
           "playerIndex": 1,
           "chips": 4195000,
-          "mean": 366008.22875,
-          "standardError": 1076.0074148484644,
-          "margin95": 2108.97453310299,
-          "ci95Low": 363899.254216897,
-          "ci95High": 368117.203283103,
-          "laqi192Value": 366030.62433171266
+          "mean": 365756.04191666667,
+          "standardError": 620.5500483209781,
+          "margin95": 1216.278094709117,
+          "ci95Low": 364539.7638219576,
+          "ci95High": 366972.32001137576,
+          "laqi192Value": 366030.62433171266,
+          "monteCarloMinusLaqi": -274.58241504599573,
+          "absoluteRelativeDifference": 0.0007501624093539162,
+          "laqiInsideMonteCarloCi95": true
         },
         {
           "playerIndex": 261,
           "chips": 925000,
-          "mean": 122313.157,
-          "standardError": 520.0259294721155,
-          "margin95": 1019.2508217653465,
-          "ci95Low": 121293.90617823465,
-          "ci95High": 123332.40782176536,
-          "laqi192Value": 122809.40528326013
+          "mean": 122641.43741666667,
+          "standardError": 301.632959732648,
+          "margin95": 591.20060107599,
+          "ci95Low": 122050.23681559067,
+          "ci95High": 123232.63801774266,
+          "laqi192Value": 122809.40528326013,
+          "monteCarloMinusLaqi": -167.96786659346253,
+          "absoluteRelativeDifference": 0.0013677117498130077,
+          "laqiInsideMonteCarloCi95": true
         },
         {
           "playerIndex": 522,
           "chips": 120000,
-          "mean": 45907.63,
-          "standardError": 190.25776180007452,
-          "margin95": 372.90521312814604,
-          "ci95Low": 45534.72478687185,
-          "ci95High": 46280.53521312815,
-          "laqi192Value": 46039.195995755676
+          "mean": 45938.765583333334,
+          "standardError": 109.42227535519635,
+          "margin95": 214.46765969618482,
+          "ci95Low": 45724.29792363715,
+          "ci95High": 46153.23324302952,
+          "laqi192Value": 46039.195995755676,
+          "monteCarloMinusLaqi": -100.43041242234176,
+          "absoluteRelativeDifference": 0.0021814110835384785,
+          "laqiInsideMonteCarloCi95": true
         }
       ]
     }

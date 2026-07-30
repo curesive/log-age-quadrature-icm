@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-30T19:19:39.936Z",
+  "benchmark": "4,000-player full-field LAQI runtime scaling across quadrature node counts",
+  "fixtureId": "wsop-2026-main-event-4000-icm-swap-chip-gen-2-4",
+  "players": 4000,
+  "paidRanks": 1383,
+  "settings": {
+    "nodeCounts": [
+      192,
+      384,
+      768,
+      1536
+    ],
+    "panelCount": 32,
+    "tailTolerance": 1e-12,
+    "warmups": 1,
+    "samples": 5,
+    "timingBasis": "median of five measurements after one warm-up at each node count"
+  },
+  "runs": [
+    {
+      "nodes": 192,
+      "medianMs": 2527.1129999999994,
+      "meanMs": 2529.2287665999997,
+      "minMs": 2517.608625,
+      "maxMs": 2548.194,
+      "timesMs": [
+        2548.194,
+        2517.608625,
+        2527.1129999999994,
+        2522.2992079999985,
+        2530.929
+      ]
+    },
+    {
+      "nodes": 384,
+      "medianMs": 5056.350458000001,
+      "meanMs": 5040.9120330000005,
+      "minMs": 4998.305916000005,
+      "maxMs": 5068.038832999999,
+      "timesMs": [
+        5068.038832999999,
+        5058.8453329999975,
+        5056.350458000001,
+        4998.305916000005,
+        5023.019625000001
+      ]
+    },
+    {
+      "nodes": 768,
+      "medianMs": 10022.579959000002,
+      "meanMs": 10031.804466800004,
+      "minMs": 9954.823292000001,
+      "maxMs": 10115.190500000012,
+      "timesMs": [
+        10022.579959000002,
+        10012.57475,
+        10053.853833000001,
+        10115.190500000012,
+        9954.823292000001
+      ]
+    },
+    {
+      "nodes": 1536,
+      "medianMs": 20041.426625000022,
+      "meanMs": 20053.492941600012,
+      "minMs": 20022.419042000023,
+      "maxMs": 20104.269750000007,
+      "timesMs": [
+        20072.478416000013,
+        20022.419042000023,
+        20041.426625000022,
+        20104.269750000007,
+        20026.870874999993
+      ]
+    }
+  ],
+  "machine": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M3 Ultra",
+    "logicalCpuCount": 28,
+    "memoryBytes": 103079215104,
+    "nodeVersion": "v24.16.0",
+    "execution": "single Node.js process; no worker threads or GPU"
+  }
+}

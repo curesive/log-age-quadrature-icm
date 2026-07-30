@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { solveLogAgeQuadratureIcm } from "../src/log-age-quadrature-icm.js";
 
-const ARTIFACT_CREATED_AT = "2026-07-28T21:40:20Z";
+const ARTIFACT_CREATED_AT = "2026-07-30T23:00:04Z";
 const PAPER_VERSION = "1.0.0";
 const outputUrl = new URL(
   `./results/paper_results_v${PAPER_VERSION.replaceAll(".", "_")}.json`,
@@ -38,13 +38,22 @@ const sourceDefinitions = [
     role: "Four-thousand-player node-count convergence comparison",
   },
   {
-    id: "full-field-monte-carlo-522",
-    path: "research/results/serial_full_field_monte_carlo_522_1m.json",
+    id: "main-event-convergence-timing",
+    path: "research/results/main_event_stress_4000_convergence_timing.json",
     url: new URL(
-      "./results/serial_full_field_monte_carlo_522_1m.json",
+      "./results/main_event_stress_4000_convergence_timing.json",
       import.meta.url,
     ),
-    role: "Supplemental serial full-field Monte Carlo timing benchmark",
+    role: "Four-thousand-player standardized full-field runtime scaling benchmark",
+  },
+  {
+    id: "full-field-monte-carlo-522",
+    path: "research/results/serial_full_field_monte_carlo_522_3m.json",
+    url: new URL(
+      "./results/serial_full_field_monte_carlo_522_3m.json",
+      import.meta.url,
+    ),
+    role: "Matched 522-player full-field LAQI and three-million-trial serial Monte Carlo timing benchmark",
   },
   {
     id: "parallel-full-field-monte-carlo-522-25b",
@@ -74,21 +83,9 @@ const paperTimings = {
     exactTimeDividedByLaqi: 404.4,
     monteCarloTimeDividedByLaqi: 3399.5,
   },
-  fiveHundredTwentyTwoPlayer: {
-    laqi192RawTargetSelectedThreeMedianMs: 40.462,
-    monteCarloSelectedThreeRuntimeMs: 34658.816,
-    laqi192FullFieldMedianMs: 103.271,
-    monteCarloTimeDividedBySelectedLaqi: 856.6,
-  },
   fourThousandPlayer: {
     laqi192FullFieldMedianMs: 2470.660083,
     laqi192RawTargetAverageStackMedianMs: 462.647459,
-    convergenceRuntimeMsByNode: {
-      192: 2916.0849160000002,
-      384: 5367.066124999999,
-      768: 10685.504124999998,
-      1536: 21359.97275,
-    },
   },
 };
 
@@ -121,6 +118,7 @@ const core = sources["core-validation"];
 const ninePlayerMonteCarlo = sources["nine-player-monte-carlo"];
 const stress = sources["main-event-stress"];
 const convergence = sources["main-event-convergence"];
+const convergenceTiming = sources["main-event-convergence-timing"];
 const fullFieldMonteCarlo = sources["full-field-monte-carlo-522"];
 const parallelFullFieldMonteCarlo =
   sources["parallel-full-field-monte-carlo-522-25b"];
@@ -140,11 +138,10 @@ const ninePlayerRows = core.ninePlayer.scenario.chipCounts.map((chips, index) =>
 });
 
 const fiveHundredTwentyTwoRows =
-  core.fiveHundredTwentyTwoPlayer.representativeIndexes.map((playerIndex, offset) => {
-    const monteCarlo = core.fiveHundredTwentyTwoPlayer.monteCarlo.players[offset];
-    const laqiValue = core.fiveHundredTwentyTwoPlayer.laqi192Values[offset];
+  fullFieldMonteCarlo.comparison.representativePlayers.map((monteCarlo) => {
+    const laqiValue = monteCarlo.laqi192Value;
     return {
-      playerIndex: playerIndex + 1,
+      playerIndex: monteCarlo.playerIndex,
       chips: monteCarlo.chips,
       laqi192FullFieldValue: laqiValue,
       monteCarloMean: monteCarlo.mean,
@@ -152,6 +149,8 @@ const fiveHundredTwentyTwoRows =
       monteCarloStandardError: monteCarlo.standardError,
       monteCarloCi95Low: monteCarlo.ci95Low,
       monteCarloCi95High: monteCarlo.ci95High,
+      absoluteRelativeDifference:
+        Math.abs(monteCarlo.mean - laqiValue) / laqiValue,
       laqiInsideMonteCarloCi95:
         laqiValue >= monteCarlo.ci95Low && laqiValue <= monteCarlo.ci95High,
     };
@@ -310,38 +309,31 @@ const artifact = {
       monteCarloPlayers: ninePlayerMonteCarlo.players,
     },
     table3FiveHundredTwentyTwoPlayerComparison: {
-      fixtureId: core.fiveHundredTwentyTwoPlayer.scenario.id,
-      playersRemaining: core.fiveHundredTwentyTwoPlayer.scenario.players,
-      activePayoutRows: core.fiveHundredTwentyTwoPlayer.scenario.paidRanks,
-      monteCarloTrials: core.fiveHundredTwentyTwoPlayer.monteCarlo.trials,
+      fixtureId: fullFieldMonteCarlo.scenario.fixtureId,
+      playersRemaining: fullFieldMonteCarlo.scenario.players,
+      activePayoutRows: fullFieldMonteCarlo.scenario.activePayoutRows,
+      monteCarloTrials: fullFieldMonteCarlo.monteCarlo.trials,
       rows: fiveHundredTwentyTwoRows,
+      fieldWideComparison: fullFieldMonteCarlo.comparison.fieldWide,
       timing: {
-        laqi192RawTargetSelectedThree: {
-          timeMs:
-            paperTimings.fiveHundredTwentyTwoPlayer
-              .laqi192RawTargetSelectedThreeMedianMs,
-          basis: "median after warm-up",
-          output: "three target-only raw-equity estimates; timing only",
-          timeDividedBySelectedLaqi: 1,
-        },
-        serialMonteCarloSelectedThree: {
-          timeMs:
-            paperTimings.fiveHundredTwentyTwoPlayer.monteCarloSelectedThreeRuntimeMs,
-          basis: "one complete serial run",
-          output: "three selected players",
-          trials: 3_000_000,
-          timeDividedBySelectedLaqi:
-            paperTimings.fiveHundredTwentyTwoPlayer
-              .monteCarloTimeDividedBySelectedLaqi,
-        },
         laqi192FullField: {
-          timeMs: paperTimings.fiveHundredTwentyTwoPlayer.laqi192FullFieldMedianMs,
-          basis: "median after warm-up",
-          output: "all 522 players",
+          timeMs: fullFieldMonteCarlo.laqi.timing.medianMs,
+          basis: `median of ${fullFieldMonteCarlo.laqi.timing.samples} measurements after ${fullFieldMonteCarlo.laqi.timing.warmups} warm-up runs`,
+          output: fullFieldMonteCarlo.laqi.output,
+          timeDividedByLaqi: 1,
+        },
+        serialMonteCarloFullField: {
+          timeMs: fullFieldMonteCarlo.monteCarlo.runtimeMs,
+          basis: "one complete serial run",
+          output: fullFieldMonteCarlo.monteCarlo.output,
+          trials: fullFieldMonteCarlo.monteCarlo.trials,
+          timeDividedByLaqi:
+            fullFieldMonteCarlo.comparison
+              .monteCarloTimeDividedByLaqiMedian,
         },
       },
       valueNote:
-        "Displayed LAQI values are normalized 192-node full-field values. Target-only raw-estimate timing is reported separately and does not produce the displayed values.",
+        "All displayed values and timings come from the same matched full-field benchmark, in which both methods returned all 522 normalized player values.",
     },
     table4FourThousandPlayerStress: {
       fixtureId: stress.scenario.fixtureId,
@@ -386,11 +378,14 @@ const artifact = {
         },
         runs: convergence.runs.map((run) => ({
           ...run,
-          runtimeMs:
-            paperTimings.fourThousandPlayer.convergenceRuntimeMsByNode[run.nodes] ??
-            run.runtimeMs,
           maxRelativeDifferencePercent: run.maxRelativeDifference * 100,
         })),
+      },
+      standardizedRuntimeScaling: {
+        benchmark: convergenceTiming.benchmark,
+        settings: convergenceTiming.settings,
+        machine: convergenceTiming.machine,
+        runs: convergenceTiming.runs,
       },
     },
     table5TwentyFiveBillionTrialValidation: {
@@ -433,11 +428,10 @@ const artifact = {
           logAgePanelCount: 32,
           tailTolerance: 1e-12,
         },
-        paperTimingMs:
-          paperTimings.fiveHundredTwentyTwoPlayer.laqi192FullFieldMedianMs,
+        paperTimingMs: fullFieldMonteCarlo.laqi.timing.medianMs,
         monteCarloActiveRuntimeDividedByLaqiTiming:
           parallelMonteCarloActiveRuntimeMs /
-          paperTimings.fiveHundredTwentyTwoPlayer.laqi192FullFieldMedianMs,
+          fullFieldMonteCarlo.laqi.timing.medianMs,
         maximumDifferenceFrom6144Nodes:
           nodeConvergence522At192.comparisonTo6144.maxAbsDollarError,
         convergenceReferenceIsExact: false,
@@ -472,7 +466,7 @@ const artifact = {
         "The first session was recovered from its last durable checkpoint after an unclean shutdown; all checkpointed trials were retained and session totals sum to the aggregate.",
     },
     supplementalFullFieldMonteCarlo522: {
-      purpose: "Support the manuscript's separate full-field runtime comparison.",
+      purpose: "Support the manuscript's matched 522-player full-field runtime comparison.",
       fixtureId: fullFieldMonteCarlo.scenario.fixtureId,
       playersRemaining: fullFieldMonteCarlo.scenario.players,
       monteCarlo: {
