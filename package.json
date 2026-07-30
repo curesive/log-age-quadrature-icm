@@ -18,9 +18,11 @@
     "research:validate": "node research/run-core-validation.mjs",
     "research:validate-nine-player-mc": "node research/run-nine-player-monte-carlo-1m.mjs",
     "research:benchmark-522-full-field-mc": "node research/run-serial-full-field-monte-carlo-522.mjs",
+    "research:benchmark-522-full-field-mc-3m": "node research/run-serial-full-field-monte-carlo-522.mjs --trials=3000000",
     "research:sweep-node-accuracy": "node research/run-node-count-accuracy-sweep.mjs",
     "research:stress-main-event": "node research/run-main-event-stress-4000.mjs",
-    "research:convergence-main-event": "node research/run-main-event-convergence-4000.mjs"
+    "research:convergence-main-event": "node research/run-main-event-convergence-4000.mjs",
+    "research:benchmark-convergence-main-event": "node research/run-main-event-convergence-timing-4000.mjs"
   },
   "keywords": [
     "poker",

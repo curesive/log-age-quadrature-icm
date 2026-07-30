@@ -152,12 +152,26 @@ function formatMoney(value) {
   });
 }
 
-const trials = Number(process.env.LAQI_FULL_FIELD_MC_TRIALS || DEFAULT_TRIALS);
+const trialsArgument = process.argv.find((argument) =>
+  argument.startsWith("--trials="),
+);
+const trials = Number(
+  trialsArgument?.slice("--trials=".length) ||
+    process.env.LAQI_FULL_FIELD_MC_TRIALS ||
+    DEFAULT_TRIALS,
+);
 const seed = Number(process.env.LAQI_FULL_FIELD_MC_SEED || DEFAULT_SEED) >>> 0;
 if (!Number.isSafeInteger(trials) || trials <= 0) {
-  throw new Error("LAQI_FULL_FIELD_MC_TRIALS must be a positive safe integer.");
+  throw new Error(
+    "--trials or LAQI_FULL_FIELD_MC_TRIALS must be a positive safe integer.",
+  );
 }
-const trialLabel = trials === DEFAULT_TRIALS ? "1m" : String(trials);
+const trialLabel =
+  trials % 1_000_000 === 0
+    ? `${trials / 1_000_000}m`
+    : trials % 1_000 === 0
+      ? `${trials / 1_000}k`
+      : String(trials);
 const jsonResultUrl = new URL(
   `./results/serial_full_field_monte_carlo_522_${trialLabel}.json`,
   import.meta.url,
@@ -188,11 +202,68 @@ console.log(
 );
 const monteCarlo = runSerialFullFieldMonteCarlo(chipCounts, payouts, trials, seed);
 const meanValueSum = sum(monteCarlo.players.map((player) => player.mean));
+const playerComparisons = monteCarlo.players.map((player, index) => {
+  const laqi192Value = laqiBenchmark.result.players[index].value;
+  const monteCarloMinusLaqi = player.mean - laqi192Value;
+  return {
+    ...player,
+    laqi192Value,
+    monteCarloMinusLaqi,
+    absoluteRelativeDifference:
+      Math.abs(monteCarloMinusLaqi) / laqi192Value,
+    laqiInsideMonteCarloCi95:
+      laqi192Value >= player.ci95Low && laqi192Value <= player.ci95High,
+  };
+});
+const maximumRelativeDifferencePlayer = playerComparisons.reduce(
+  (largest, player) =>
+    player.absoluteRelativeDifference > largest.absoluteRelativeDifference
+      ? player
+      : largest,
+);
+const maximumAbsoluteDifferencePlayer = playerComparisons.reduce(
+  (largest, player) =>
+    Math.abs(player.monteCarloMinusLaqi) >
+    Math.abs(largest.monteCarloMinusLaqi)
+      ? player
+      : largest,
+);
 const representativeIndexes = [0, 260, 521];
-const representativePlayers = representativeIndexes.map((index) => ({
-  ...monteCarlo.players[index],
-  laqi192Value: laqiBenchmark.result.players[index].value,
-}));
+const representativePlayers = representativeIndexes.map(
+  (index) => playerComparisons[index],
+);
+const fieldWideComparison = {
+  playerCount: playerComparisons.length,
+  withinOnePercentCount: playerComparisons.filter(
+    (player) => player.absoluteRelativeDifference <= 0.01,
+  ).length,
+  withinHalfPercentCount: playerComparisons.filter(
+    (player) => player.absoluteRelativeDifference <= 0.005,
+  ).length,
+  individual95IntervalContainsLaqiCount: playerComparisons.filter(
+    (player) => player.laqiInsideMonteCarloCi95,
+  ).length,
+  maximumAbsoluteRelativeDifference:
+    maximumRelativeDifferencePlayer.absoluteRelativeDifference,
+  maximumAbsoluteRelativeDifferencePlayerIndex:
+    maximumRelativeDifferencePlayer.playerIndex,
+  maximumAbsoluteDollarDifference: Math.abs(
+    maximumAbsoluteDifferencePlayer.monteCarloMinusLaqi,
+  ),
+  maximumAbsoluteDollarDifferencePlayerIndex:
+    maximumAbsoluteDifferencePlayer.playerIndex,
+  meanAbsoluteDollarDifference:
+    sum(
+      playerComparisons.map((player) =>
+        Math.abs(player.monteCarloMinusLaqi),
+      ),
+    ) / playerComparisons.length,
+  rootMeanSquareDollarDifference: Math.sqrt(
+    sum(
+      playerComparisons.map((player) => player.monteCarloMinusLaqi ** 2),
+    ) / playerComparisons.length,
+  ),
+};
 
 const output = {
   generatedAt: new Date().toISOString(),
@@ -237,6 +308,7 @@ const output = {
   comparison: {
     monteCarloTimeDividedByLaqiMedian:
       monteCarlo.runtimeMs / laqiBenchmark.medianMs,
+    fieldWide: fieldWideComparison,
     representativePlayers,
   },
   machine: {
@@ -263,6 +335,8 @@ const markdown = [
   `| Serial Monte Carlo | All 522 players | ${trials.toLocaleString("en-US")} | ${(output.monteCarlo.runtimeMs / 1_000).toFixed(3)} s | ${output.comparison.monteCarloTimeDividedByLaqiMedian.toFixed(1)}x |`,
   "",
   "The LAQI time is the median of 21 measurements after three warm-up runs. The Monte Carlo time is one complete serial run. Both methods returned values for every player. No worker threads, child processes, or GPU acceleration were used.",
+  "",
+  `Across all 522 players, ${output.comparison.fieldWide.withinOnePercentCount} Monte Carlo estimates were within 1% of LAQI, and the maximum absolute relative difference was ${(100 * output.comparison.fieldWide.maximumAbsoluteRelativeDifference).toFixed(3)}%. LAQI was inside ${output.comparison.fieldWide.individual95IntervalContainsLaqiCount} of 522 individual Monte Carlo 95% intervals.`,
   "",
   "| Player | Chips | LAQI 192 | MC mean | MC 95% interval |",
   "| ---: | ---: | ---: | ---: | ---: |",

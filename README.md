@@ -190,10 +190,11 @@ measurements will vary with the machine and current system load.
 | Table 1, nine-player exact accuracy | `npm run research:validate` | `research/results/core_validation_results.json` |
 | Table 2, nine-player accuracy and timing | `npm run research:validate` | `research/results/core_validation_tables.md` |
 | Table 2, focused one-million-trial Monte Carlo output | `npm run research:validate-nine-player-mc` | `research/results/nine_player_monte_carlo_1m.json` |
-| Table 3, 522-player LAQI and three-player Monte Carlo comparison | `npm run research:validate` | `research/results/core_validation_results.json` |
+| Table 3, 522-player matched full-field LAQI and three-million-trial serial Monte Carlo timing | `npm run research:benchmark-522-full-field-mc-3m` | `research/results/serial_full_field_monte_carlo_522_3m.json` |
 | Table 4, 4,000-player full-field and average-stack raw target-only timing | `npm run research:stress-main-event` | `research/results/main_event_stress_4000.json` |
 | Table 4, 192/384/768/1,536-node convergence | `npm run research:convergence-main-event` | `research/results/main_event_stress_4000_convergence.json` |
-| Supplemental 522-player full-field serial Monte Carlo | `npm run research:benchmark-522-full-field-mc` | `research/results/serial_full_field_monte_carlo_522_1m.json` |
+| Figure 2, standardized 192/384/768/1,536-node runtime scaling | `npm run research:benchmark-convergence-main-event` | `research/results/main_event_stress_4000_convergence_timing.json` |
+| Supplemental one-million-trial 522-player full-field serial Monte Carlo | `npm run research:benchmark-522-full-field-mc` | `research/results/serial_full_field_monte_carlo_522_1m.json` |
 | Supplemental 3-13 player exact sweep and 522-player node convergence | `npm run research:sweep-node-accuracy` | `research/results/node_count_accuracy_sweep.json` |
 | Final 522-player full-field parallel Monte Carlo validation | `npm run research:verify-522-mc-25b` | `research/results/parallel_full_field_monte_carlo_522_25b.json` |
 
