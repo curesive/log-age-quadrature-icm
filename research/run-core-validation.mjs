@@ -5,6 +5,12 @@ import {
   solveLogAgeQuadratureIcm,
   solveRawPlayerLogAgeQuadratureIcm,
 } from "../src/log-age-quadrature-icm.js";
+import {
+  exactMalmuthHarvilleIcmHighPrecision,
+  highPrecisionErrorSummary,
+  scaledBigIntToDecimal,
+  scaledBigIntToScientific,
+} from "./lib/high-precision-exact-icm.mjs";
 
 const DEFAULT_OPTIONS = {
   logAgeNodeCount: 192,
@@ -63,7 +69,7 @@ function activePayouts(payouts, playerCount) {
     .slice(0, playerCount);
 }
 
-function exactMalmuthHarvilleIcm(chipCounts, payouts) {
+function exactMalmuthHarvilleIcmDoublePrecision(chipCounts, payouts) {
   const stacks = chipCounts.map(Number);
   const prizes = activePayouts(payouts, stacks.length);
   const equities = Array.from({ length: stacks.length }, () => 0);
@@ -98,6 +104,18 @@ function exactMalmuthHarvilleIcm(chipCounts, payouts) {
     1,
   );
   return equities;
+}
+
+function serializableHighPrecisionErrorSummary(summary) {
+  const { scaledErrors, maxAbsScaledError, ...numericSummary } = summary;
+  return {
+    ...numericSummary,
+    errorsScientific: scaledErrors.map((value) => (
+      scaledBigIntToScientific(value, 5)
+    )),
+    maxAbsDollarErrorScientific:
+      scaledBigIntToScientific(maxAbsScaledError, 5),
+  };
 }
 
 function rotateLeft(value, shift) {
@@ -296,9 +314,16 @@ function stripBenchmarkResult(benchmarkResult) {
   return timing;
 }
 
-console.log("Running 9-player exact and LAQI benchmarks...");
-const exactNineBenchmark = benchmark(
-  () => exactMalmuthHarvilleIcm(ninePlayer.chipCounts, ninePlayer.payouts),
+console.log("Running 9-player high-precision reference, recursion, and LAQI benchmarks...");
+const exactNineHighPrecision = exactMalmuthHarvilleIcmHighPrecision(
+  ninePlayer.chipCounts,
+  ninePlayer.payouts,
+);
+const exactNineDoubleBenchmark = benchmark(
+  () => exactMalmuthHarvilleIcmDoublePrecision(
+    ninePlayer.chipCounts,
+    ninePlayer.payouts,
+  ),
   { warmups: 2, samples: 7 },
 );
 const laqiNineBenchmark = benchmark(
@@ -309,9 +334,17 @@ const laqiNineBenchmark = benchmark(
   ),
   { warmups: 5, samples: 31 },
 );
-const exactNineValues = exactNineBenchmark.result;
+const exactNineValues = exactNineHighPrecision.values;
+const exactNineDoubleValues = exactNineDoubleBenchmark.result;
 const laqiNineValues = laqiNineBenchmark.result.players.map((player) => player.value);
-const laqiNineErrors = errorSummary(laqiNineValues, exactNineValues);
+const laqiNineErrors = highPrecisionErrorSummary(
+  laqiNineValues,
+  exactNineHighPrecision.scaledEquities,
+);
+const exactNineDoubleErrors = highPrecisionErrorSummary(
+  exactNineDoubleValues,
+  exactNineHighPrecision.scaledEquities,
+);
 
 console.log("Running 9-player Monte Carlo benchmark...");
 const monteCarloNine = monteCarloSelectedPlayers({
@@ -324,7 +357,10 @@ const monteCarloNine = monteCarloSelectedPlayers({
   progressLabel: "9-player Monte Carlo",
 });
 const monteCarloNineValues = monteCarloNine.players.map((player) => player.mean);
-const monteCarloNineErrors = errorSummary(monteCarloNineValues, exactNineValues);
+const monteCarloNineErrors = highPrecisionErrorSummary(
+  monteCarloNineValues,
+  exactNineHighPrecision.scaledEquities,
+);
 const monteCarloNineCoverage = monteCarloNine.players.filter(
   (player, index) =>
     exactNineValues[index] >= player.ci95Low && exactNineValues[index] <= player.ci95High,
@@ -438,16 +474,29 @@ const results = {
   },
   ninePlayer: {
     scenario: ninePlayer,
+    exactReference: {
+      method: exactNineHighPrecision.method,
+      scaleDigits: exactNineHighPrecision.scaleDigits,
+      prizePoolResidual: exactNineHighPrecision.prizePoolResidual,
+    },
     exactValues: exactNineValues,
+    exactValueDecimalStrings: exactNineHighPrecision.scaledEquities.map(
+      (value) => scaledBigIntToDecimal(value, 15),
+    ),
+    doublePrecisionExactValues: exactNineDoubleValues,
     laqiValues: laqiNineValues,
+    laqiValueDecimalStrings: laqiNineValues.map((value) => value.toFixed(15)),
     monteCarlo: monteCarloNine,
     error: {
-      laqiVsExact: laqiNineErrors,
-      monteCarloVsExact: monteCarloNineErrors,
+      laqiVsExact: serializableHighPrecisionErrorSummary(laqiNineErrors),
+      doublePrecisionRecursionVsExact:
+        serializableHighPrecisionErrorSummary(exactNineDoubleErrors),
+      monteCarloVsExact:
+        serializableHighPrecisionErrorSummary(monteCarloNineErrors),
       monteCarloCiCoverage: `${monteCarloNineCoverage}/${ninePlayer.chipCounts.length}`,
     },
     timing: {
-      exact: stripBenchmarkResult(exactNineBenchmark),
+      doublePrecisionExact: stripBenchmarkResult(exactNineDoubleBenchmark),
       laqi: stripBenchmarkResult(laqiNineBenchmark),
       monteCarloRuntimeMs: monteCarloNine.runtimeMs,
     },
@@ -499,30 +548,29 @@ const results = {
 };
 
 const ninePlayerValueRows = ninePlayer.chipCounts.map((chips, index) => {
-  const difference = laqiNineValues[index] - exactNineValues[index];
   return [
     index + 1,
     chips.toLocaleString("en-US"),
-    exactNineValues[index].toFixed(10),
-    laqiNineValues[index].toFixed(10),
-    formatScientific(difference, 4),
+    scaledBigIntToDecimal(exactNineHighPrecision.scaledEquities[index], 12),
+    laqiNineValues[index].toFixed(12),
+    scaledBigIntToScientific(laqiNineErrors.scaledErrors[index], 5),
   ];
 });
 
 const ninePlayerMethodRows = [
   [
-    "Exact Malmuth-Harville recursion",
+    "Exact Malmuth-Harville recursion (binary64 implementation)",
     "all 9 players",
-    formatDuration(exactNineBenchmark.medianMs),
-    "baseline",
-    "baseline",
+    formatDuration(exactNineDoubleBenchmark.medianMs),
+    scaledBigIntToScientific(exactNineDoubleErrors.maxAbsScaledError, 5),
+    formatScientific(exactNineDoubleErrors.rootMeanSquareDollarError, 4),
     "n/a",
   ],
   [
     "LAQI (192 nodes, 32 panels)",
     "all 9 players",
     formatDuration(laqiNineBenchmark.medianMs),
-    formatScientific(laqiNineErrors.maxAbsDollarError, 4),
+    scaledBigIntToScientific(laqiNineErrors.maxAbsScaledError, 5),
     formatScientific(laqiNineErrors.rootMeanSquareDollarError, 4),
     "n/a",
   ],
@@ -601,11 +649,17 @@ const markdown = [
   "## 1. Nine-Player Exact Accuracy",
   "",
   markdownTable(
-    ["Seat", "Chips", "Exact MH ($)", "LAQI 192 ($)", "LAQI - exact ($)"],
+    [
+      "Seat",
+      "Chips",
+      "High-precision exact ICM ($)",
+      "LAQI 192 ($)",
+      "LAQI - exact ($)",
+    ],
     ninePlayerValueRows,
   ),
   "",
-  `Maximum absolute LAQI error: ${formatScientific(laqiNineErrors.maxAbsDollarError, 6)} dollars. Maximum relative error: ${formatScientific(laqiNineErrors.maxRelativeError, 6)}.`,
+  `Maximum absolute LAQI error: ${scaledBigIntToScientific(laqiNineErrors.maxAbsScaledError, 5)} dollars. Maximum relative error: ${formatScientific(laqiNineErrors.maxRelativeError, 4)}.`,
   "",
   "## 2. Nine-Player Accuracy and Time",
   "",
@@ -613,6 +667,8 @@ const markdown = [
     ["Method", "Output", "Time", "Max abs error vs exact", "RMSE vs exact", "Exact values inside 95% CI"],
     ninePlayerMethodRows,
   ),
+  "",
+  "Errors are measured against the 50-decimal high-precision exact ICM reference above. The binary64 recursion row reflects floating-point rounding in the timed Node.js implementation; the mathematical recurrence itself is exact.",
   "",
   "## 3. 522-Player LAQI and Monte Carlo Comparison",
   "",
@@ -643,6 +699,8 @@ const markdown = [
   "## Reproduction",
   "",
   "Run `npm run research:validate`. Trial counts can be reduced for a quick check with `LAQI_NINE_MC_TRIALS` and `LAQI_522_MC_TRIALS`; paper results should use the defaults.",
+  "",
+  "Run `npm run research:verify-nine-player-exact` for a lightweight deterministic check of the 50-decimal Table 1 reference and every reported LAQI difference.",
   "",
 ].join("\n");
 

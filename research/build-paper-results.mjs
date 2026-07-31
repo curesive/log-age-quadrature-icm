@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { solveLogAgeQuadratureIcm } from "../src/log-age-quadrature-icm.js";
 
-const ARTIFACT_CREATED_AT = "2026-07-30T23:00:04Z";
+const ARTIFACT_CREATED_AT = "2026-07-31T01:51:27Z";
 const PAPER_VERSION = "1.0.0";
 const outputUrl = new URL(
   `./results/paper_results_v${PAPER_VERSION.replaceAll(".", "_")}.json`,
@@ -127,13 +127,20 @@ const nodeConvergence522 = sources["node-convergence-522"];
 const ninePlayerRows = core.ninePlayer.scenario.chipCounts.map((chips, index) => {
   const exactValue = core.ninePlayer.exactValues[index];
   const laqiValue = core.ninePlayer.laqiValues[index];
+  const signedDollarDifference =
+    core.ninePlayer.error.laqiVsExact.errors[index];
   return {
     playerIndex: index + 1,
     chips,
     laqi192Value: laqiValue,
+    laqi192ValueDecimal: core.ninePlayer.laqiValueDecimalStrings[index],
     exactMalmuthHarvilleValue: exactValue,
-    signedDollarDifference: laqiValue - exactValue,
-    absoluteDollarDifference: Math.abs(laqiValue - exactValue),
+    exactMalmuthHarvilleValueDecimal:
+      core.ninePlayer.exactValueDecimalStrings[index],
+    signedDollarDifference,
+    signedDollarDifferenceScientific:
+      core.ninePlayer.error.laqiVsExact.errorsScientific[index],
+    absoluteDollarDifference: Math.abs(signedDollarDifference),
   };
 });
 
@@ -305,6 +312,8 @@ const artifact = {
         },
       },
       laqiErrorVsExact: core.ninePlayer.error.laqiVsExact,
+      doublePrecisionRecursionErrorVsExact:
+        core.ninePlayer.error.doublePrecisionRecursionVsExact,
       monteCarloErrorVsExact: ninePlayerMonteCarlo.summary,
       monteCarloPlayers: ninePlayerMonteCarlo.players,
     },

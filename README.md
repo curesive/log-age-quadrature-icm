@@ -238,6 +238,10 @@ canonical file without changing it:
 npm run research:verify-paper-results
 ```
 
+This verification first recomputes the nine-player 50-decimal exact reference
+and checks every Table 1 player difference before rebuilding the canonical
+paper-results artifact.
+
 ### 25-Billion-Trial Monte Carlo Artifact
 
 The final 522-player validation ledger is

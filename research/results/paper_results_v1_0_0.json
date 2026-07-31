@@ -1,7 +1,7 @@
 {
   "schema": "log-age-quadrature-icm-paper-results",
   "schemaVersion": 1,
-  "artifactCreatedAt": "2026-07-30T23:00:04Z",
+  "artifactCreatedAt": "2026-07-31T01:51:27Z",
   "paper": {
     "title": "Log-Age Quadrature ICM: Fast Deterministic Dollar Equity for Poker Tournaments",
     "version": "1.0.0",
@@ -40,7 +40,7 @@
       "id": "core-validation",
       "path": "research/results/core_validation_results.json",
       "role": "Nine-player exact values and 522-player comparison values",
-      "sha256": "d74a354e81e0956a13a53183bf9dff330fe21deba7624be47456bfbc03e0bcf1"
+      "sha256": "027ad34c32c63a651fabb7b9692260024d251c0902e9d9f20651f5f0775cf4a2"
     },
     {
       "id": "nine-player-monte-carlo",
@@ -116,91 +116,130 @@
           "playerIndex": 1,
           "chips": 1500000,
           "laqi192Value": 132036.56256461982,
-          "exactMalmuthHarvilleValue": 132036.56256462124,
-          "signedDollarDifference": -1.4260876923799515e-9,
-          "absoluteDollarDifference": 1.4260876923799515e-9
+          "laqi192ValueDecimal": "132036.562564619816840",
+          "exactMalmuthHarvilleValue": 132036.56256461996,
+          "exactMalmuthHarvilleValueDecimal": "132036.562564619978591",
+          "signedDollarDifference": -1.6175134039591303e-10,
+          "signedDollarDifferenceScientific": "-1.6175e-10",
+          "absoluteDollarDifference": 1.6175134039591303e-10
         },
         {
           "playerIndex": 2,
           "chips": 900000,
           "laqi192Value": 111705.71638965665,
-          "exactMalmuthHarvilleValue": 111705.71638965656,
-          "signedDollarDifference": 8.731149137020111e-11,
-          "absoluteDollarDifference": 8.731149137020111e-11
+          "laqi192ValueDecimal": "111705.716389656648971",
+          "exactMalmuthHarvilleValue": 111705.71638965674,
+          "exactMalmuthHarvilleValueDecimal": "111705.716389656741285",
+          "signedDollarDifference": -9.231376550021997e-11,
+          "signedDollarDifferenceScientific": "-9.2314e-11",
+          "absoluteDollarDifference": 9.231376550021997e-11
         },
         {
           "playerIndex": 3,
           "chips": 700000,
           "laqi192Value": 101729.08634054984,
-          "exactMalmuthHarvilleValue": 101729.08634054984,
-          "signedDollarDifference": 0,
-          "absoluteDollarDifference": 0
+          "laqi192ValueDecimal": "101729.086340549838496",
+          "exactMalmuthHarvilleValue": 101729.08634054982,
+          "exactMalmuthHarvilleValueDecimal": "101729.086340549829638",
+          "signedDollarDifference": 8.857979186388642e-12,
+          "signedDollarDifferenceScientific": "8.8580e-12",
+          "absoluteDollarDifference": 8.857979186388642e-12
         },
         {
           "playerIndex": 4,
           "chips": 500000,
           "laqi192Value": 89047.48638311883,
-          "exactMalmuthHarvilleValue": 89047.48638311877,
-          "signedDollarDifference": 5.820766091346741e-11,
-          "absoluteDollarDifference": 5.820766091346741e-11
+          "laqi192ValueDecimal": "89047.486383118826780",
+          "exactMalmuthHarvilleValue": 89047.48638311883,
+          "exactMalmuthHarvilleValueDecimal": "89047.486383118844650",
+          "signedDollarDifference": -1.787005276481258e-11,
+          "signedDollarDifferenceScientific": "-1.7870e-11",
+          "absoluteDollarDifference": 1.787005276481258e-11
         },
         {
           "playerIndex": 5,
           "chips": 400000,
           "laqi192Value": 81290.13148848827,
-          "exactMalmuthHarvilleValue": 81290.13148848776,
-          "signedDollarDifference": 5.093170329928398e-10,
-          "absoluteDollarDifference": 5.093170329928398e-10
+          "laqi192ValueDecimal": "81290.131488488274044",
+          "exactMalmuthHarvilleValue": 81290.13148848833,
+          "exactMalmuthHarvilleValueDecimal": "81290.131488488333377",
+          "signedDollarDifference": -5.933274493536721e-11,
+          "signedDollarDifferenceScientific": "-5.9333e-11",
+          "absoluteDollarDifference": 5.933274493536721e-11
         },
         {
           "playerIndex": 6,
           "chips": 350000,
           "laqi192Value": 76947.22478496075,
-          "exactMalmuthHarvilleValue": 76947.22478496056,
-          "signedDollarDifference": 1.8917489796876907e-10,
-          "absoluteDollarDifference": 1.8917489796876907e-10
+          "laqi192ValueDecimal": "76947.224784960752004",
+          "exactMalmuthHarvilleValue": 76947.2247849607,
+          "exactMalmuthHarvilleValueDecimal": "76947.224784960699298",
+          "signedDollarDifference": 5.270552825747143e-11,
+          "signedDollarDifferenceScientific": "5.2706e-11",
+          "absoluteDollarDifference": 5.270552825747143e-11
         },
         {
           "playerIndex": 7,
           "chips": 300000,
           "laqi192Value": 72232.68096799898,
-          "exactMalmuthHarvilleValue": 72232.68096799942,
-          "signedDollarDifference": -4.3655745685100555e-10,
-          "absoluteDollarDifference": 4.3655745685100555e-10
+          "laqi192ValueDecimal": "72232.680967998981941",
+          "exactMalmuthHarvilleValue": 72232.68096799894,
+          "exactMalmuthHarvilleValueDecimal": "72232.680967998946926",
+          "signedDollarDifference": 3.5015145210610984e-11,
+          "signedDollarDifferenceScientific": "3.5015e-11",
+          "absoluteDollarDifference": 3.5015145210610984e-11
         },
         {
           "playerIndex": 8,
           "chips": 250000,
           "laqi192Value": 67082.9157592349,
-          "exactMalmuthHarvilleValue": 67082.91575923478,
-          "signedDollarDifference": 1.1641532182693481e-10,
-          "absoluteDollarDifference": 1.1641532182693481e-10
+          "laqi192ValueDecimal": "67082.915759234892903",
+          "exactMalmuthHarvilleValue": 67082.91575923486,
+          "exactMalmuthHarvilleValueDecimal": "67082.915759234877616",
+          "signedDollarDifference": 1.5287302100522652e-11,
+          "signedDollarDifferenceScientific": "1.5287e-11",
+          "absoluteDollarDifference": 1.5287302100522652e-11
         },
         {
           "playerIndex": 9,
           "chips": 100000,
           "laqi192Value": 47928.19532137186,
-          "exactMalmuthHarvilleValue": 47928.19532137181,
-          "signedDollarDifference": 5.093170329928398e-11,
-          "absoluteDollarDifference": 5.093170329928398e-11
+          "laqi192ValueDecimal": "47928.195321371858881",
+          "exactMalmuthHarvilleValue": 47928.19532137174,
+          "exactMalmuthHarvilleValueDecimal": "47928.195321371748619",
+          "signedDollarDifference": 1.1026258462856773e-10,
+          "signedDollarDifferenceScientific": "1.1026e-10",
+          "absoluteDollarDifference": 1.1026258462856773e-10
         }
       ],
       "summary": {
         "errors": [
-          -1.4260876923799515e-9,
-          8.731149137020111e-11,
-          0,
-          5.820766091346741e-11,
-          5.093170329928398e-10,
-          1.8917489796876907e-10,
-          -4.3655745685100555e-10,
-          1.1641532182693481e-10,
-          5.093170329928398e-11
+          -1.6175134039591303e-10,
+          -9.231376550021997e-11,
+          8.857979186388642e-12,
+          -1.787005276481258e-11,
+          -5.933274493536721e-11,
+          5.270552825747143e-11,
+          3.5015145210610984e-11,
+          1.5287302100522652e-11,
+          1.1026258462856773e-10
         ],
-        "maxAbsDollarError": 1.4260876923799515e-9,
-        "meanAbsDollarError": 3.1933369528916145e-10,
-        "rootMeanSquareDollarError": 5.319416734399926e-10,
-        "maxRelativeError": 1.0800702961969316e-14
+        "maxAbsDollarError": 1.6175134039591303e-10,
+        "meanAbsDollarError": 6.148849366443046e-11,
+        "rootMeanSquareDollarError": 7.817286890877532e-11,
+        "maxRelativeError": 2.3005786862874086e-15,
+        "errorsScientific": [
+          "-1.6175e-10",
+          "-9.2314e-11",
+          "8.8580e-12",
+          "-1.7870e-11",
+          "-5.9333e-11",
+          "5.2706e-11",
+          "3.5015e-11",
+          "1.5287e-11",
+          "1.1026e-10"
+        ],
+        "maxAbsDollarErrorScientific": "1.6175e-10"
       }
     },
     "table2NinePlayerAccuracyAndTime": {
@@ -224,20 +263,61 @@
       },
       "laqiErrorVsExact": {
         "errors": [
-          -1.4260876923799515e-9,
-          8.731149137020111e-11,
-          0,
-          5.820766091346741e-11,
-          5.093170329928398e-10,
-          1.8917489796876907e-10,
-          -4.3655745685100555e-10,
-          1.1641532182693481e-10,
-          5.093170329928398e-11
+          -1.6175134039591303e-10,
+          -9.231376550021997e-11,
+          8.857979186388642e-12,
+          -1.787005276481258e-11,
+          -5.933274493536721e-11,
+          5.270552825747143e-11,
+          3.5015145210610984e-11,
+          1.5287302100522652e-11,
+          1.1026258462856773e-10
         ],
-        "maxAbsDollarError": 1.4260876923799515e-9,
-        "meanAbsDollarError": 3.1933369528916145e-10,
-        "rootMeanSquareDollarError": 5.319416734399926e-10,
-        "maxRelativeError": 1.0800702961969316e-14
+        "maxAbsDollarError": 1.6175134039591303e-10,
+        "meanAbsDollarError": 6.148849366443046e-11,
+        "rootMeanSquareDollarError": 7.817286890877532e-11,
+        "maxRelativeError": 2.3005786862874086e-15,
+        "errorsScientific": [
+          "-1.6175e-10",
+          "-9.2314e-11",
+          "8.8580e-12",
+          "-1.7870e-11",
+          "-5.9333e-11",
+          "5.2706e-11",
+          "3.5015e-11",
+          "1.5287e-11",
+          "1.1026e-10"
+        ],
+        "maxAbsDollarErrorScientific": "1.6175e-10"
+      },
+      "doublePrecisionRecursionErrorVsExact": {
+        "errors": [
+          1.2643363519840383e-9,
+          -1.7962525687042107e-10,
+          8.857979186388642e-12,
+          -7.607771367827999e-11,
+          -5.68649777928207e-10,
+          -1.3646936971129764e-10,
+          4.715726020616165e-10,
+          -1.0112801972641216e-10,
+          5.933088132928375e-11
+        ],
+        "maxAbsDollarError": 1.2643363519840383e-9,
+        "meanAbsDollarError": 3.1844977249732716e-10,
+        "rootMeanSquareDollarError": 4.960725903247213e-10,
+        "maxRelativeError": 9.575653344998737e-15,
+        "errorsScientific": [
+          "1.2643e-9",
+          "-1.7963e-10",
+          "8.8580e-12",
+          "-7.6078e-11",
+          "-5.6865e-10",
+          "-1.3647e-10",
+          "4.7157e-10",
+          "-1.0113e-10",
+          "5.9331e-11"
+        ],
+        "maxAbsDollarErrorScientific": "1.2643e-9"
       },
       "monteCarloErrorVsExact": {
         "maxAbsDollarError": 55.029488487765775,
