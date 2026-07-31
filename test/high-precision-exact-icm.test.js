@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { solveLogAgeQuadratureIcm } from "../src/log-age-quadrature-icm.js";
 import {
+  binary64ToScaledBigInt,
   exactMalmuthHarvilleIcmHighPrecision,
-  highPrecisionErrorSummary,
   scaledBigIntToDecimal,
   scaledBigIntToScientific,
 } from "../research/lib/high-precision-exact-icm.mjs";
@@ -24,24 +24,52 @@ test("nine-player high-precision reference reproduces the paper values", () => {
     logAgePanelCount: 32,
     tailTolerance: 1e-12,
   }).players.map((player) => player.value);
-  const errors = highPrecisionErrorSummary(laqi, exact.scaledEquities);
+  const exactDecimalStrings = [
+    "132036.562564619979",
+    "111705.716389656741",
+    "101729.086340549830",
+    "89047.486383118845",
+    "81290.131488488333",
+    "76947.224784960699",
+    "72232.680967998947",
+    "67082.915759234878",
+    "47928.195321371749",
+  ];
+  const canonicalLaqiValues = [
+    132036.56256461982,
+    111705.71638965665,
+    101729.08634054984,
+    89047.48638311883,
+    81290.13148848827,
+    76947.22478496075,
+    72232.68096799898,
+    67082.9157592349,
+    47928.19532137186,
+  ];
 
   assert.deepEqual(
     exact.scaledEquities.map((value) => scaledBigIntToDecimal(value, 12)),
-    [
-      "132036.562564619979",
-      "111705.716389656741",
-      "101729.086340549830",
-      "89047.486383118845",
-      "81290.131488488333",
-      "76947.224784960699",
-      "72232.680967998947",
-      "67082.915759234878",
-      "47928.195321371749",
-    ],
+    exactDecimalStrings,
+  );
+
+  for (let index = 0; index < laqi.length; index += 1) {
+    const canonicalValue = canonicalLaqiValues[index];
+    const crossRuntimeTolerance = (
+      2 * Number.EPSILON * Math.max(1, Math.abs(canonicalValue))
+    );
+    assert.ok(
+      Math.abs(laqi[index] - canonicalValue) <= crossRuntimeTolerance,
+      `player ${index + 1} differs from the canonical Node.js 24 value`,
+    );
+  }
+
+  const canonicalScaledErrors = canonicalLaqiValues.map(
+    (value, index) => (
+      binary64ToScaledBigInt(value) - exact.scaledEquities[index]
+    ),
   );
   assert.deepEqual(
-    errors.scaledErrors.map((value) => scaledBigIntToScientific(value, 5)),
+    canonicalScaledErrors.map((value) => scaledBigIntToScientific(value, 5)),
     [
       "-1.6175e-10",
       "-9.2314e-11",
@@ -54,9 +82,22 @@ test("nine-player high-precision reference reproduces the paper values", () => {
       "1.1026e-10",
     ],
   );
+  const maximumCanonicalScaledError = canonicalScaledErrors.reduce(
+    (maximum, value) => {
+      const magnitude = value < 0n ? -value : value;
+      return magnitude > maximum ? magnitude : maximum;
+    },
+    0n,
+  );
   assert.equal(
-    scaledBigIntToScientific(errors.maxAbsScaledError, 5),
+    scaledBigIntToScientific(maximumCanonicalScaledError, 5),
     "1.6175e-10",
   );
-  assert.equal(errors.maxRelativeError.toExponential(4), "2.3006e-15");
+  const maximumRelativeError = Math.max(
+    ...canonicalScaledErrors.map((value, index) => (
+      Number(value < 0n ? -value : value)
+      / Number(exact.scaledEquities[index])
+    )),
+  );
+  assert.equal(maximumRelativeError.toExponential(4), "2.3006e-15");
 });

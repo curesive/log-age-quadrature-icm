@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { solveLogAgeQuadratureIcm } from "../src/log-age-quadrature-icm.js";
 import {
+  binary64ToScaledBigInt,
   exactMalmuthHarvilleIcmHighPrecision,
-  highPrecisionErrorSummary,
   scaledBigIntToDecimal,
   scaledBigIntToScientific,
 } from "./lib/high-precision-exact-icm.mjs";
@@ -26,18 +26,35 @@ const laqi = solveLogAgeQuadratureIcm(chipCounts, payouts, {
   logAgePanelCount: 32,
   tailTolerance: 1e-12,
 }).players.map((player) => player.value);
-const errors = highPrecisionErrorSummary(laqi, exact.scaledEquities);
 
 const expectedExactDecimals = exact.scaledEquities.map(
   (value) => scaledBigIntToDecimal(value, 15),
 );
-const expectedLaqiDecimals = laqi.map((value) => value.toFixed(15));
-const expectedErrorScientific = errors.scaledErrors.map(
+const canonicalLaqiScaled = core.ninePlayer.laqiValues.map(
+  binary64ToScaledBigInt,
+);
+const canonicalScaledErrors = canonicalLaqiScaled.map(
+  (value, index) => value - exact.scaledEquities[index],
+);
+const expectedErrorScientific = canonicalScaledErrors.map(
   (value) => scaledBigIntToScientific(value, 5),
 );
+const maximumCanonicalScaledError = canonicalScaledErrors.reduce(
+  (maximum, value) => {
+    const magnitude = value < 0n ? -value : value;
+    return magnitude > maximum ? magnitude : maximum;
+  },
+  0n,
+);
 const expectedMaximumScientific = scaledBigIntToScientific(
-  errors.maxAbsScaledError,
+  maximumCanonicalScaledError,
   5,
+);
+const expectedMaximumRelativeError = Math.max(
+  ...canonicalScaledErrors.map((value, index) => (
+    Number(value < 0n ? -value : value)
+    / Number(exact.scaledEquities[index])
+  )),
 );
 
 assert.deepEqual(
@@ -45,11 +62,16 @@ assert.deepEqual(
   expectedExactDecimals,
   "checked-in high-precision exact values are stale",
 );
-assert.deepEqual(
-  core.ninePlayer.laqiValueDecimalStrings,
-  expectedLaqiDecimals,
-  "checked-in LAQI values are stale",
-);
+for (let index = 0; index < laqi.length; index += 1) {
+  const canonicalValue = core.ninePlayer.laqiValues[index];
+  const crossRuntimeTolerance = (
+    2 * Number.EPSILON * Math.max(1, Math.abs(canonicalValue))
+  );
+  assert.ok(
+    Math.abs(laqi[index] - canonicalValue) <= crossRuntimeTolerance,
+    `runtime LAQI value for player ${index + 1} differs from the canonical Node.js 24 value`,
+  );
+}
 assert.deepEqual(
   core.ninePlayer.error.laqiVsExact.errorsScientific,
   expectedErrorScientific,
@@ -62,7 +84,7 @@ assert.equal(
 );
 assert.equal(
   core.ninePlayer.error.laqiVsExact.maxRelativeError.toExponential(4),
-  errors.maxRelativeError.toExponential(4),
+  expectedMaximumRelativeError.toExponential(4),
   "checked-in maximum relative difference is stale",
 );
 

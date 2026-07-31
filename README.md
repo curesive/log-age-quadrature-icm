@@ -240,7 +240,12 @@ npm run research:verify-paper-results
 
 This verification first recomputes the nine-player 50-decimal exact reference
 and checks every Table 1 player difference before rebuilding the canonical
-paper-results artifact.
+paper-results artifact. The paper-facing LAQI decimals are the values produced
+by the documented Node.js 24 benchmark environment. Because transcendental
+functions can vary by a few final binary64 bits across Node.js/V8 versions, the
+cross-version test matrix checks current solver output against those canonical
+values with a last-place tolerance while keeping the exact reference and the
+reported decimal differences strict.
 
 ### 25-Billion-Trial Monte Carlo Artifact
 
